@@ -8,7 +8,6 @@ Animation::Animation(sf::Texture* texture, sf::Vector2u imageCount, float switch
     currentImage.x = 0;
     uvRect.width = texture->getSize().x / float(imageCount.x);
     uvRect.height = texture->getSize().y / float(imageCount.y);
-
 }
 
 Animation::~Animation()
@@ -38,6 +37,72 @@ void Animation::update(int row, float deltaTime, bool slide, bool bullet)
     uvRect.top = currentImage.y * uvRect.height;
 }
 void Animation::updateBu(int row, float deltaTime)
+{
+    currentImage.y = row;
+    totalTime += deltaTime;
+
+
+    if (totalTime >= switchTime)
+    {
+        totalTime -= switchTime;
+        currentImage.x++;
+
+        if (currentImage.x >= imageCount.x)
+        {
+
+            currentImage.x = 0;
+        }
+
+    }
+
+    uvRect.left = currentImage.x * uvRect.width;
+    uvRect.top = currentImage.y * uvRect.height;
+}
+void Animation::updatedog(int row, float deltaTime)
+{
+    currentImage.y = row;
+    totalTime += deltaTime;
+
+
+    if (totalTime >= switchTime)
+    {
+        totalTime -= switchTime;
+        currentImage.x++;
+
+        if (currentImage.x >= imageCount.x)
+        {
+
+            currentImage.x = 0;
+        }
+
+    }
+
+    uvRect.left = currentImage.x * uvRect.width;
+    uvRect.top = currentImage.y * uvRect.height;
+}
+void Animation::updatestar(int row, float deltaTime)
+{
+    currentImage.y = row;
+    totalTime += deltaTime;
+
+
+    if (totalTime >= switchTime)
+    {
+        totalTime -= switchTime;
+        currentImage.x++;
+
+        if (currentImage.x >= imageCount.x)
+        {
+
+            currentImage.x = 0;
+        }
+
+    }
+
+    uvRect.left = currentImage.x * uvRect.width;
+    uvRect.top = currentImage.y * uvRect.height;
+}
+void Animation::updatealien(int row, float deltaTime)
 {
     currentImage.y = row;
     totalTime += deltaTime;

@@ -8,6 +8,10 @@ public:
 
 	void update(int row, float deltaTime, bool slide, bool bullet);
 	void updateBu(int row, float deltaTime);
+	void updatedog(int row, float deltaTime);
+	void updatestar(int row, float deltaTime);
+	void updatealien(int row, float deltaTime);
+
 public:
 	sf::IntRect uvRect;
 private:

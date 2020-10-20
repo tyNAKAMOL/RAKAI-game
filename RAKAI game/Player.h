@@ -12,7 +12,7 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void OnCollision(sf::Vector2f direction);
 
-	sf::Vector2f GetPosition() { return body.getPosition(); }
+	sf::Vector2f GetPosition() { return body.getPosition(); }//view
 	Collision GetCollider() { return Collision(body); }
 
 private:
@@ -23,7 +23,6 @@ private:
 	float speed;
 	bool slide;
 	bool bullet;
-
 	sf::Vector2f velocity;
 	bool canJump;
 	float jumpHeight;

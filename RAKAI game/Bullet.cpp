@@ -16,11 +16,27 @@ Bullet::~Bullet()
 void Bullet::update(float deltaTime)
 {
 	velocity.y = 0;
-	velocity.x += speed;
+	velocity.x = speed;
+
 	body.move(velocity * deltaTime);
+	
 	animation.updateBu(row, deltaTime);
 	body.setTextureRect(animation.uvRect);
+	/*if (body.getPosition().x > 1920) {
+		isAva = true;
+	}*/
 }
+
+void Bullet::attack(sf::Vector2f pos) {
+	body.setPosition(pos.x + 53.0f, pos.y);
+	isAva = false;
+}
+
+bool Bullet::isAvaliable() {
+	isAva = true;
+	return isAva;
+}
+
 void Bullet::draw(sf::RenderWindow& window)
 {
 	window.draw(body);
