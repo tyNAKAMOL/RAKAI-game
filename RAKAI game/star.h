@@ -7,6 +7,7 @@
 class star
 {
 public:
+	
 	star(sf::Texture* texture, sf::Vector2u imageCount, float switchTime,float x,float y);
 	~star();
 	void update(float deltaTime, Player player);

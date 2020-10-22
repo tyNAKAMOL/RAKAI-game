@@ -12,6 +12,7 @@ public:
 	void draw(sf::RenderWindow &window);
 	void MoveUp();
 	void MoveDown();
+	//void initBackground();
 
 private:
 	int selectedItemIndex;

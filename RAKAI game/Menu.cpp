@@ -26,6 +26,17 @@ Menu::~Menu()
 
 }
 
+//Background
+/*void Menu::initBackground()
+{
+	this->background.setSize(sf::Vector2f(static_cast<float>(this->window->getSize().x), static_cast<float>(this->window->getSize().y)));
+
+	if (!this->backgroundTexture.loadFromFile("src/Resource/Background/MainMenuState/background.png")) {
+		throw("[Main Menu State] >> ..ERROR.. Could't load backgroundTexture");
+	}
+	this->background.setTexture(&this->backgroundTexture);
+}*/
+
 void Menu::draw(sf::RenderWindow& window)
 {
 	for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)

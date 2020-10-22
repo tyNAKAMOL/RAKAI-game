@@ -13,7 +13,7 @@ Bullet::Bullet(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
 Bullet::~Bullet()
 {
 }
-void Bullet::update(float deltaTime)
+void Bullet::update(float deltaTime,Enemy alien1)
 {
 	velocity.y = 0;
 	velocity.x = speed;
@@ -22,6 +22,13 @@ void Bullet::update(float deltaTime)
 	
 	animation.updateBu(row, deltaTime);
 	body.setTextureRect(animation.uvRect);
+	if (alien1.GetCollider().CheckCollision(this->GetCollider()))
+	{
+		std::cout << "......................................";
+		row = 1;
+		body.setPosition(NULL, NULL);
+		//bullet1.setPosition(NULL, NULL);
+	}
 	/*if (body.getPosition().x > 1920) {
 		isAva = true;
 	}*/

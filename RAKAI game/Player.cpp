@@ -36,15 +36,23 @@ void Player::update(float deltaTime)
     {
         body.setSize(sf::Vector2f(120.0f, 150.0f));
     }
+    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
     {
         bullet = true;
         row = 2;
     }
+    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
     {
         velocity.x += speed * 1.7; slide = false; bullet = false;
     }
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+    {
+        velocity.x -= speed * 1.7; 
+    }
+    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && canJump == true) 
     {
         canJump = false;
@@ -89,11 +97,6 @@ void Player::update(float deltaTime)
     body.move(velocity * deltaTime);
 }
 
-    void Player::Draw(sf::RenderWindow & window)
-{
-	window.draw(body);
-}
-
 void Player::OnCollision(sf::Vector2f direction)
 {
     if (direction.x < 0.0f)
@@ -118,4 +121,15 @@ void Player::OnCollision(sf::Vector2f direction)
         velocity.y = 0.0f;
     }
 
+}
+void Player::HPbar(float deltaTime, Player player,sf::Vector2f pos)
+{
+    body.setPosition(pos.x, pos.y - 50.0f);
+    animation.updatedog(row, deltaTime);
+    body.setTextureRect(animation.uvRect);
+}
+
+void Player::Draw(sf::RenderWindow& window)
+{
+    window.draw(body);
 }

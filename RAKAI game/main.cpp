@@ -17,6 +17,7 @@
 #include"star.h"
 #include"Menu.h"
 #include"Enemy.h"
+#include "PlayerGUI.h"
 
 int main()
 {
@@ -28,27 +29,33 @@ int main()
 	sf::RectangleShape background(sf::Vector2f(10000.0f, 720.0f));
 	background.setPosition(0.0f, 0.0f);
 	sf::Texture space;
-	space.loadFromFile("a/123.png");
+	space.loadFromFile("a/BG7.png");
 	background.setTexture(&space);
 
+	//Player
 	sf::Texture playertexture;
 	playertexture.loadFromFile("a/as2.png");
 	Player player(&playertexture, sf::Vector2u(6, 5), 0.15f, 250.0f, 200.0f);
+	
+	//HPbar
+	sf::Texture HPbar;
+	HPbar.loadFromFile("a/Blo.png");
+	if (!HPbar.loadFromFile("a/Blo.png"))
+	{
+		return EXIT_FAILURE;
+	}
+	sf::Sprite hpbar;
+	hpbar.setTexture(HPbar);
+	hpbar.setPosition(200,-100);
 
-	/*sf::Texture iconstar;
-	iconstar.loadFromFile("a/star1.png");
-	Player star(&iconstar, sf::Vector2u(9, 3), 0.15f, 400.0f, 600.0f);*/
+	float MyHP = 77000;
+	hpbar.setTexture(HPbar);
+	sf::RectangleShape HP(sf::Vector2f(MyHP / 250.0f, 30));
+	HP.setPosition(sf::Vector2f(350, 46));
+	HP.setFillColor(sf::Color::Red);
+	HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 	
-	/*sf::Texture starTexture;//รูป
-	starTexture.loadFromFile("a/star1.png");
-	sf::Sprite shapeStar;
-	shapeStar.setTexture(starTexture);
-	int spriteSizeX = starTexture.getSize().x / 8;
-	int spriteSizeY = starTexture.getSize().y / 3;
-	shapeStar.setTextureRect(sf::IntRect(0, 0, spriteSizeX, spriteSizeY));
-	sf::Vector2f spawnPoint = { 450.f, 460.f };
-	shapeStar.setPosition(spawnPoint);*/
-	
+
 	//Star
 	sf::Texture STAR;
 	STAR.loadFromFile("a/star4.png");
@@ -57,30 +64,46 @@ int main()
 	{
 		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 800.0f + posi, 550.0f));
 	}
-	for (int posi = 0; posi < 500; posi += 60)
+	for (int posi = 0; posi < 200; posi += 60)
 	{
 		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2630.0f + posi, 370.0f));
 	}
-	/*star star1(&STAR, sf::Vector2u(8, 3), 0.15f,500.0f,350.0f);*/
+		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2850.0f , 320.0f));
+		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2900.0f, 300.0f));
+		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2950.0f, 280.0f));
+		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3000.0f, 300.0f));
+		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3050.0f, 320.0f));
+		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3100.0f, 370.0f));
+		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3150.0f, 370.0f));
+
+	for (int posi = 0; posi < 1300; posi += 60)
+	{
+		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3500.0f + posi, 550.0f));
+	}
+	for (int posi = 0; posi < 500; posi += 60)
+	{
+		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 4200.0f + posi, 550.0f));
+	}
 	
 	//Alien
 	sf::Texture alien;
-	alien.loadFromFile("a/alien.png");
+	alien.loadFromFile("a/alien3.png");
 	std::vector <Enemy> alienVector;
-	starVector.push_back(star(&alien, sf::Vector2u(12, 8), 0.08f, 1700.0f , 550.0f));
-	starVector.push_back(star(&alien, sf::Vector2u(12, 8), 0.08f, 600.0f , 370.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 700.0f , 550.0f));
+	//alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 600.0f , 550.0f));
 	
 	//Bullet
 	sf::Texture BULLET;
 	BULLET.loadFromFile("a/bullet1.png");
 	Bullet bullet1(&BULLET, sf::Vector2u(3, 1), 0.15f, 600.0f, player.GetPosition());
 	
+	//Dog
 	sf::Texture DOGRAKAI;
 	DOGRAKAI.loadFromFile("a/dd.png");
 	Dog rakai(&DOGRAKAI, sf::Vector2u(4, 9), 0.15f, player.GetPosition());
 
+	//Platform
 	std::vector<Platform> platforms;
-
 	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 687.072f), sf::Vector2f(1700.0f, 143.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 50.0f), sf::Vector2f(2900.0f, 470.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 50.0f), sf::Vector2f(7500.0f, 470.0f)));
@@ -96,14 +119,14 @@ int main()
 
 	bool slide;
 	int Bul = 0;
+	int count;
 	float deltaTime = 0.0f;
 	sf::Clock clock;
-
-
 
 	while (window.isOpen())
 	{
 		slide = false;
+		count = player.GetPosition().x;
 
 		deltaTime = clock.restart().asSeconds();
 		sf::Vector2f pos = player.GetPosition();
@@ -111,50 +134,65 @@ int main()
 
 		player.update(deltaTime);
 		rakai.update(deltaTime,player, player.GetPosition());
-		//rakai.update(deltaTime, player.GetPosition());
+		//hpbar1.update(deltaTime, player, player.GetPosition());
+
+		//Star
 		for (int i = 0; i < starVector.size(); i++) {
 			starVector[i].update(deltaTime,player);
 		}
 		
+		//Alien
 		for (int i = 0; i < alienVector.size(); i++) {
-			alienVector[i].update(deltaTime, player);
+			alienVector[i].update(deltaTime, bullet1);
 		}
-		//star1.update(deltaTime,player);
 
 		sf::Vector2f direction;
-
 		for (Platform& platform : platforms)
 			if (platform.GetCollider().CheckCollision(player.GetCollider(), direction, 1.0f))
 				player.OnCollision(direction);
+		
+		if (pos.x > 500)
+		{
+			hpbar.setPosition(player.GetPosition().x - 260 , -90);// blood
+			HP.setPosition(player.GetPosition().x - 110 , 56);
+		}
 
-		view.setCenter(player.GetPosition().x, 360.0f);
+		view.setCenter(player.GetPosition().x, 360.0f);	
 		if (view.getCenter().x - 540.0f <= 0.0f)
 		{
 			view.setCenter(540.0f, 360.0f);
+			
 		}
 		if (view.getCenter().x + 540.0f >= 10000.0f)
 		{
 			view.setCenter(9460.0f, 360.0f);
 		}
+		
 
 		window.clear();
 		menu.draw(window);
 		window.setView(view);//view
-		window.draw(background);  
+
+	
+		//window.draw(background);  
 		for (Platform& platform : platforms)
 		{
 			platform.Draw(window);
 		}
-		//window.draw(background2);
-		//window.draw(background);
+		window.draw(background);
 		player.Draw(window);
 		rakai.draw(window);
+		window.draw(hpbar);
+		window.draw(HP);
+		
+		
 
 		for (int i = 0; i < starVector.size(); i++) {
 			starVector[i].draw(window);
 		}
-		/*star1.draw(window);*/
-
+		for (int i = 0; i < alienVector.size(); i++) {
+			alienVector[i].draw(window);
+		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
 		{
 			bullet1.attack(pos);
@@ -162,7 +200,7 @@ int main()
 		}
 		if (Bul == 1)
 		{			
-			bullet1.update(deltaTime);
+			bullet1.update(deltaTime,alien);
 			bullet1.draw(window);
 		}
 		if(player.GetPosition().x - bullet1.GetPosition().x <= -1000.0f)

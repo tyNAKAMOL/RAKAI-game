@@ -11,6 +11,7 @@ public:
 	void update(float deltaTime);
 	void Draw(sf::RenderWindow& window);
 	void OnCollision(sf::Vector2f direction);
+	void HPbar(float deltaTime, Player player,sf::Vector2f pos);
 
 	sf::Vector2f GetPosition() { return body.getPosition(); }//view
 	Collision GetCollider() { return Collision(body); }
@@ -18,7 +19,7 @@ public:
 private:
 	sf::RectangleShape body;
 	Animation animation;
-	//Bullet bullet1;
+	float damage;
 	unsigned int row;
 	float speed;
 	bool slide;
