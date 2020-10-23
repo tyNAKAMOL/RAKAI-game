@@ -36,7 +36,7 @@ int main()
 	sf::Texture playertexture;
 	playertexture.loadFromFile("a/as2.png");
 	Player player(&playertexture, sf::Vector2u(6, 5), 0.15f, 250.0f, 200.0f);
-	
+
 	//HPbar
 	sf::Texture HPbar;
 	HPbar.loadFromFile("a/Blo.png");
@@ -46,7 +46,7 @@ int main()
 	}
 	sf::Sprite hpbar;
 	hpbar.setTexture(HPbar);
-	hpbar.setPosition(200,-100);
+	hpbar.setPosition(200, -100);
 
 	float MyHP = 77000;
 	hpbar.setTexture(HPbar);
@@ -54,13 +54,13 @@ int main()
 	HP.setPosition(sf::Vector2f(350, 46));
 	HP.setFillColor(sf::Color::Red);
 	HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
-	
+
 
 	//Star
 	sf::Texture STAR;
 	STAR.loadFromFile("a/star4.png");
 	std::vector <star> starVector;
-	for (int posi = 0; posi < 1550; posi += 60) 
+	for (int posi = 0; posi < 1550; posi += 60)
 	{
 		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 800.0f + posi, 550.0f));
 	}
@@ -68,13 +68,13 @@ int main()
 	{
 		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2630.0f + posi, 370.0f));
 	}
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2850.0f , 320.0f));
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2900.0f, 300.0f));
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2950.0f, 280.0f));
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3000.0f, 300.0f));
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3050.0f, 320.0f));
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3100.0f, 370.0f));
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3150.0f, 370.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2850.0f, 320.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2900.0f, 300.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2950.0f, 280.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3000.0f, 300.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3050.0f, 320.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3100.0f, 370.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3150.0f, 370.0f));
 
 	for (int posi = 0; posi < 1300; posi += 60)
 	{
@@ -84,19 +84,20 @@ int main()
 	{
 		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 4200.0f + posi, 550.0f));
 	}
-	
+
 	//Alien
 	sf::Texture alien;
 	alien.loadFromFile("a/alien3.png");
 	std::vector <Enemy> alienVector;
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 700.0f , 550.0f));
-	//alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 600.0f , 550.0f));
-	
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 700.0f, 550.0f));
+	//alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 3000.0f , 370.0f));
+
+
 	//Bullet
 	sf::Texture BULLET;
 	BULLET.loadFromFile("a/bullet1.png");
 	Bullet bullet1(&BULLET, sf::Vector2u(3, 1), 0.15f, 600.0f, player.GetPosition());
-	
+
 	//Dog
 	sf::Texture DOGRAKAI;
 	DOGRAKAI.loadFromFile("a/dd.png");
@@ -133,47 +134,47 @@ int main()
 		std::cout << pos.x << ' ' << pos.y << '\n';
 
 		player.update(deltaTime);
-		rakai.update(deltaTime,player, player.GetPosition());
+		rakai.update(deltaTime, player, player.GetPosition());
 		//hpbar1.update(deltaTime, player, player.GetPosition());
 
 		//Star
 		for (int i = 0; i < starVector.size(); i++) {
-			starVector[i].update(deltaTime,player);
+			starVector[i].update(deltaTime, player);
 		}
-		
+
 		//Alien
 		for (int i = 0; i < alienVector.size(); i++) {
-			alienVector[i].update(deltaTime, bullet1);
+			alienVector[i].update1(deltaTime, bullet1);
 		}
 
 		sf::Vector2f direction;
 		for (Platform& platform : platforms)
 			if (platform.GetCollider().CheckCollision(player.GetCollider(), direction, 1.0f))
 				player.OnCollision(direction);
-		
+
 		if (pos.x > 500)
 		{
-			hpbar.setPosition(player.GetPosition().x - 260 , -90);// blood
-			HP.setPosition(player.GetPosition().x - 110 , 56);
+			hpbar.setPosition(player.GetPosition().x - 260, -90);// blood
+			HP.setPosition(player.GetPosition().x - 110, 56);
 		}
 
-		view.setCenter(player.GetPosition().x, 360.0f);	
+		view.setCenter(player.GetPosition().x, 360.0f);
 		if (view.getCenter().x - 540.0f <= 0.0f)
 		{
 			view.setCenter(540.0f, 360.0f);
-			
+
 		}
 		if (view.getCenter().x + 540.0f >= 10000.0f)
 		{
 			view.setCenter(9460.0f, 360.0f);
 		}
-		
+
 
 		window.clear();
 		menu.draw(window);
 		window.setView(view);//view
 
-	
+
 		//window.draw(background);  
 		for (Platform& platform : platforms)
 		{
@@ -184,8 +185,8 @@ int main()
 		rakai.draw(window);
 		window.draw(hpbar);
 		window.draw(HP);
-		
-		
+
+
 
 		for (int i = 0; i < starVector.size(); i++) {
 			starVector[i].draw(window);
@@ -198,12 +199,16 @@ int main()
 			bullet1.attack(pos);
 			Bul = 1;
 		}
-		if (Bul == 1)
-		{			
-			bullet1.update(deltaTime,alien);
+		if (Bul >= 1)
+		{
+			bullet1.update(deltaTime);
 			bullet1.draw(window);
+			if (alienVector[alienVector.size() - 1].hit() == 1)
+			{
+				bullet1.del();
+			}
 		}
-		if(player.GetPosition().x - bullet1.GetPosition().x <= -1000.0f)
+		if (player.GetPosition().x - bullet1.GetPosition().x <= -1000.0f)
 		{
 			Bul = 0;
 			bullet1.isAvaliable();
