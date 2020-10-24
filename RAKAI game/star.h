@@ -12,11 +12,20 @@ public:
 	~star();
 	void update(float deltaTime, Player player);
 	void draw(sf::RenderWindow& window);
+	
+	int iscollide()
+	{
+		if (Cstar == 1) {
+			Cstar--;
+			return 1;
+		}
+	}
 
 	Collision GetCollider() { return Collision(body); }
 
 private:
 	int row;
+	int Cstar;
 	sf::RectangleShape body;
 	Animation animation;
 };

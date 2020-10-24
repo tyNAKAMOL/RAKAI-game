@@ -34,6 +34,7 @@
  */
 #include <SFML/Graphics.hpp>
 #include <SFML\Graphics\Sprite.hpp>
+#include"Player.h"
 #ifndef COLLISION_H
 #define COLLISION_H
 

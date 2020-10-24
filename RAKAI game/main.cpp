@@ -6,7 +6,6 @@
 #include <string>
 #include <sstream>
 #include <math.h>
-#include <iostream>
 #include <vector>
 #include <string>
 #include <fstream>
@@ -17,10 +16,12 @@
 #include"star.h"
 #include"Menu.h"
 #include"Enemy.h"
-#include "PlayerGUI.h"
+#include"PlayerGUI.h"
+#include"collision2.h"
 
 int main()
 {
+	
 	sf::RenderWindow window(sf::VideoMode(1080, 720), "Rakai");
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(1080.0f, 720.0f));//view
 
@@ -31,6 +32,18 @@ int main()
 	sf::Texture space;
 	space.loadFromFile("a/BG7.png");
 	background.setTexture(&space);
+
+	//Score
+	int countscore = 0;
+
+	sf::Font font;
+	font.loadFromFile("a/ABCD.ttf");
+	std::ostringstream score;
+	sf::Text Score;
+	Score.setCharacterSize(50);
+	Score.setString(score.str());
+	Score.setFont(font);
+	Score.setFillColor(sf::Color::Yellow);
 
 	//Player
 	sf::Texture playertexture;
@@ -52,7 +65,7 @@ int main()
 	hpbar.setTexture(HPbar);
 	sf::RectangleShape HP(sf::Vector2f(MyHP / 250.0f, 30));
 	HP.setPosition(sf::Vector2f(350, 46));
-	HP.setFillColor(sf::Color::Red);
+	HP.setFillColor(sf::Color::Magenta);
 	HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 
 
@@ -82,15 +95,41 @@ int main()
 	}
 	for (int posi = 0; posi < 500; posi += 60)
 	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 4200.0f + posi, 550.0f));
+		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 4700.0f + posi, 550.0f));
 	}
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 5743.0f, 370.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 5770.0f, 330.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 5800.0f, 290.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 5850.0f, 260.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 5900.0f, 240.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 5950.0f, 260.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6000.0f, 290.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6030.0f, 330.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6070.0f, 370.0f));
 
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6167.0f, 370.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6180.0f, 340.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6210.0f, 310.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6250.0f, 305.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6300.0f, 280.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 250.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 310.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 290.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
+	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
+
+	for (int posi = 0; posi < 600; posi += 60)
+	{
+		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 7250.0f + posi, 370.0f));
+	}
+	
 	//Alien
 	sf::Texture alien;
 	alien.loadFromFile("a/alien3.png");
 	std::vector <Enemy> alienVector;
 	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 700.0f, 550.0f));
-	//alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 3000.0f , 370.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 3000.0f , 370.0f));
 
 
 	//Bullet
@@ -120,7 +159,7 @@ int main()
 
 	bool slide;
 	int Bul = 0;
-	int count;
+	int count,i=0;
 	float deltaTime = 0.0f;
 	sf::Clock clock;
 
@@ -151,11 +190,13 @@ int main()
 		for (Platform& platform : platforms)
 			if (platform.GetCollider().CheckCollision(player.GetCollider(), direction, 1.0f))
 				player.OnCollision(direction);
-
+		
+		Score.setPosition({ 500, 70 });
 		if (pos.x > 500)
 		{
 			hpbar.setPosition(player.GetPosition().x - 260, -90);// blood
 			HP.setPosition(player.GetPosition().x - 110, 56);
+			Score.setPosition(player.GetPosition().x - 110, 80);
 		}
 
 		view.setCenter(player.GetPosition().x, 360.0f);
@@ -168,8 +209,19 @@ int main()
 		{
 			view.setCenter(9460.0f, 360.0f);
 		}
-
-
+		//score
+		score.str(" ");
+		score << "Score :  " << countscore;
+		Score.setString(score.str());
+		//Score.setPosition({ 500, 70 });
+		for (i = 0; i < starVector.size(); i++) {
+			if (starVector[i].iscollide() == 1)
+			{
+				std::cout << ".........Scorepush.........";
+				countscore+=100;
+			}
+		}
+		
 		window.clear();
 		menu.draw(window);
 		window.setView(view);//view
@@ -185,6 +237,7 @@ int main()
 		rakai.draw(window);
 		window.draw(hpbar);
 		window.draw(HP);
+		window.draw(Score);
 
 
 
@@ -203,9 +256,11 @@ int main()
 		{
 			bullet1.update(deltaTime);
 			bullet1.draw(window);
-			if (alienVector[alienVector.size() - 1].hit() == 1)
-			{
-				bullet1.del();
+			for (i = 0; i < 2; i++) {
+				if (alienVector[i].hit() == 1)
+				{
+					bullet1.del();
+				}
 			}
 		}
 		if (player.GetPosition().x - bullet1.GetPosition().x <= -1000.0f)
