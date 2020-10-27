@@ -51,7 +51,7 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerGUI.cpp">
+    <ClCompile Include="Bloodup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,7 +86,7 @@
     <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerGUI.h">
+    <ClInclude Include="Bloodup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

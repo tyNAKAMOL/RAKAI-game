@@ -1,8 +1,7 @@
 ﻿#include "Player.h"
 
 Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight):
-	animation(texture, imageCount, switchTime)
-    
+	animation(texture, imageCount, switchTime) 
 {
 	this->speed = speed;
     this->jumpHeight = jumpHeight;
@@ -15,10 +14,6 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
     body.setOrigin(body.getSize() / 2.0f);
 	body.setPosition(200.0f, 520.0f);
 	body.setTexture(texture);
-
-    /*sf::Texture BULLET;
-    BULLET.loadFromFile("a/bullet.png");
-    Bullet bullet1(&BULLET,sf::Vector2u(3,1),0.15f, 400.0f,body.getPosition());*/
 }
 
 Player::~Player()

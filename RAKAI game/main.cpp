@@ -16,7 +16,7 @@
 #include"star.h"
 #include"Menu.h"
 #include"Enemy.h"
-#include"PlayerGUI.h"
+#include"Bloodup.h"
 #include"collision2.h"
 
 int main()
@@ -37,7 +37,7 @@ int main()
 	int countscore = 0;
 
 	sf::Font font;
-	font.loadFromFile("a/ABCD.ttf");
+	font.loadFromFile("a/CookieRun-Bold.otf");
 	std::ostringstream score;
 	sf::Text Score;
 	Score.setCharacterSize(50);
@@ -50,6 +50,14 @@ int main()
 	playertexture.loadFromFile("a/as2.png");
 	Player player(&playertexture, sf::Vector2u(6, 5), 0.15f, 250.0f, 200.0f);
 
+	//ITEM
+	//Bloodup
+	sf::Texture BLOODUP;
+	BLOODUP.loadFromFile("a/dog1.png");
+	std::vector <Bloodup> BloodupVector;
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(4, 9), 0.08f, 800.0f, 350.0f));
+
+
 	//HPbar
 	sf::Texture HPbar;
 	HPbar.loadFromFile("a/Blo.png");
@@ -61,13 +69,12 @@ int main()
 	hpbar.setTexture(HPbar);
 	hpbar.setPosition(200, -100);
 
-	float MyHP = 77000;
+	float MyHP = 78000;
 	hpbar.setTexture(HPbar);
 	sf::RectangleShape HP(sf::Vector2f(MyHP / 250.0f, 30));
 	HP.setPosition(sf::Vector2f(350, 46));
 	HP.setFillColor(sf::Color::Magenta);
-	HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
-
+	HP.setSize(sf::Vector2f(MyHP / 320.f, 15)); 
 
 	//Star
 	sf::Texture STAR;
@@ -128,8 +135,8 @@ int main()
 	sf::Texture alien;
 	alien.loadFromFile("a/alien3.png");
 	std::vector <Enemy> alienVector;
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 700.0f, 550.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 3000.0f , 370.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 700.0f, 560.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 3000.0f , 380.0f));
 
 
 	//Bullet
@@ -155,7 +162,8 @@ int main()
 	platforms.push_back(Platform(nullptr, sf::Vector2f(800.0f, 100.0f), sf::Vector2f(3650.0f, 670.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(1500.0f, 100.0f), sf::Vector2f(4100.0f, 670.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(1090.0f, 100.0f), sf::Vector2f(5100.0f, 670.0f)));
-	platforms.push_back(Platform(nullptr, sf::Vector2f(2200.0f, 100.0f), sf::Vector2f(8900.0f, 670.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(5000.0f, 100.0f), sf::Vector2f(7800.0f, 670.0f)));
+	
 
 	bool slide;
 	int Bul = 0;
@@ -165,12 +173,23 @@ int main()
 
 	while (window.isOpen())
 	{
-		slide = false;
+		slide = false;    
 		count = player.GetPosition().x;
 
 		deltaTime = clock.restart().asSeconds();
 		sf::Vector2f pos = player.GetPosition();
 		std::cout << pos.x << ' ' << pos.y << '\n';
+		
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			switch (event.type)
+			{
+			case sf::Event::Closed:
+					window.close();
+				break;
+			}
+
+			}
 
 		player.update(deltaTime);
 		rakai.update(deltaTime, player, player.GetPosition());
@@ -180,10 +199,15 @@ int main()
 		for (int i = 0; i < starVector.size(); i++) {
 			starVector[i].update(deltaTime, player);
 		}
+		//Bloodup
+		for (int i = 0; i < BloodupVector.size(); i++) {
+			BloodupVector[i].update(deltaTime, player);
+		}
 
 		//Alien
 		for (int i = 0; i < alienVector.size(); i++) {
 			alienVector[i].update1(deltaTime, bullet1);
+			alienVector[i].update2(deltaTime, player);
 		}
 
 		sf::Vector2f direction;
@@ -221,12 +245,27 @@ int main()
 				countscore+=100;
 			}
 		}
-		
+
+		/*for (i = 0; i < starVector.size(); i++) {
+			if (starVector[i].iscollide2() == 2)
+			{
+				std::cout << "..................";
+				countscore += 100;
+			}
+		}*/
+
+		//HP
+		MyHP -= 5;
+		if (MyHP < 78000)
+		{
+			HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
+			std::cout << "Good jod!";
+			std::cout << MyHP;
+		}
+
 		window.clear();
 		menu.draw(window);
 		window.setView(view);//view
-
-
 		//window.draw(background);  
 		for (Platform& platform : platforms)
 		{
@@ -243,6 +282,9 @@ int main()
 
 		for (int i = 0; i < starVector.size(); i++) {
 			starVector[i].draw(window);
+		}
+		for (int i = 0; i < BloodupVector.size(); i++) {
+			BloodupVector[i].draw(window);
 		}
 		for (int i = 0; i < alienVector.size(); i++) {
 			alienVector[i].draw(window);
