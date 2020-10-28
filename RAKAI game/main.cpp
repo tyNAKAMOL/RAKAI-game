@@ -45,6 +45,16 @@ int main()
 	Score.setFont(font);
 	Score.setFillColor(sf::Color::Yellow);
 
+	//hp font
+	sf::Font Hppush;
+	Hppush.loadFromFile("a/CookieRun-Bold.otf");
+	std::ostringstream hppush;
+	sf::Text Hpblood;
+	Hpblood.setCharacterSize(20);
+	Hpblood.setString(hppush.str());
+	Hpblood.setFont(font);
+	Hpblood.setFillColor(sf::Color::Red);
+
 	//Player
 	sf::Texture playertexture;
 	playertexture.loadFromFile("a/as2.png");
@@ -233,6 +243,7 @@ int main()
 		{
 			view.setCenter(9460.0f, 360.0f);
 		}
+		
 		//score
 		score.str(" ");
 		score << "Score :  " << countscore;
@@ -246,6 +257,24 @@ int main()
 			}
 		}
 
+		//Bloodup
+		for (i = 0; i < BloodupVector.size(); i++) {
+			if (BloodupVector[i].colBloodup() == 1)
+			{
+				std::cout << "!!!!!!BloodUp YOU!!!!!!!!";
+				MyHP += 5000;
+				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
+				hppush.str(" ");
+				hppush << "+5000 HP";
+				Hpblood.setString(hppush.str());
+				Hpblood.setPosition({ player.GetPosition().x,player.GetPosition().y - 90});
+				break;
+			}
+			/*else
+			{
+				Hpblood.setPosition({ -800, 350 });
+			}*/
+		}
 		/*for (i = 0; i < starVector.size(); i++) {
 			if (starVector[i].iscollide2() == 2)
 			{
@@ -277,6 +306,7 @@ int main()
 		window.draw(hpbar);
 		window.draw(HP);
 		window.draw(Score);
+		window.draw(Hpblood);
 
 
 

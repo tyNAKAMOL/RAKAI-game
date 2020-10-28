@@ -11,13 +11,15 @@ public:
     ~Bloodup();
     void update(float deltaTime, Player player);
     void draw(sf::RenderWindow& window);
-    int hit()
+    
+    int colBloodup()
     {
         if (Bup == 1) {
             Bup--;
             return 1;
         }
     }
+
     Collision GetCollider() { return Collision(body); }
 
 private:

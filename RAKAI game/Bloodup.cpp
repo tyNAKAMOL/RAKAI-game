@@ -24,7 +24,7 @@ void Bloodup::update(float deltaTime, Player player)
     {
         std::cout << "Blood UP!!!";
         Bup++;
-        //body.setPosition(-1000.0f, 350.0f);
+        body.setPosition(-1000.0f, 350.0f);
     }
 
 }
