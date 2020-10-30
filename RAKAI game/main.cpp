@@ -66,7 +66,23 @@ int main()
 	BLOODUP.loadFromFile("a/dog1.png");
 	std::vector <Bloodup> BloodupVector;
 	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(4, 9), 0.08f, 800.0f, 350.0f));
-
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(4, 9), 0.08f, 3000.0f, 350.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(4, 9), 0.08f, 6104.0f, 370.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(4, 9), 0.08f, 9939.0f, 545.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(4, 9), 0.08f, 8117.0f, 545.0f));
+	
+	//Blooddown
+	sf::Texture BLOODDOWN;
+	BLOODDOWN.loadFromFile("a/dd.png");
+	std::vector <Bloodup> BlooddownVector;
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(4, 9), 0.08f, 1000.0f, 380.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(4, 9), 0.08f, 6840.0f, 280.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(4, 9), 0.08f, 4655.0f, 545.0f));
+	//Bloodstop
+	/*sf::Texture BLOODSTOP;
+	BLOODSTOP.loadFromFile("a/dd.png");
+	std::vector <Bloodup> BloodstopVector;
+	BloodstopVector.push_back(Bloodup(&BLOODSTOP, sf::Vector2u(4, 9), 0.08f, 1000.0f, 380.0f));*/
 
 	//HPbar
 	sf::Texture HPbar;
@@ -203,22 +219,38 @@ int main()
 
 		player.update(deltaTime);
 		rakai.update(deltaTime, player, player.GetPosition());
-		//hpbar1.update(deltaTime, player, player.GetPosition());
 
 		//Star
-		for (int i = 0; i < starVector.size(); i++) {
+		for (int i = 0; i < starVector.size(); i++) 
+		{
 			starVector[i].update(deltaTime, player);
 		}
 		//Bloodup
-		for (int i = 0; i < BloodupVector.size(); i++) {
+		for (int i = 0; i < BloodupVector.size(); i++) 
+		{
 			BloodupVector[i].update(deltaTime, player);
 		}
 
+		//Blooddown
+		for (int i = 0; i < BlooddownVector.size(); i++) 
+		{
+			BlooddownVector[i].update(deltaTime, player);
+		}
+
+		//Bloodstop
+		/*for (int i = 0; i < BloodstopVector.size(); i++) {
+			BloodstopVector[i].update(deltaTime, player);
+		}*/
+
 		//Alien
-		for (int i = 0; i < alienVector.size(); i++) {
+		for (int i = 0; i < alienVector.size(); i++) 
+		{
 			alienVector[i].update1(deltaTime, bullet1);
 			alienVector[i].update2(deltaTime, player);
 		}
+		/*for (int i = 0; i < alienVector.size(); i++) {
+			alienVector[i].update2(deltaTime, player);
+		}*/
 
 		sf::Vector2f direction;
 		for (Platform& platform : platforms)
@@ -248,12 +280,11 @@ int main()
 		score.str(" ");
 		score << "Score :  " << countscore;
 		Score.setString(score.str());
-		//Score.setPosition({ 500, 70 });
 		for (i = 0; i < starVector.size(); i++) {
 			if (starVector[i].iscollide() == 1)
 			{
 				std::cout << ".........Scorepush.........";
-				countscore+=100;
+				countscore += 100;
 			}
 		}
 
@@ -264,6 +295,7 @@ int main()
 				std::cout << "!!!!!!BloodUp YOU!!!!!!!!";
 				MyHP += 5000;
 				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
+				if (MyHP > 78000) MyHP = 78000;
 				hppush.str(" ");
 				hppush << "+5000 HP";
 				Hpblood.setString(hppush.str());
@@ -275,14 +307,40 @@ int main()
 				Hpblood.setPosition({ -800, 350 });
 			}*/
 		}
-		/*for (i = 0; i < starVector.size(); i++) {
-			if (starVector[i].iscollide2() == 2)
+
+		//Blooddown
+		for (i = 0; i < BlooddownVector.size(); i++) {
+			if (BlooddownVector[i].colBlooddown() == 2)
 			{
-				std::cout << "..................";
-				countscore += 100;
+				std::cout << "......................................................";
+				MyHP -= 5000;
+				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
+				hppush.str(" ");
+				hppush << "-5000 HP";
+				Hpblood.setString(hppush.str());
+				Hpblood.setPosition({ player.GetPosition().x,player.GetPosition().y - 90 });
+				break;
+			}
+			/*else
+			{
+				Hpblood.setPosition({ -800, 350 });
+			}*/
+		}
+
+		//Bloodstop
+		/*for (i = 0; i < BloodstopVector.size(); i++) {
+			if (BloodstopVector[i].colBloodstop() == 3)
+			{
+				std::cout << "......................................................";
+				MyHP -= 5000;
+				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
+				hppush.str(" ");
+				hppush << "-5000 HP";
+				Hpblood.setString(hppush.str());
+				Hpblood.setPosition({ player.GetPosition().x,player.GetPosition().y - 90 });
+				break;
 			}
 		}*/
-
 		//HP
 		MyHP -= 5;
 		if (MyHP < 78000)
@@ -290,6 +348,10 @@ int main()
 			HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 			std::cout << "Good jod!";
 			std::cout << MyHP;
+			if (MyHP == 0) 
+			{
+				break;
+			}
 		}
 
 		window.clear();
@@ -310,13 +372,20 @@ int main()
 
 
 
-		for (int i = 0; i < starVector.size(); i++) {
+		for (int i = 0; i < starVector.size(); i++) 
+		{
 			starVector[i].draw(window);
 		}
-		for (int i = 0; i < BloodupVector.size(); i++) {
+		for (int i = 0; i < BloodupVector.size(); i++) 
+		{
 			BloodupVector[i].draw(window);
 		}
-		for (int i = 0; i < alienVector.size(); i++) {
+		for (int i = 0; i < BlooddownVector.size(); i++) 
+		{
+			BlooddownVector[i].draw(window);
+		}
+		for (int i = 0; i < alienVector.size(); i++) 
+		{
 			alienVector[i].draw(window);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
@@ -331,6 +400,7 @@ int main()
 			for (i = 0; i < 2; i++) {
 				if (alienVector[i].hit() == 1)
 				{
+					countscore += 500;
 					bullet1.del();
 				}
 			}

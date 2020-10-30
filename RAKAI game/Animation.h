@@ -10,7 +10,6 @@ public:
 	void updateBu(int row, float deltaTime);
 	void updatedog(int row, float deltaTime);
 	void updatestar(int row, float deltaTime);
-	void updatealien(int row, float deltaTime);
 	void updateItemBloodup(int row, float deltaTime);
 
 public:

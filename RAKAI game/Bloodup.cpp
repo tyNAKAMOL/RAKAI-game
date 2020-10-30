@@ -17,16 +17,17 @@ Bloodup::~Bloodup()
 
 void Bloodup::update(float deltaTime, Player player)
 {
-    animation.updatealien(row, deltaTime);
+    animation.updateItemBloodup(row, deltaTime);
     body.setTextureRect(animation.uvRect);
 
     if (player.GetCollider().CheckCollision(this->GetCollider()))
     {
         std::cout << "Blood UP!!!";
         Bup++;
+        Bdown += 10;
+        Bstop += 20;
         body.setPosition(-1000.0f, 350.0f);
     }
-
 }
 
 void Bloodup::draw(sf::RenderWindow& window)

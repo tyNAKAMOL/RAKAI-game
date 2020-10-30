@@ -4,6 +4,7 @@
 Enemy::Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float x, float y) :
     animation(texture, imageCount, switchTime)
 {
+    this->speed = speed;
     row = 5;
     body.setSize(sf::Vector2f(90.0f, 108.0f));
     body.setOrigin(body.getSize() / 2.0f);
@@ -17,12 +18,12 @@ Enemy::~Enemy()
 
 void Enemy::update1(float deltaTime, Bullet bullet1)
 {
-    animation.updatealien(row, deltaTime);
+    animation.updatestar(row, deltaTime);
     body.setTextureRect(animation.uvRect);
 
     if (bullet1.GetCollider().CheckCollision(this->GetCollider()))
     {
-        std::cout << "......................................";
+        std::cout << "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkk";
         count++;
         row = 1;
         body.setPosition(-1000.0f, 350.0f);
@@ -32,13 +33,20 @@ void Enemy::update1(float deltaTime, Bullet bullet1)
 
 void Enemy::update2(float deltaTime, Player player)
 {
-    velocity.x = 0.0f;
-    animation.updatealien(row, deltaTime);
-    body.setTextureRect(animation.uvRect);
-
-    if (player.GetPosition().x - body.getPosition().x >= -200.0f)
+    if (abs(player.GetPosition().x - body.getPosition().x) <= 300.0f)
     {
-        std::cout << " !!!!!! collide !!!!! ";
+        velocity.y = 0;
+        velocity.x = 80;
+        if (player.GetPosition().x < body.getPosition().x) {
+            body.move(-velocity * deltaTime);
+        }
+        else if (player.GetPosition().x > body.getPosition().x - 30){
+            body.setPosition(-1000.0f, 350.0f);
+        }
+        animation.updatestar(row, deltaTime);
+        body.setTextureRect(animation.uvRect);
+
+        std::cout << "...................................collide !!!!! ";
         /*count++;
         row = 1;
         body.setPosition(-1000.0f, 350.0f);*/

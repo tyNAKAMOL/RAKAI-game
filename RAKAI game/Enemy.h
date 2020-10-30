@@ -28,6 +28,7 @@ public:
 private:
     int row;
     int count = 0;
+    float speed;
     sf::RectangleShape body;
     Animation animation;
     sf::Vector2f velocity;

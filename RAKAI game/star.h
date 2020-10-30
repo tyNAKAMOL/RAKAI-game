@@ -21,13 +21,6 @@ public:
 		}
 	}
 
-	int iscollide2()
-	{
-		if (collide == 1) {
-			collide--;
-			return 2;
-		}
-	}
 	Collision GetCollider() { return Collision(body); }
 
 private:

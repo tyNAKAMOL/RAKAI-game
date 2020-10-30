@@ -14,9 +14,27 @@ public:
     
     int colBloodup()
     {
-        if (Bup == 1) {
+        if (Bup == 1) 
+        {
             Bup--;
             return 1;
+        }
+    }
+    int colBlooddown()
+    {
+        if (Bdown == 10)
+        {
+            Bdown -= 10;
+            return 2;
+        }
+    }
+
+    int colBloodstop()
+    {
+        if (Bstop == 20)
+        {
+            Bdown -= 20;
+            return 3;
         }
     }
 
@@ -25,6 +43,8 @@ public:
 private:
     int row;
     int Bup = 0;
+    int Bdown = 0;
+    int Bstop = 0;
     sf::RectangleShape body;
     Animation animation;
     sf::Vector2f velocity;
