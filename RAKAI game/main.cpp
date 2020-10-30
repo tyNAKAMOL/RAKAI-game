@@ -7,7 +7,6 @@
 #include <sstream>
 #include <math.h>
 #include <vector>
-#include <string>
 #include <fstream>
 #include "Player.h"
 #include"Platform.h"
@@ -32,6 +31,26 @@ int main()
 	sf::Texture space;
 	space.loadFromFile("a/BG7.png");
 	background.setTexture(&space);
+
+	//Music
+	sf::SoundBuffer sound1;
+	if (!sound1.loadFromFile("a/Flowing Rocks.ogg"))
+		return -1;
+
+	sf::Sound Sound;
+	Sound.setBuffer(sound1);
+	Sound.setLoop(true);
+	Sound.play();
+
+	//Music2
+	sf::SoundBuffer sound2;
+	if (!sound2.loadFromFile("a/laser5.ogg"))
+		return -1;
+
+	sf::Sound Sound1;
+	Sound1.setBuffer(sound2);
+	//Sound1.setLoop(true);
+	//Sound1.play();
 
 	//Score
 	int countscore = 0;
@@ -78,6 +97,7 @@ int main()
 	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(4, 9), 0.08f, 1000.0f, 380.0f));
 	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(4, 9), 0.08f, 6840.0f, 280.0f));
 	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(4, 9), 0.08f, 4655.0f, 545.0f));
+	
 	//Bloodstop
 	/*sf::Texture BLOODSTOP;
 	BLOODSTOP.loadFromFile("a/dd.png");
@@ -215,7 +235,7 @@ int main()
 				break;
 			}
 
-			}
+		}
 
 		player.update(deltaTime);
 		rakai.update(deltaTime, player, player.GetPosition());
@@ -248,10 +268,7 @@ int main()
 			alienVector[i].update1(deltaTime, bullet1);
 			alienVector[i].update2(deltaTime, player);
 		}
-		/*for (int i = 0; i < alienVector.size(); i++) {
-			alienVector[i].update2(deltaTime, player);
-		}*/
-
+	
 		sf::Vector2f direction;
 		for (Platform& platform : platforms)
 			if (platform.GetCollider().CheckCollision(player.GetCollider(), direction, 1.0f))
@@ -260,7 +277,7 @@ int main()
 		Score.setPosition({ 500, 70 });
 		if (pos.x > 500)
 		{
-			hpbar.setPosition(player.GetPosition().x - 260, -90);// blood
+			hpbar.setPosition(player.GetPosition().x - 260, -90); // blood
 			HP.setPosition(player.GetPosition().x - 110, 56);
 			Score.setPosition(player.GetPosition().x - 110, 80);
 		}
@@ -269,7 +286,6 @@ int main()
 		if (view.getCenter().x - 540.0f <= 0.0f)
 		{
 			view.setCenter(540.0f, 360.0f);
-
 		}
 		if (view.getCenter().x + 540.0f >= 10000.0f)
 		{
@@ -287,6 +303,15 @@ int main()
 				countscore += 100;
 			}
 		}
+		
+		//Alien
+		for (i = 0; i < alienVector.size(); i++) {
+			if (alienVector[i].colAlien() == 2)
+			{
+				MyHP -= 10000;
+				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
+			}
+		}
 
 		//Bloodup
 		for (i = 0; i < BloodupVector.size(); i++) {
@@ -302,10 +327,10 @@ int main()
 				Hpblood.setPosition({ player.GetPosition().x,player.GetPosition().y - 90});
 				break;
 			}
-			/*else
+			else
 			{
 				Hpblood.setPosition({ -800, 350 });
-			}*/
+			}
 		}
 
 		//Blooddown
@@ -390,6 +415,8 @@ int main()
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
 		{
+			//Sound1.setLoop(true);
+			Sound1.play();
 			bullet1.attack(pos);
 			Bul = 1;
 		}

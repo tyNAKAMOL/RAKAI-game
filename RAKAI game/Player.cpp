@@ -14,6 +14,7 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
     body.setOrigin(body.getSize() / 2.0f);
 	body.setPosition(200.0f, 520.0f);
 	body.setTexture(texture);
+
 }
 
 Player::~Player()
@@ -36,6 +37,7 @@ void Player::update(float deltaTime)
     {
         bullet = true;
         row = 2;
+
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))

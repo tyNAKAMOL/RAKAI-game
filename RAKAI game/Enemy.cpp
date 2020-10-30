@@ -37,10 +37,13 @@ void Enemy::update2(float deltaTime, Player player)
     {
         velocity.y = 0;
         velocity.x = 80;
-        if (player.GetPosition().x < body.getPosition().x) {
+        if (player.GetPosition().x < body.getPosition().x) 
+        {
             body.move(-velocity * deltaTime);
         }
-        else if (player.GetPosition().x > body.getPosition().x - 30){
+        else if (player.GetCollider().CheckCollision(this->GetCollider()))
+        {
+            x1 += 10;
             body.setPosition(-1000.0f, 350.0f);
         }
         animation.updatestar(row, deltaTime);

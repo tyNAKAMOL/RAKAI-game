@@ -24,10 +24,19 @@ public:
         }
     }
 
+    int colAlien() 
+    {
+        if (x1 == 10) {
+            x1 -= 10;
+            return 2;
+        }
+    }
+
 
 private:
     int row;
     int count = 0;
+    int x1 = 0;
     float speed;
     sf::RectangleShape body;
     Animation animation;
