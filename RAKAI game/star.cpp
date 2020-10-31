@@ -24,7 +24,6 @@ void star::update(float deltaTime, Player player)
 
 	if (player.GetCollider().CheckCollision(this->GetCollider())) {
 		Cstar++;
-		std::cout << "isCollide star";
 		body.setPosition(-1000.0f, 350.0f);
 	}
 }

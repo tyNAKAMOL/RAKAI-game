@@ -9,28 +9,42 @@
 #include <vector>
 #include <fstream>
 #include "Player.h"
-#include"Platform.h"
-#include"Bullet.h"
-#include"Dog.h"
-#include"star.h"
-#include"Menu.h"
-#include"Enemy.h"
-#include"Bloodup.h"
-#include"collision2.h"
+#include "Platform.h"
+#include "Bullet.h"
+#include "Dog.h"
+#include "star.h"
+#include "Menu.h"
+#include "Enemy.h"
+#include "Bloodup.h"
 
 int main()
 {
-	
+
 	sf::RenderWindow window(sf::VideoMode(1080, 720), "Rakai");
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(1080.0f, 720.0f));//view
 
 	Menu menu(window.getSize().x, window.getSize().y);
-
+	
+	//BG1
 	sf::RectangleShape background(sf::Vector2f(10000.0f, 720.0f));
 	background.setPosition(0.0f, 0.0f);
 	sf::Texture space;
 	space.loadFromFile("a/BG7.png");
 	background.setTexture(&space);
+
+	//BG2
+	sf::RectangleShape background1(sf::Vector2f(10000.0f, 720.0f));
+	background1.setPosition(10000.0f, 0.0f);
+	sf::Texture space1;
+	space1.loadFromFile("a/BGG3.png");
+	background1.setTexture(&space1);
+
+	//BG3
+	sf::RectangleShape background2(sf::Vector2f(10000.0f, 720.0f));
+	background2.setPosition(20000.0f, 0.0f);
+	sf::Texture space2;
+	space2.loadFromFile("a/BGG4.png");
+	background2.setTexture(&space2);
 
 	//Music
 	sf::SoundBuffer sound1;
@@ -39,8 +53,8 @@ int main()
 
 	sf::Sound Sound;
 	Sound.setBuffer(sound1);
-	Sound.setLoop(true);
-	Sound.play();
+	//Sound.setLoop(true);
+	//Sound.play();
 
 	//Music2
 	sf::SoundBuffer sound2;
@@ -49,8 +63,6 @@ int main()
 
 	sf::Sound Sound1;
 	Sound1.setBuffer(sound2);
-	//Sound1.setLoop(true);
-	//Sound1.play();
 
 	//Score
 	int countscore = 0;
@@ -74,6 +86,12 @@ int main()
 	Hpblood.setFont(font);
 	Hpblood.setFillColor(sf::Color::Red);
 
+	sf::Text Hpblood2;
+	Hpblood2.setCharacterSize(20);
+	Hpblood2.setString(hppush.str());
+	Hpblood2.setFont(font);
+	Hpblood2.setFillColor(sf::Color::Red);
+
 	//Player
 	sf::Texture playertexture;
 	playertexture.loadFromFile("a/as2.png");
@@ -89,7 +107,7 @@ int main()
 	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(4, 9), 0.08f, 6104.0f, 370.0f));
 	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(4, 9), 0.08f, 9939.0f, 545.0f));
 	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(4, 9), 0.08f, 8117.0f, 545.0f));
-	
+
 	//Blooddown
 	sf::Texture BLOODDOWN;
 	BLOODDOWN.loadFromFile("a/dd.png");
@@ -97,12 +115,6 @@ int main()
 	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(4, 9), 0.08f, 1000.0f, 380.0f));
 	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(4, 9), 0.08f, 6840.0f, 280.0f));
 	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(4, 9), 0.08f, 4655.0f, 545.0f));
-	
-	//Bloodstop
-	/*sf::Texture BLOODSTOP;
-	BLOODSTOP.loadFromFile("a/dd.png");
-	std::vector <Bloodup> BloodstopVector;
-	BloodstopVector.push_back(Bloodup(&BLOODSTOP, sf::Vector2u(4, 9), 0.08f, 1000.0f, 380.0f));*/
 
 	//HPbar
 	sf::Texture HPbar;
@@ -120,7 +132,7 @@ int main()
 	sf::RectangleShape HP(sf::Vector2f(MyHP / 250.0f, 30));
 	HP.setPosition(sf::Vector2f(350, 46));
 	HP.setFillColor(sf::Color::Magenta);
-	HP.setSize(sf::Vector2f(MyHP / 320.f, 15)); 
+	HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 
 	//Star
 	sf::Texture STAR;
@@ -176,14 +188,13 @@ int main()
 	{
 		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 7250.0f + posi, 370.0f));
 	}
-	
+
 	//Alien
 	sf::Texture alien;
 	alien.loadFromFile("a/alien3.png");
 	std::vector <Enemy> alienVector;
 	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 700.0f, 560.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 3000.0f , 380.0f));
-
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 3000.0f, 380.0f));
 
 	//Bullet
 	sf::Texture BULLET;
@@ -197,6 +208,8 @@ int main()
 
 	//Platform
 	std::vector<Platform> platforms;
+	
+	//map1
 	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 687.072f), sf::Vector2f(1700.0f, 143.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 50.0f), sf::Vector2f(2900.0f, 470.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 50.0f), sf::Vector2f(7500.0f, 470.0f)));
@@ -209,29 +222,71 @@ int main()
 	platforms.push_back(Platform(nullptr, sf::Vector2f(1500.0f, 100.0f), sf::Vector2f(4100.0f, 670.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(1090.0f, 100.0f), sf::Vector2f(5100.0f, 670.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(5000.0f, 100.0f), sf::Vector2f(7800.0f, 670.0f)));
-	
+	platforms.push_back(Platform(nullptr, sf::Vector2f(20000.0f, 100.0f), sf::Vector2f(10000.0f, 670.0f)));
+	//map2
+	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 687.072f), sf::Vector2f(11700.0f, 143.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 50.0f), sf::Vector2f(12900.0f, 470.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 100.0f), sf::Vector2f(16693.0f, 160.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 120.0f), sf::Vector2f(14793.0f, 545.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 50.0f), sf::Vector2f(17500.0f, 470.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(150.0f, 50.0f), sf::Vector2f(15700.0f, 470.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(150.0f, 50.0f), sf::Vector2f(16100.0f, 470.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(500.0f, 50.0f), sf::Vector2f(16700.0f, 380.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 687.072f), sf::Vector2f(14050.00f, 143.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(2500.0f, 100.0f), sf::Vector2f(11250.0f, 670.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(800.0f, 100.0f), sf::Vector2f(13650.0f, 670.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(1500.0f, 100.0f), sf::Vector2f(14100.0f, 670.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(1090.0f, 100.0f), sf::Vector2f(15100.0f, 670.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(5000.0f, 100.0f), sf::Vector2f(17800.0f, 670.0f)));
+	//map3
+	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 687.072f), sf::Vector2f(21700.0f, 143.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 50.0f), sf::Vector2f(22900.0f, 470.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 50.0f), sf::Vector2f(27500.0f, 470.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(150.0f, 50.0f), sf::Vector2f(25700.0f, 470.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(150.0f, 50.0f), sf::Vector2f(26100.0f, 470.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(500.0f, 50.0f), sf::Vector2f(26700.0f, 380.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 687.072f), sf::Vector2f(24050.00f, 143.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(2500.0f, 100.0f), sf::Vector2f(21250.0f, 670.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(800.0f, 100.0f), sf::Vector2f(23650.0f, 670.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(1500.0f, 100.0f), sf::Vector2f(24100.0f, 670.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(1090.0f, 100.0f), sf::Vector2f(25100.0f, 670.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(5000.0f, 100.0f), sf::Vector2f(27800.0f, 670.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(30000.0f, 100.0f), sf::Vector2f(20000.0f, 670.0f)));
+
+	sf::Texture doorwarp;
+	doorwarp.loadFromFile("a/door.png");
+
+	//เปลี่ยนด่าน
+	sf::RectangleShape warpPoint(sf::Vector2f(200, 300));
+	warpPoint.setPosition(sf::Vector2f(2050, 320));
+	warpPoint.setTexture(&doorwarp);
 
 	bool slide;
 	int Bul = 0;
-	int count,i=0;
+	int count, i = 0;
 	float deltaTime = 0.0f;
 	sf::Clock clock;
+	float countTimeAdd = 0;
+	float countTimeSub = 0;
+	bool checkAdd = false;
+	bool checkSub = false;
 
 	while (window.isOpen())
 	{
-		slide = false;    
+
+		slide = false;
 		count = player.GetPosition().x;
 
 		deltaTime = clock.restart().asSeconds();
 		sf::Vector2f pos = player.GetPosition();
 		std::cout << pos.x << ' ' << pos.y << '\n';
-		
+
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			switch (event.type)
 			{
 			case sf::Event::Closed:
-					window.close();
+				window.close();
 				break;
 			}
 
@@ -241,39 +296,34 @@ int main()
 		rakai.update(deltaTime, player, player.GetPosition());
 
 		//Star
-		for (int i = 0; i < starVector.size(); i++) 
+		for (int i = 0; i < starVector.size(); i++)
 		{
 			starVector[i].update(deltaTime, player);
 		}
 		//Bloodup
-		for (int i = 0; i < BloodupVector.size(); i++) 
+		for (int i = 0; i < BloodupVector.size(); i++)
 		{
 			BloodupVector[i].update(deltaTime, player);
 		}
 
 		//Blooddown
-		for (int i = 0; i < BlooddownVector.size(); i++) 
+		for (int i = 0; i < BlooddownVector.size(); i++)
 		{
 			BlooddownVector[i].update(deltaTime, player);
 		}
 
-		//Bloodstop
-		/*for (int i = 0; i < BloodstopVector.size(); i++) {
-			BloodstopVector[i].update(deltaTime, player);
-		}*/
-
 		//Alien
-		for (int i = 0; i < alienVector.size(); i++) 
+		for (int i = 0; i < alienVector.size(); i++)
 		{
 			alienVector[i].update1(deltaTime, bullet1);
 			alienVector[i].update2(deltaTime, player);
 		}
-	
+
 		sf::Vector2f direction;
 		for (Platform& platform : platforms)
 			if (platform.GetCollider().CheckCollision(player.GetCollider(), direction, 1.0f))
 				player.OnCollision(direction);
-		
+
 		Score.setPosition({ 500, 70 });
 		if (pos.x > 500)
 		{
@@ -287,11 +337,11 @@ int main()
 		{
 			view.setCenter(540.0f, 360.0f);
 		}
-		if (view.getCenter().x + 540.0f >= 10000.0f)
+		if (view.getCenter().x + 540.0f >= 30000.0f)
 		{
-			view.setCenter(9460.0f, 360.0f);
+			view.setCenter(29460.0f, 360.0f);
 		}
-		
+
 		//score
 		score.str(" ");
 		score << "Score :  " << countscore;
@@ -299,11 +349,10 @@ int main()
 		for (i = 0; i < starVector.size(); i++) {
 			if (starVector[i].iscollide() == 1)
 			{
-				std::cout << ".........Scorepush.........";
 				countscore += 100;
 			}
 		}
-		
+
 		//Alien
 		for (i = 0; i < alienVector.size(); i++) {
 			if (alienVector[i].colAlien() == 2)
@@ -312,24 +361,26 @@ int main()
 				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 			}
 		}
-
 		//Bloodup
 		for (i = 0; i < BloodupVector.size(); i++) {
 			if (BloodupVector[i].colBloodup() == 1)
 			{
-				std::cout << "!!!!!!BloodUp YOU!!!!!!!!";
 				MyHP += 5000;
 				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 				if (MyHP > 78000) MyHP = 78000;
 				hppush.str(" ");
 				hppush << "+5000 HP";
 				Hpblood.setString(hppush.str());
-				Hpblood.setPosition({ player.GetPosition().x,player.GetPosition().y - 90});
-				break;
+				Hpblood.setPosition({ player.GetPosition().x,player.GetPosition().y - 90 });
+				checkAdd = true;
 			}
-			else
-			{
+		}
+		if (checkAdd == true) {
+			countTimeAdd += deltaTime;
+			if (countTimeAdd > 0.75) {
 				Hpblood.setPosition({ -800, 350 });
+				countTimeAdd = 0;
+				checkAdd = false;
 			}
 		}
 
@@ -337,85 +388,90 @@ int main()
 		for (i = 0; i < BlooddownVector.size(); i++) {
 			if (BlooddownVector[i].colBlooddown() == 2)
 			{
-				std::cout << "......................................................";
 				MyHP -= 5000;
 				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 				hppush.str(" ");
 				hppush << "-5000 HP";
-				Hpblood.setString(hppush.str());
-				Hpblood.setPosition({ player.GetPosition().x,player.GetPosition().y - 90 });
-				break;
+				Hpblood2.setString(hppush.str());
+				Hpblood2.setPosition({ player.GetPosition().x,player.GetPosition().y - 90 });
+				checkSub = true;
 			}
-			/*else
-			{
-				Hpblood.setPosition({ -800, 350 });
-			}*/
 		}
-
-		//Bloodstop
-		/*for (i = 0; i < BloodstopVector.size(); i++) {
-			if (BloodstopVector[i].colBloodstop() == 3)
-			{
-				std::cout << "......................................................";
-				MyHP -= 5000;
-				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
-				hppush.str(" ");
-				hppush << "-5000 HP";
-				Hpblood.setString(hppush.str());
-				Hpblood.setPosition({ player.GetPosition().x,player.GetPosition().y - 90 });
-				break;
+		if (checkSub == true) {
+			countTimeSub += deltaTime;
+			if (countTimeSub > 0.75) {
+				Hpblood2.setPosition({ -800, 350 });
+				countTimeSub = 0;
+				checkSub = false;
 			}
-		}*/
-		//HP
+		}
+		
+		//เลือดลด
 		MyHP -= 5;
 		if (MyHP < 78000)
 		{
 			HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
-			std::cout << "Good jod!";
 			std::cout << MyHP;
-			if (MyHP == 0) 
+			if (MyHP == 0)
 			{
 				break;
 			}
+		}
+		
+		//วาป
+		if ((player.GetPosition().x >= 2100 && player.GetPosition().x <= 2200) && player.GetPosition().y == 545) 
+		{
+			player.SetPosition(10568, 40);
+			rakai.SetPosition(10568, 40);
+		}
+		if ((player.GetPosition().x >= 18805 && player.GetPosition().x <= 18820) && player.GetPosition().y == 545)
+		{
+			player.SetPosition(20568, 40);
+			rakai.SetPosition(20568, 40);
 		}
 
 		window.clear();
 		menu.draw(window);
 		window.setView(view);//view
-		//window.draw(background);  
+		window.draw(background);
+		window.draw(background1);
+		window.draw(background2);
 		for (Platform& platform : platforms)
 		{
 			platform.Draw(window);
 		}
-		window.draw(background);
+		//window.draw(background);
+
 		player.Draw(window);
 		rakai.draw(window);
+		window.draw(warpPoint);
 		window.draw(hpbar);
 		window.draw(HP);
 		window.draw(Score);
 		window.draw(Hpblood);
+		window.draw(Hpblood2);
 
 
 
-		for (int i = 0; i < starVector.size(); i++) 
+		for (int i = 0; i < starVector.size(); i++)
 		{
 			starVector[i].draw(window);
 		}
-		for (int i = 0; i < BloodupVector.size(); i++) 
+
+		for (int i = 0; i < BloodupVector.size(); i++)
 		{
 			BloodupVector[i].draw(window);
 		}
-		for (int i = 0; i < BlooddownVector.size(); i++) 
+		for (int i = 0; i < BlooddownVector.size(); i++)
 		{
 			BlooddownVector[i].draw(window);
 		}
-		for (int i = 0; i < alienVector.size(); i++) 
+		for (int i = 0; i < alienVector.size(); i++)
 		{
 			alienVector[i].draw(window);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
 		{
-			//Sound1.setLoop(true);
 			Sound1.play();
 			bullet1.attack(pos);
 			Bul = 1;

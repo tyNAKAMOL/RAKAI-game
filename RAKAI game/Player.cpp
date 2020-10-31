@@ -130,3 +130,7 @@ void Player::Draw(sf::RenderWindow& window)
 {
     window.draw(body);
 }
+void Player::SetPosition(float x, float y) 
+{
+    body.setPosition(x, y);
+}

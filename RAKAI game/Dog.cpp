@@ -21,7 +21,7 @@ void Dog::update(float deltaTime, Player player, sf::Vector2f pos)
 	animation.updatedog(row, deltaTime);
 	body.setTextureRect(animation.uvRect);
 	if (player.GetCollider().CheckCollision(this->GetCollider())) {
-		std::cout << "deleted dog";
+		//std::cout << "deleted dog";
 		//body.setPosition(-100.0f, 0.0f);
 		row = 5;
 		body.setPosition(pos.x - 100.0f, pos.y - 12.0f);
@@ -32,4 +32,7 @@ void Dog::update(float deltaTime, Player player, sf::Vector2f pos)
 void Dog::draw(sf::RenderWindow& window)
 {
 	window.draw(body);
+}
+void Dog::SetPosition(float x, float y) {
+	body.setPosition(x, y);
 }

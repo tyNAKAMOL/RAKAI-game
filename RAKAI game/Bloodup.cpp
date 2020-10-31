@@ -5,6 +5,9 @@ Bloodup::Bloodup(sf::Texture* texture, sf::Vector2u imageCount, float switchTime
     animation(texture, imageCount, switchTime)
 {
     row = 0;
+    Bup = 0;
+    Bdown = 0;
+    Bstop = 0;
     body.setSize(sf::Vector2f(90.0f, 108.0f));
     body.setOrigin(body.getSize() / 2.0f);
     body.setPosition(x, y);
@@ -22,7 +25,6 @@ void Bloodup::update(float deltaTime, Player player)
 
     if (player.GetCollider().CheckCollision(this->GetCollider()))
     {
-        std::cout << "Blood UP!!!";
         Bup++;
         Bdown += 10;
         Bstop += 20;

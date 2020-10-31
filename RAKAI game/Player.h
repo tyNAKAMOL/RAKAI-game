@@ -12,6 +12,7 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void OnCollision(sf::Vector2f direction);
 	void HPbar(float deltaTime, Player player,sf::Vector2f pos);
+	void SetPosition(float x, float y);
 
 	sf::Vector2f GetPosition() { return body.getPosition(); }//view
 	Collision GetCollider() { return Collision(body); }

@@ -42,9 +42,9 @@ public:
 
 private:
     int row;
-    int Bup = 0;
-    int Bdown = 0;
-    int Bstop = 0;
+    int Bup;
+    int Bdown;
+    int Bstop;
     sf::RectangleShape body;
     Animation animation;
     sf::Vector2f velocity;

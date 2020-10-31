@@ -23,7 +23,7 @@ void Enemy::update1(float deltaTime, Bullet bullet1)
 
     if (bullet1.GetCollider().CheckCollision(this->GetCollider()))
     {
-        std::cout << "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkk";
+        //std::cout << "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkk";
         count++;
         row = 1;
         body.setPosition(-1000.0f, 350.0f);
@@ -33,7 +33,7 @@ void Enemy::update1(float deltaTime, Bullet bullet1)
 
 void Enemy::update2(float deltaTime, Player player)
 {
-    if (abs(player.GetPosition().x - body.getPosition().x) <= 300.0f)
+    if (abs(player.GetPosition().x - body.getPosition().x) <= 400.0f)
     {
         velocity.y = 0;
         velocity.x = 80;
@@ -49,7 +49,7 @@ void Enemy::update2(float deltaTime, Player player)
         animation.updatestar(row, deltaTime);
         body.setTextureRect(animation.uvRect);
 
-        std::cout << "...................................collide !!!!! ";
+        //std::cout << "...................................collide !!!!! ";
         /*count++;
         row = 1;
         body.setPosition(-1000.0f, 350.0f);*/
