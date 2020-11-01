@@ -21,10 +21,10 @@ int main()
 {
 
 	sf::RenderWindow window(sf::VideoMode(1080, 720), "Rakai");
-	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(1080.0f, 720.0f));//view
+	sf::View view(sf::Vector2f(1.0f, 1.0f), sf::Vector2f(1080.0f, 720.0f));//view
 
 	Menu menu(window.getSize().x, window.getSize().y);
-	
+
 	///////////////////////////////////////////////////////////
 	//BGMENU1
 	sf::RectangleShape bg(sf::Vector2f(1080.0f, 720.0f));
@@ -90,8 +90,8 @@ int main()
 
 	sf::Sound Sound;
 	Sound.setBuffer(sound1);
-	Sound.setLoop(true);
-	Sound.play();
+	//Sound.setLoop(true);
+	//Sound.play();
 
 	//Music2
 	sf::SoundBuffer sound2;
@@ -447,7 +447,7 @@ int main()
 	int Bul = 0;
 	int count, i = 0;
 	int scoreX2 = 1;
-	int state = 0;
+	int state = 1;
 	float deltaTime = 0.0f;
 	sf::Clock clock;
 	float countTimeAdd = 0;
@@ -462,34 +462,48 @@ int main()
 	bool MENU = true;
 	bool SCORE1 = true;
 
+	bool DebouceDown = false;
+	bool DebouceUp = false;
+
 	while (window.isOpen())
 	{
+
 		while (MENU == true)
 		{
-			window.clear();
+			deltaTime = clock.restart().asSeconds();
 			window.draw(bg);
 			window.draw(bg1);
 			window.display();
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			{
 				state++;
+				if (state > 3) {
+					state = 1;
+				}
 			}
+
 			if (state == 1) {
-				window.clear();
+				window.draw(bg);
 				window.draw(bg2);
 				window.display();
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+					MENU = false;
+					START = true;
+				}
 			}
-			if (state == 2) {
-				window.clear();
+			else if (state == 2) {
+				window.draw(bg);
 				window.draw(bg3);
 				window.display();
 			}
-			if (state == 2) {
-				window.clear();
+			else if (state == 3) {
+				window.draw(bg);
 				window.draw(bg4);
 				window.display();
 			}
 		}
+
 		while (START == true)
 		{
 			slide = false;
@@ -551,7 +565,7 @@ int main()
 			score1 << "SCORE :  " << int(pos.x - 200);
 			scoregame.setPosition({ 10,20 });
 			scoregame.setString(score1.str());
-			//countscore += 1; 
+			//countscore += 1;
 
 			Score.setPosition({ 395.043, 80 });
 
@@ -767,10 +781,7 @@ int main()
 			window.draw(bulA);
 			window.display();
 		}
-		while (SCORE1 == true)
-		{
 
-		}
-		}
+	}
 	return 0;
 }
