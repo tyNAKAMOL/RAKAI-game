@@ -7,8 +7,8 @@ Bloodup::Bloodup(sf::Texture* texture, sf::Vector2u imageCount, float switchTime
     row = 0;
     Bup = 0;
     Bdown = 0;
-    Bstop = 0;
-    body.setSize(sf::Vector2f(90.0f, 108.0f));
+    X2 = 0;
+    body.setSize(sf::Vector2f(45.0f, 58.0f));
     body.setOrigin(body.getSize() / 2.0f);
     body.setPosition(x, y);
     body.setTexture(texture);
@@ -27,7 +27,7 @@ void Bloodup::update(float deltaTime, Player player)
     {
         Bup++;
         Bdown += 10;
-        Bstop += 20;
+        X2 += 20;
         body.setPosition(-1000.0f, 350.0f);
     }
 }

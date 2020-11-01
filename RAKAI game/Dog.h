@@ -12,11 +12,15 @@ public:
 	void update(float deltaTime, Player player,sf::Vector2f pos);
 	void draw(sf::RenderWindow& window);
 	void SetPosition(float x, float y);
+	int START() {
+		if (start==1) return 1;
+	}
 
 	Collision GetCollider() { return Collision(body); }
 
 private:
 	int row;
+	int start;
 	sf::RectangleShape body;
 	Animation animation;
 };

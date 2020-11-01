@@ -29,11 +29,11 @@ public:
         }
     }
 
-    int colBloodstop()
+    int colX2()
     {
-        if (Bstop == 20)
+        if (X2 == 20)
         {
-            Bdown -= 20;
+            X2 -= 20;
             return 3;
         }
     }
@@ -44,7 +44,7 @@ private:
     int row;
     int Bup;
     int Bdown;
-    int Bstop;
+    int X2;
     sf::RectangleShape body;
     Animation animation;
     sf::Vector2f velocity;
