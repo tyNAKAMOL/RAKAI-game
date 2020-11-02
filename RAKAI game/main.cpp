@@ -470,6 +470,16 @@ int main()
 
 		while (MENU == true)
 		{
+			sf::Event event;
+			while (window.pollEvent(event)) {
+				switch (event.type)
+				{
+				case sf::Event::Closed:
+					window.close();
+					break;
+				}
+
+			}
 			deltaTime = clock.restart().asSeconds();
 			window.draw(bg);
 			window.draw(bg1);
