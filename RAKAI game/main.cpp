@@ -153,28 +153,35 @@ int main()
 	//ITEM
 	//Bloodup
 	sf::Texture BLOODUP;
-	BLOODUP.loadFromFile("a/bup.png");
+	BLOODUP.loadFromFile("a/up2.png");
 	std::vector <Bloodup> BloodupVector;
-	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 800.0f, 350.0f));
-	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 3000.0f, 350.0f));
-	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 6104.0f, 370.0f));
-	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 9939.0f, 545.0f));
-	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 8117.0f, 545.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 3456.0f, 180.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 8474.0f, 540.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 12033.0f, 370.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 14818.0f, 390.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 23532.0f, 370.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 27265.0f, 180.0f));
 
 	//Blooddown
 	sf::Texture BLOODDOWN;
-	BLOODDOWN.loadFromFile("a/dd.png");
+	BLOODDOWN.loadFromFile("a/down.png");
 	std::vector <Bloodup> BlooddownVector;
-	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(4, 9), 0.08f, 1000.0f, 380.0f));
-	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(4, 9), 0.08f, 6840.0f, 280.0f));
-	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(4, 9), 0.08f, 4655.0f, 545.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 2192.0f, 545.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 3249.0f, 370.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 6840.0f, 280.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 4655.0f, 545.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 8003.0f, 545.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 14090.0f, 545.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 21981.0f, 370.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 26445.0f, 280.0f));
 
 	//X2
 	sf::Texture POINTX2;
 	POINTX2.loadFromFile("a/dog1.png");
 	std::vector <Bloodup> X2Vector;
-	X2Vector.push_back(Bloodup(&POINTX2, sf::Vector2u(4, 9), 0.08f, 750.0f, 350.0f));
-	X2Vector.push_back(Bloodup(&POINTX2, sf::Vector2u(4, 9), 0.08f, 4200.0f, 350.0f));
+	X2Vector.push_back(Bloodup(&POINTX2, sf::Vector2u(4, 9), 0.08f, 5506.0f, 380.0f));
+	X2Vector.push_back(Bloodup(&POINTX2, sf::Vector2u(4, 9), 0.08f, 13442.0f, 545.0f));
+	X2Vector.push_back(Bloodup(&POINTX2, sf::Vector2u(4, 9), 0.08f, 27265.0f, 545.0f));
 
 	//HPbar
 	sf::Texture HPbar;
@@ -189,13 +196,6 @@ int main()
 	HP.setPosition(sf::Vector2f(350, 46));
 	HP.setFillColor(sf::Color::Magenta);
 	HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
-
-	//x2
-	float x2 = 50000;
-	sf::RectangleShape bx2(sf::Vector2f(x2 / 250.0f, 30));
-	bx2.setPosition(sf::Vector2f(350, 100));
-	bx2.setFillColor(sf::Color::Black);
-	bx2.setSize(sf::Vector2f(x2 / 320.f, 15));
 
 	//Star
 	sf::Texture STAR;
@@ -352,16 +352,28 @@ int main()
 	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
 	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
 
-	for (int posi = 0; posi < 600; posi += 60)
+	/*for (int posi = 0; posi < 600; posi += 60)
 	{
 		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 27250.0f + posi, 370.0f));
-	}
+	}*/
 	//Alien
 	sf::Texture alien;
 	alien.loadFromFile("a/alien3.png");
 	std::vector <Enemy> alienVector;
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 700.0f, 560.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 3000.0f, 380.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 2331.0f, 545.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 3071.0f, 370.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 5337.0f, 545.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 6815.0f, 280.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 8928.0f, 545.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 11580.0f, 545.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 15504.0f, 545.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 16943.0f, 280.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 22955.0f, 370.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 25416.0f, 545.0f));
+	
+	for (int posi = 0; posi < 240; posi + 60) {
+		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 27504.0f + posi, 545.0f));
+	}
 
 	//Bullet
 	sf::Texture BULLET;
@@ -408,7 +420,6 @@ int main()
 	//map3
 	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 687.072f), sf::Vector2f(21700.0f, 143.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 50.0f), sf::Vector2f(22900.0f, 470.0f)));
-	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 50.0f), sf::Vector2f(27500.0f, 470.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(150.0f, 50.0f), sf::Vector2f(25700.0f, 470.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(150.0f, 50.0f), sf::Vector2f(26100.0f, 470.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(500.0f, 50.0f), sf::Vector2f(26700.0f, 380.0f)));
@@ -417,7 +428,7 @@ int main()
 	platforms.push_back(Platform(nullptr, sf::Vector2f(800.0f, 100.0f), sf::Vector2f(23650.0f, 670.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(1500.0f, 100.0f), sf::Vector2f(24100.0f, 670.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(1090.0f, 100.0f), sf::Vector2f(25100.0f, 670.0f)));
-	platforms.push_back(Platform(nullptr, sf::Vector2f(5000.0f, 100.0f), sf::Vector2f(27800.0f, 670.0f)));
+	//platforms.push_back(Platform(nullptr, sf::Vector2f(5000.0f, 100.0f), sf::Vector2f(27800.0f, 670.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(30000.0f, 100.0f), sf::Vector2f(20000.0f, 670.0f)));
 
 	sf::Texture doorwarp;
@@ -689,9 +700,9 @@ int main()
 			{
 				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 
-				if (MyHP == 0)
+				if (MyHP < 0)
 				{
-					break;
+					MyHP = 0;
 				}
 			}
 
@@ -710,14 +721,17 @@ int main()
 			window.clear();
 			menu.draw(window);
 			window.setView(view);//view
+			window.draw(background);
+			window.draw(background1);
+			window.draw(background2);
 			for (Platform& platform : platforms)
 			{
 				platform.Draw(window);
 			}
 			//window.draw(background);
-			window.draw(background);
-			window.draw(background1);
-			window.draw(background2);
+			//window.draw(background);
+			//window.draw(background1);
+			//window.draw(background2);
 			window.draw(warpPoint);
 			window.draw(warpPoint1);
 			window.draw(starPoint);
@@ -725,7 +739,6 @@ int main()
 			rakai.draw(window);
 			window.draw(hpbar);
 			window.draw(HP);
-			window.draw(bx2);
 			window.draw(Score);
 			window.draw(scoregame);
 			window.draw(Hpblood);
@@ -762,7 +775,7 @@ int main()
 			{
 				bullet1.update(deltaTime);
 				bullet1.draw(window);
-				for (i = 0; i < 2; i++) {
+				for (i = 0; i < 15; i++) {
 					if (alienVector[i].hit() == 1)
 					{
 						countscorestar += 500;

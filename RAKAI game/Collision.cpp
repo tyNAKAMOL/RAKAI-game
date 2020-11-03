@@ -90,3 +90,4 @@ bool Collision::CheckCollision(Collision other)
 
     return false;
 }
+
