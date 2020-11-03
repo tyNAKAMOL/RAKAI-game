@@ -13,7 +13,6 @@
 #include "Bullet.h"
 #include "Dog.h"
 #include "star.h"
-#include "Menu.h"
 #include "Enemy.h"
 #include "Bloodup.h"
 using namespace std;
@@ -23,7 +22,6 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1080, 720), "Rakai");
 	sf::View view(sf::Vector2f(1.0f, 1.0f), sf::Vector2f(1080.0f, 720.0f));//view
 
-	Menu menu(window.getSize().x, window.getSize().y);
 
 	///////////////////////////////////////////////////////////
 	//BGMENU1
@@ -113,6 +111,7 @@ int main()
 	Score.setFillColor(sf::Color::Yellow);
 
 	//scoregame
+
 	int countscore = 0;
 	sf::Font SCORE;
 	SCORE.loadFromFile("a/CookieRun-Bold.otf");
@@ -357,7 +356,7 @@ int main()
 		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 27250.0f + posi, 370.0f));
 	}*/
 	//Alien
-	sf::Texture alien;
+	/*sf::Texture alien;
 	alien.loadFromFile("a/alien3.png");
 	std::vector <Enemy> alienVector;
 	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 2331.0f, 545.0f));
@@ -373,7 +372,7 @@ int main()
 	
 	for (int posi = 0; posi < 240; posi + 60) {
 		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 27504.0f + posi, 545.0f));
-	}
+	}*/
 
 	//Bullet
 	sf::Texture BULLET;
@@ -571,11 +570,11 @@ int main()
 			}
 
 			//Alien
-			for (int i = 0; i < alienVector.size(); i++)
+			/*for (int i = 0; i < alienVector.size(); i++)
 			{
 				alienVector[i].update1(deltaTime, bullet1);
 				alienVector[i].update2(deltaTime, player);
-			}
+			}*/
 
 			sf::Vector2f direction;
 			for (Platform& platform : platforms)
@@ -640,13 +639,13 @@ int main()
 			///////////////////////////////////////////////////
 
 			//Alien
-			for (i = 0; i < alienVector.size(); i++) {
+			/*for (i = 0; i < alienVector.size(); i++) {
 				if (alienVector[i].colAlien() == 2)
 				{
 					MyHP -= 10000;
 					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 				}
-			}
+			}*/
 
 
 			//Bloodup
@@ -719,7 +718,6 @@ int main()
 			}
 
 			window.clear();
-			menu.draw(window);
 			window.setView(view);//view
 			window.draw(background);
 			window.draw(background1);
@@ -761,10 +759,10 @@ int main()
 			{
 				X2Vector[i].draw(window);
 			}
-			for (int i = 0; i < alienVector.size(); i++)
+			/*for (int i = 0; i < alienVector.size(); i++)
 			{
 				alienVector[i].draw(window);
-			}
+			}*/
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
 			{
 				Sound1.play();
@@ -775,8 +773,8 @@ int main()
 			{
 				bullet1.update(deltaTime);
 				bullet1.draw(window);
-				for (i = 0; i < 15; i++) {
-					if (alienVector[i].hit() == 1)
+				/*for (i = 0; i < 15; i++) {
+					/*if (alienVector[i].hit() == 1)
 					{
 						countscorestar += 500;
 						hppush.str(" ");
@@ -786,7 +784,7 @@ int main()
 						bullet1.del();
 						checkBul = true;
 					}
-				}
+				}*/
 				if (checkBul == true) {
 					countTimeBul += deltaTime;
 					if (countTimeBul > 0.35) {

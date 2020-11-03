@@ -155,11 +155,9 @@
     <ClCompile Include="Bloodup.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="collision2.cpp" />
     <ClCompile Include="Dog.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="star.cpp" />
@@ -169,10 +167,8 @@
     <ClInclude Include="Bloodup.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="collision2.h" />
     <ClInclude Include="Dog.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Menu.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="star.h" />
