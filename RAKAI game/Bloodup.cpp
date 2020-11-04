@@ -28,7 +28,7 @@ void Bloodup::update(float deltaTime, Player player)
         Bup++;
         Bdown += 10;
         X2 += 20;
-        body.setPosition(-1000.0f, 350.0f);
+        body.setPosition(-3000.0f, 350.0f);
     }
 }
 

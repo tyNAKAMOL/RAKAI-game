@@ -10,22 +10,16 @@ star::star(sf::Texture* texture, sf::Vector2u imageCount, float switchTime,float
 	body.setOrigin(body.getSize() / 2.0f);
 	body.setPosition(x,y);
 	body.setTexture(texture);
-	
 }
 
 star::~star()
 {
 }
 
-void star::update(float deltaTime, Player player)
+void star::update(float deltaTime)
 {
 	animation.updatestar(row, deltaTime);
 	body.setTextureRect(animation.uvRect);
-
-	if (player.GetCollider().CheckCollision(this->GetCollider())) {
-		Cstar++;
-		body.setPosition(-1000.0f, 350.0f);
-	}
 }
 
 void star::draw(sf::RenderWindow& window)

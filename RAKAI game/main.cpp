@@ -105,7 +105,7 @@ int main()
 	font.loadFromFile("a/CookieRun-Bold.otf");
 	std::ostringstream score;
 	sf::Text Score;
-	Score.setCharacterSize(50);
+	Score.setCharacterSize(30);
 	Score.setString(score.str());
 	Score.setFont(font);
 	Score.setFillColor(sf::Color::Yellow);
@@ -174,6 +174,50 @@ int main()
 	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 21981.0f, 370.0f));
 	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 26445.0f, 280.0f));
 
+	//key
+	sf::Texture keyW;
+	keyW.loadFromFile("a/ww.png");
+	sf::RectangleShape ww(sf::Vector2f(32, 32));
+	ww.setPosition(sf::Vector2f(850, 30));
+	ww.setTexture(&keyW);
+	sf::Texture keyS;
+	keyS.loadFromFile("a/ss.png");
+	sf::RectangleShape ss(sf::Vector2f(32, 32));
+	ss.setPosition(sf::Vector2f(850, 85));
+	ss.setTexture(&keyS);
+	sf::Texture keyD;
+	keyD.loadFromFile("a/ddd.png");
+	sf::RectangleShape dd(sf::Vector2f(32, 32));
+	dd.setPosition(sf::Vector2f(850, 138));
+	dd.setTexture(&keyD);
+	sf::Texture keySP;
+	keySP.loadFromFile("a/spp.png");
+	sf::RectangleShape sp(sf::Vector2f(32, 32));
+	sp.setPosition(sf::Vector2f(850, 192));
+	sp.setTexture(&keySP);
+	
+	
+	sf::Text jump2;
+	jump2.setCharacterSize(25);
+	jump2.setString(hppush.str());
+	jump2.setFont(font);
+	jump2.setFillColor(sf::Color::White);
+	sf::Text slide2;
+	slide2.setCharacterSize(25);
+	slide2.setString(hppush.str());
+	slide2.setFont(font);
+	slide2.setFillColor(sf::Color::White);
+	sf::Text run;
+	run.setCharacterSize(25);
+	run.setString(hppush.str());
+	run.setFont(font);
+	run.setFillColor(sf::Color::White);
+	sf::Text attack2;
+	attack2.setCharacterSize(25);
+	attack2.setString(hppush.str());
+	attack2.setFont(font);
+	attack2.setFillColor(sf::Color::White);
+
 	//X2
 	sf::Texture POINTX2;
 	POINTX2.loadFromFile("a/dog1.png");
@@ -199,164 +243,147 @@ int main()
 	//Star
 	sf::Texture STAR;
 	STAR.loadFromFile("a/star4.png");
-	std::vector <star> starVector;
+	std::vector <star*> starVector;
+	
 	//map1
-	for (int posi = 0; posi < 1550; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 800.0f + posi, 550.0f));
+	for (int posi = 0; posi < 1550; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 800.0f + posi, 550.0f));
 	}
-	for (int posi = 0; posi < 200; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2630.0f + posi, 370.0f));
+	for (int posi = 0; posi < 200; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 2630.0f + posi, 370.0f));
 	}
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2850.0f, 320.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2900.0f, 300.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 2950.0f, 280.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3000.0f, 300.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3050.0f, 320.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3100.0f, 370.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3150.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 2850.0f, 320.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 2900.0f, 300.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 2950.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3000.0f, 300.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3050.0f, 320.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3100.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3150.0f, 370.0f));
 
-	for (int posi = 0; posi < 1300; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 3500.0f + posi, 550.0f));
+	for (int posi = 0; posi < 1300; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3500.0f + posi, 550.0f));
 	}
-	for (int posi = 0; posi < 500; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 4700.0f + posi, 550.0f));
+	for (int posi = 0; posi < 500; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 4700.0f + posi, 550.0f));
 	}
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 5743.0f, 370.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 5770.0f, 330.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 5800.0f, 290.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 5850.0f, 260.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 5900.0f, 240.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 5950.0f, 260.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6000.0f, 290.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6030.0f, 330.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6070.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5743.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5770.0f, 330.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5800.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5850.0f, 260.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5900.0f, 240.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5950.0f, 260.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6000.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6030.0f, 330.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6070.0f, 370.0f));
 
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6167.0f, 370.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6180.0f, 340.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6210.0f, 310.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6250.0f, 305.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6300.0f, 280.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 250.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 310.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 290.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6167.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6180.0f, 340.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6210.0f, 310.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6250.0f, 305.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6300.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 250.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 310.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
 
-	for (int posi = 0; posi < 600; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 7250.0f + posi, 370.0f));
+	for (int posi = 0; posi < 600; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 7250.0f + posi, 370.0f));
 	}
 
 	//map2
-	for (int posi = 0; posi < 1550; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 10800.0f + posi, 550.0f));
+	for (int posi = 0; posi < 1550; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 10800.0f + posi, 550.0f));
 	}
-	for (int posi = 0; posi < 200; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 12630.0f + posi, 370.0f));
+	for (int posi = 0; posi < 200; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 12630.0f + posi, 370.0f));
 	}
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 12850.0f, 320.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 12900.0f, 300.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 12950.0f, 280.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 13000.0f, 300.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 13050.0f, 320.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 13100.0f, 370.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 13150.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 12850.0f, 320.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 12900.0f, 300.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 12950.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13000.0f, 300.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13050.0f, 320.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13100.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13150.0f, 370.0f));
 
-	for (int posi = 0; posi < 1300; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 13500.0f + posi, 550.0f));
+	for (int posi = 0; posi < 1300; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13500.0f + posi, 550.0f));
 	}
-	for (int posi = 0; posi < 500; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 14700.0f + posi, 550.0f));
+	for (int posi = 0; posi < 80; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 14700.0f + posi, 550.0f));
 	}
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 15743.0f, 370.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 15770.0f, 330.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 15800.0f, 290.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 15850.0f, 260.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 15900.0f, 240.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 15950.0f, 260.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16000.0f, 290.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16030.0f, 330.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16070.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15743.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15770.0f, 330.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15800.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15850.0f, 260.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15900.0f, 240.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15950.0f, 260.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16000.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16030.0f, 330.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16070.0f, 370.0f));
 
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16167.0f, 370.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16180.0f, 340.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16210.0f, 310.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16250.0f, 305.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16300.0f, 280.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16340.0f, 250.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16400.0f, 280.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16451.0f, 310.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16340.0f, 290.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16400.0f, 280.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 16451.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16167.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16180.0f, 340.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16210.0f, 310.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16250.0f, 305.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16300.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16340.0f, 250.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16400.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16451.0f, 310.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16340.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16400.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16451.0f, 280.0f));
 
-	for (int posi = 0; posi < 600; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 17250.0f + posi, 370.0f));
+	for (int posi = 0; posi < 600; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 17250.0f + posi, 370.0f));
 	}
 
 	//map3
-	for (int posi = 0; posi < 1550; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 20800.0f + posi, 550.0f));
+	for (int posi = 0; posi < 1550; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 20800.0f + posi, 550.0f));
 	}
-	for (int posi = 0; posi < 200; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 22630.0f + posi, 370.0f));
+	for (int posi = 0; posi < 200; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 22630.0f + posi, 370.0f));
 	}
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 22850.0f, 320.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 22900.0f, 300.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 22950.0f, 280.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 23000.0f, 300.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 23050.0f, 320.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 23100.0f, 370.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 23150.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 22850.0f, 320.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 22900.0f, 300.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 22950.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23000.0f, 300.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23050.0f, 320.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23100.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23150.0f, 370.0f));
 
-	for (int posi = 0; posi < 1300; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 23500.0f + posi, 550.0f));
+	for (int posi = 0; posi < 1300; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23500.0f + posi, 550.0f));
 	}
-	for (int posi = 0; posi < 500; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 24700.0f + posi, 550.0f));
+	for (int posi = 0; posi < 500; posi += 60){
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 24700.0f + posi, 550.0f));
 	}
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 25743.0f, 370.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 25770.0f, 330.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 25800.0f, 290.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 25850.0f, 260.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 25900.0f, 240.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 25950.0f, 260.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 26000.0f, 290.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 26030.0f, 330.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 26070.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25743.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25770.0f, 330.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25800.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25850.0f, 260.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25900.0f, 240.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25950.0f, 260.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26000.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26030.0f, 330.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26070.0f, 370.0f));
 
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 26167.0f, 370.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 26180.0f, 340.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 26210.0f, 310.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 26250.0f, 305.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 26300.0f, 280.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 26340.0f, 250.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 26400.0f, 280.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 310.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 290.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
-	starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26167.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26180.0f, 340.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26210.0f, 310.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26250.0f, 305.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26300.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26340.0f, 250.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26400.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 310.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
 
-	/*for (int posi = 0; posi < 600; posi += 60)
-	{
-		starVector.push_back(star(&STAR, sf::Vector2u(9, 1), 0.08f, 27250.0f + posi, 370.0f));
-	}*/
 	//Alien
-	/*sf::Texture alien;
+	sf::Texture alien;
 	alien.loadFromFile("a/alien3.png");
 	std::vector <Enemy> alienVector;
 	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 2331.0f, 545.0f));
@@ -369,10 +396,6 @@ int main()
 	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 16943.0f, 280.0f));
 	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 22955.0f, 370.0f));
 	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 25416.0f, 545.0f));
-	
-	for (int posi = 0; posi < 240; posi + 60) {
-		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 27504.0f + posi, 545.0f));
-	}*/
 
 	//Bullet
 	sf::Texture BULLET;
@@ -427,7 +450,6 @@ int main()
 	platforms.push_back(Platform(nullptr, sf::Vector2f(800.0f, 100.0f), sf::Vector2f(23650.0f, 670.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(1500.0f, 100.0f), sf::Vector2f(24100.0f, 670.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(1090.0f, 100.0f), sf::Vector2f(25100.0f, 670.0f)));
-	//platforms.push_back(Platform(nullptr, sf::Vector2f(5000.0f, 100.0f), sf::Vector2f(27800.0f, 670.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(30000.0f, 100.0f), sf::Vector2f(20000.0f, 670.0f)));
 
 	sf::Texture doorwarp;
@@ -495,14 +517,12 @@ int main()
 			window.draw(bg1);
 			window.display();
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-			{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 				state++;
-				if (state > 3) {
+				if (state >= 4) {
 					state = 1;
 				}
 			}
-
 			if (state == 1) {
 				window.draw(bg);
 				window.draw(bg2);
@@ -523,9 +543,7 @@ int main()
 				window.display();
 			}
 		}
-
-		while (START == true)
-		{
+		while (START == true){
 			slide = false;
 			count = player.GetPosition().x;
 
@@ -543,39 +561,34 @@ int main()
 				}
 
 			}
-			player.update(deltaTime);
+			player.update(deltaTime, starVector);
 			rakai.update(deltaTime, player, player.GetPosition());
 
 			//Star
-			for (int i = 0; i < starVector.size(); i++)
-			{
-				starVector[i].update(deltaTime, player);
+			for (int i = 0; i < starVector.size(); i++){
+				starVector[i]->update(deltaTime);
 			}
 			//Bloodup
-			for (int i = 0; i < BloodupVector.size(); i++)
-			{
+			for (int i = 0; i < BloodupVector.size(); i++){
 				BloodupVector[i].update(deltaTime, player);
 			}
 
 			//Blooddown
-			for (int i = 0; i < BlooddownVector.size(); i++)
-			{
+			for (int i = 0; i < BlooddownVector.size(); i++){
 				BlooddownVector[i].update(deltaTime, player);
 			}
 
 			//X2
-			for (int i = 0; i < X2Vector.size(); i++)
-			{
+			for (int i = 0; i < X2Vector.size(); i++){
 				X2Vector[i].update(deltaTime, player);
 			}
 
 			//Alien
-			/*for (int i = 0; i < alienVector.size(); i++)
-			{
+			for (int i = 0; i < alienVector.size(); i++){
 				alienVector[i].update1(deltaTime, bullet1);
 				alienVector[i].update2(deltaTime, player);
-			}*/
-
+			}
+			
 			sf::Vector2f direction;
 			for (Platform& platform : platforms)
 				if (platform.GetCollider().CheckCollision(player.GetCollider(), direction, 1.0f))
@@ -585,26 +598,53 @@ int main()
 			score1 << "SCORE :  " << int(pos.x - 200);
 			scoregame.setPosition({ 10,20 });
 			scoregame.setString(score1.str());
-			//countscore += 1;
+			
+			hppush.str(" ");
+			hppush << "JUMP";
+			jump2.setString(hppush.str());
 
-			Score.setPosition({ 395.043, 80 });
+			hppush.str(" ");
+			hppush << "SLIDE";
+			slide2.setString(hppush.str());
 
-			if (pos.x > 500)
-			{
+			hppush.str(" ");
+			hppush << "RUN";
+			run.setString(hppush.str());
+
+			hppush.str(" ");
+			hppush << "ATTACK";
+			attack2.setString(hppush.str());
+
+			Score.setPosition({ 425, 90 });
+			jump2.setPosition({ 900, 30 });
+			attack2.setPosition({ 900,192 });
+			slide2.setPosition({ 900, 85 });
+			run.setPosition({ 900, 138 });
+
+			if (pos.x > 500){
 				hpbar.setPosition(player.GetPosition().x - 230, -90); // blood
 				HP.setPosition(player.GetPosition().x - 80, 56);
-				Score.setPosition(player.GetPosition().x - 110, 80);
+				Score.setPosition(player.GetPosition().x - 485, 95);
 				scoregame.setPosition(view.getCenter().x - 510, 30);
-				starPoint.setPosition(player.GetPosition().x - 85, 88);
+				starPoint.setPosition(player.GetPosition().x - 480 , 88);
+
+				jump2.setPosition({ view.getCenter().x + 340 , 30 });
+				attack2.setPosition({ view.getCenter().x + 340 , 192 });
+				slide2.setPosition({ view.getCenter().x + 340 , 85 });
+				run.setPosition({ view.getCenter().x + 340 , 138 });
+
+				ss.setPosition({ view.getCenter().x + 300 , 81 });
+				dd.setPosition({ view.getCenter().x + 300 , 134 });
+				sp.setPosition({ view.getCenter().x + 300 , 188 });
+				ww.setPosition({ view.getCenter().x + 300 , 30 });
+
 			}
 
 			view.setCenter(player.GetPosition().x, 360.0f);
-			if (view.getCenter().x - 540.0f <= 0.0f)
-			{
+			if (view.getCenter().x - 540.0f <= 0.0f){
 				view.setCenter(540.0f, 360.0f);
 			}
-			if (view.getCenter().x + 540.0f >= 30000.0f)
-			{
+			if (view.getCenter().x + 540.0f >= 30000.0f){
 				view.setCenter(29460.0f, 360.0f);
 			}
 
@@ -613,7 +653,6 @@ int main()
 			score << "      " << countscorestar;
 			Score.setString(score.str());
 
-			////////////////////////////////////////////
 			for (i = 0; i < X2Vector.size(); i++) {
 				if (X2Vector[i].colX2() == 3) {
 					checkx2 = true;
@@ -631,27 +670,22 @@ int main()
 				}
 			}
 			for (i = 0; i < starVector.size(); i++) {
-				if (starVector[i].iscollide() == 1)
-				{
+				if (player.colStar() == 2){
 					countscorestar += scoreX2;
 				}
 			}
-			///////////////////////////////////////////////////
 
 			//Alien
-			/*for (i = 0; i < alienVector.size(); i++) {
-				if (alienVector[i].colAlien() == 2)
-				{
+			for (i = 0; i < alienVector.size(); i++) {
+				if (alienVector[i].colAlien() == 2){
 					MyHP -= 10000;
 					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 				}
-			}*/
-
+			}
 
 			//Bloodup
 			for (i = 0; i < BloodupVector.size(); i++) {
-				if (BloodupVector[i].colBloodup() == 1)
-				{
+				if (BloodupVector[i].colBloodup() == 1){
 					MyHP += 5000;
 					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 					if (MyHP > 78000) MyHP = 78000;
@@ -670,11 +704,9 @@ int main()
 					checkAdd = false;
 				}
 			}
-
 			//Blooddown
 			for (i = 0; i < BlooddownVector.size(); i++) {
-				if (BlooddownVector[i].colBlooddown() == 2)
-				{
+				if (BlooddownVector[i].colBlooddown() == 2){
 					MyHP -= 5000;
 					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 					hppush.str(" ");
@@ -692,90 +724,73 @@ int main()
 					checkSub = false;
 				}
 			}
-
 			//เลือดลด
 			MyHP -= 5;
-			if (MyHP < 78000)
-			{
+			if (MyHP < 78000){
 				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
-
-				if (MyHP < 0)
-				{
-					MyHP = 0;
-				}
+				if (MyHP < 0){ MyHP = 0; }
 			}
-
 			//วาป
-			if ((player.GetPosition().x >= 9221 && player.GetPosition().x <= 9300) && player.GetPosition().y == 545)
-			{
+			if ((player.GetPosition().x >= 9221 && player.GetPosition().x <= 9300) && player.GetPosition().y == 545){
 				player.SetPosition(10568, 40);
 				rakai.SetPosition(10568, 40);
 			}
-			if ((player.GetPosition().x >= 18805 && player.GetPosition().x <= 18820) && player.GetPosition().y == 545)
-			{
+			if ((player.GetPosition().x >= 18805 && player.GetPosition().x <= 18820) && player.GetPosition().y == 545){
 				player.SetPosition(20568, 40);
 				rakai.SetPosition(20568, 40);
 			}
-
 			window.clear();
 			window.setView(view);//view
+			for (Platform& platform : platforms){
+				platform.Draw(window);
+			}
 			window.draw(background);
 			window.draw(background1);
 			window.draw(background2);
-			for (Platform& platform : platforms)
-			{
-				platform.Draw(window);
-			}
-			//window.draw(background);
-			//window.draw(background);
-			//window.draw(background1);
-			//window.draw(background2);
 			window.draw(warpPoint);
 			window.draw(warpPoint1);
 			window.draw(starPoint);
+			window.draw(ss);
+			window.draw(dd);
+			window.draw(ww);
+			window.draw(sp);
 			player.Draw(window);
 			rakai.draw(window);
 			window.draw(hpbar);
 			window.draw(HP);
 			window.draw(Score);
+			window.draw(jump2);
+			window.draw(slide2);
+			window.draw(run);
+			window.draw(attack2);
 			window.draw(scoregame);
 			window.draw(Hpblood);
 			window.draw(Hpblood2);
-
-			for (int i = 0; i < starVector.size(); i++)
-			{
-				starVector[i].draw(window);
+			for (int i = 0; i < starVector.size(); i++){
+				starVector[i]->draw(window);
 			}
-
-			for (int i = 0; i < BloodupVector.size(); i++)
-			{
+			for (int i = 0; i < BloodupVector.size(); i++){
 				BloodupVector[i].draw(window);
 			}
-			for (int i = 0; i < BlooddownVector.size(); i++)
-			{
+			for (int i = 0; i < BlooddownVector.size(); i++){
 				BlooddownVector[i].draw(window);
 			}
-			for (int i = 0; i < X2Vector.size(); i++)
-			{
+			for (int i = 0; i < X2Vector.size(); i++){
 				X2Vector[i].draw(window);
 			}
-			/*for (int i = 0; i < alienVector.size(); i++)
-			{
+			for (int i = 0; i < alienVector.size(); i++){
 				alienVector[i].draw(window);
-			}*/
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
-			{
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
 				Sound1.play();
 				bullet1.attack(pos);
 				Bul = 1;
 			}
-			if (Bul >= 1)
-			{
+			if (Bul >= 1){
 				bullet1.update(deltaTime);
 				bullet1.draw(window);
-				/*for (i = 0; i < 15; i++) {
-					/*if (alienVector[i].hit() == 1)
-					{
+				for (i = 0; i < 10; i++) {
+					if (alienVector[i].hit() == 1){
 						countscorestar += 500;
 						hppush.str(" ");
 						hppush << "+500";
@@ -784,7 +799,7 @@ int main()
 						bullet1.del();
 						checkBul = true;
 					}
-				}*/
+				}
 				if (checkBul == true) {
 					countTimeBul += deltaTime;
 					if (countTimeBul > 0.35) {
@@ -794,8 +809,7 @@ int main()
 					}
 				}
 			}
-			if (player.GetPosition().x - bullet1.GetPosition().x <= -1000.0f)
-			{
+			if (player.GetPosition().x - bullet1.GetPosition().x <= -1000.0f){
 				Bul = 0;
 				bullet1.isAvaliable();
 			}

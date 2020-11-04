@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Player.h"
 #include "Animation.h"
 #include "Collision.h"
 
@@ -10,7 +9,7 @@ public:
 
     star(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float x, float y);
     ~star();
-    void update(float deltaTime, Player player);
+    void update(float deltaTime);
     void draw(sf::RenderWindow& window);
 
     int iscollide()
