@@ -3,10 +3,13 @@
 Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight):
 	animation(texture, imageCount, switchTime) 
 {
-    this->score = 0;
+    this->numStar = 0;
 	this->speed = speed;
     this->jumpHeight = jumpHeight;
-	row = 0;
+    this->buffX10 = false;
+    this->buffTimer = 0;
+
+    row = 0;
     canJump = true;
     slide = false;
     bullet = false;
@@ -21,7 +24,7 @@ Player::~Player()
 {
 }
 
-void Player::update(float deltaTime, std::vector<star*>& stars)
+void Player::update(float deltaTime, std::vector<star*>& stars, std::vector<Buff>& X2Vector)
 { 
     velocity.x = 0.0f;
     slide = false;
@@ -71,26 +74,39 @@ void Player::update(float deltaTime, std::vector<star*>& stars)
     animation.update(row,deltaTime,slide,bullet);
     body.setTextureRect(animation.uvRect);
     body.move(velocity * deltaTime);
-    this->updateScore(stars);
+    this->updateNumstar(deltaTime, stars, X2Vector);
 }
 
-void Player::updateScore(std::vector<star*>& stars){
+void Player::updateNumstar(float deltaTime, std::vector<star*>& stars, std::vector<Buff>& X2Vector){
+    for (int i = 0; i < X2Vector.size(); i++) {
+        if (this->GetCollider().CheckCollision(X2Vector[i].GetCollider())) {
+            this->buffX10 = true;
+            X2Vector[i].setPosition(-100.0f, 30.0f);
+        }
+    }
+    if (this->buffX10 == true) {
+        buffTimer += deltaTime;
+        if (buffTimer >= 10) {
+            std::cout << buffTimer << "............";
+            buffTimer = 0;
+            this->buffX10 = false;
+        }
+    }
     for (int i=0; i < stars.size(); i++) {
         if(this->GetCollider().CheckCollision(stars[i]->GetCollider())) {
-
-            //this->increaseScore(1);
-            score += 10;
+            if (this->buffX10 == true) {
+                this->numStar += 10; 
+            }
+            else {
+                this->numStar += 1;
+            }
             delete stars[i];
-
             stars.erase(stars.begin()+i);
             stars.shrink_to_fit();
         }
+
     }
 }
-/*void Player::increaseScore(int score) 
-{
-    this->score += score;
-}*/
 void Player::OnCollision(sf::Vector2f direction)
 {
     if (direction.x < 0.0f){

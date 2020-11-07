@@ -15,6 +15,7 @@
 #include "star.h"
 #include "Enemy.h"
 #include "Bloodup.h"
+#include "Buff.h"
 using namespace std;
 int main()
 {
@@ -183,17 +184,17 @@ int main()
 	sf::Texture keyS;
 	keyS.loadFromFile("a/ss.png");
 	sf::RectangleShape ss(sf::Vector2f(32, 32));
-	ss.setPosition(sf::Vector2f(850, 85));
+	ss.setPosition(sf::Vector2f(850, 67));
 	ss.setTexture(&keyS);
 	sf::Texture keyD;
 	keyD.loadFromFile("a/ddd.png");
 	sf::RectangleShape dd(sf::Vector2f(32, 32));
-	dd.setPosition(sf::Vector2f(850, 138));
+	dd.setPosition(sf::Vector2f(850, 106));
 	dd.setTexture(&keyD);
 	sf::Texture keySP;
 	keySP.loadFromFile("a/spp.png");
 	sf::RectangleShape sp(sf::Vector2f(32, 32));
-	sp.setPosition(sf::Vector2f(850, 192));
+	sp.setPosition(sf::Vector2f(850, 146));
 	sp.setTexture(&keySP);
 	
 	
@@ -221,22 +222,22 @@ int main()
 	//X2
 	sf::Texture POINTX2;
 	POINTX2.loadFromFile("a/dog1.png");
-	std::vector <Bloodup> X2Vector;
-	X2Vector.push_back(Bloodup(&POINTX2, sf::Vector2u(4, 9), 0.08f, 5506.0f, 380.0f));
-	X2Vector.push_back(Bloodup(&POINTX2, sf::Vector2u(4, 9), 0.08f, 13442.0f, 545.0f));
-	X2Vector.push_back(Bloodup(&POINTX2, sf::Vector2u(4, 9), 0.08f, 27265.0f, 545.0f));
+	std::vector <Buff> X2Vector;
+	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(4, 9), 0.08f, 5506.0f, 380.0f));
+	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(4, 9), 0.08f, 13442.0f, 545.0f));
+	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(4, 9), 0.08f, 27265.0f, 545.0f));
 
 	//HPbar
 	sf::Texture HPbar;
 	HPbar.loadFromFile("a/Blo.png");
 	sf::Sprite hpbar;
 	hpbar.setTexture(HPbar);
-	hpbar.setPosition(200, -100);
+	hpbar.setPosition(300, -100);
 
 	float MyHP = 78000;
 	hpbar.setTexture(HPbar);
 	sf::RectangleShape HP(sf::Vector2f(MyHP / 250.0f, 30));
-	HP.setPosition(sf::Vector2f(350, 46));
+	HP.setPosition(sf::Vector2f(450, 46));
 	HP.setFillColor(sf::Color::Magenta);
 	HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 
@@ -471,21 +472,22 @@ int main()
 	sf::Texture starup;
 	starup.loadFromFile("a/starpoint.png");
 	sf::RectangleShape starPoint(sf::Vector2f(50, 50));
-	starPoint.setPosition(sf::Vector2f(425.043, 80));
+	starPoint.setPosition(sf::Vector2f(80, 80));
 	starPoint.setTexture(&starup);
 
-
-	bool slide;
 	int Bul = 0;
 	int count, i = 0;
 	int scoreX2 = 1;
 	int state = 1;
+	
 	float deltaTime = 0.0f;
-	sf::Clock clock;
 	float countTimeAdd = 0;
 	float countTimeSub = 0;
 	float countTimeBul = 0;
 	float countTimex2 = 0;
+	sf::Clock clock;
+	
+	bool slide;
 	bool checkBul = false;
 	bool checkAdd = false;
 	bool checkSub = false;
@@ -544,6 +546,7 @@ int main()
 			}
 		}
 		while (START == true){
+			
 			slide = false;
 			count = player.GetPosition().x;
 
@@ -561,7 +564,7 @@ int main()
 				}
 
 			}
-			player.update(deltaTime, starVector);
+			player.update(deltaTime, starVector,X2Vector);
 			rakai.update(deltaTime, player, player.GetPosition());
 
 			//Star
@@ -580,7 +583,7 @@ int main()
 
 			//X2
 			for (int i = 0; i < X2Vector.size(); i++){
-				X2Vector[i].update(deltaTime, player);
+				X2Vector[i].update(deltaTime);
 			}
 
 			//Alien
@@ -596,7 +599,7 @@ int main()
 
 			score1.str(" ");
 			score1 << "SCORE :  " << int(pos.x - 200);
-			scoregame.setPosition({ 10,20 });
+			scoregame.setPosition({ 40,30 });
 			scoregame.setString(score1.str());
 			
 			hppush.str(" ");
@@ -617,27 +620,26 @@ int main()
 
 			Score.setPosition({ 425, 90 });
 			jump2.setPosition({ 900, 30 });
-			attack2.setPosition({ 900,192 });
-			slide2.setPosition({ 900, 85 });
-			run.setPosition({ 900, 138 });
-
+			slide2.setPosition({ 900, 67 });
+			run.setPosition({ 900, 106 });
+			attack2.setPosition({ 900,146 });
+			
 			if (pos.x > 500){
-				hpbar.setPosition(player.GetPosition().x - 230, -90); // blood
-				HP.setPosition(player.GetPosition().x - 80, 56);
-				Score.setPosition(player.GetPosition().x - 485, 95);
+				hpbar.setPosition(view.getCenter().x - 210, -90); // blood
+				HP.setPosition(view.getCenter().x - 60, 56);
+				Score.setPosition(view.getCenter().x - 485, 95);
 				scoregame.setPosition(view.getCenter().x - 510, 30);
-				starPoint.setPosition(player.GetPosition().x - 480 , 88);
+				starPoint.setPosition(view.getCenter().x - 480 , 88);
 
-				jump2.setPosition({ view.getCenter().x + 340 , 30 });
-				attack2.setPosition({ view.getCenter().x + 340 , 192 });
-				slide2.setPosition({ view.getCenter().x + 340 , 85 });
-				run.setPosition({ view.getCenter().x + 340 , 138 });
+				jump2.setPosition({ view.getCenter().x + 370 , 30 });
+				slide2.setPosition({ view.getCenter().x + 370 , 67 });
+				run.setPosition({ view.getCenter().x + 370 , 106 });
+				attack2.setPosition({ view.getCenter().x + 370 , 146 });
 
-				ss.setPosition({ view.getCenter().x + 300 , 81 });
-				dd.setPosition({ view.getCenter().x + 300 , 134 });
-				sp.setPosition({ view.getCenter().x + 300 , 188 });
-				ww.setPosition({ view.getCenter().x + 300 , 30 });
-
+				ww.setPosition({ view.getCenter().x + 330 , 30 });
+				ss.setPosition({ view.getCenter().x + 330 , 67 });
+				dd.setPosition({ view.getCenter().x + 330 , 106 });
+				sp.setPosition({ view.getCenter().x + 330 , 146 });
 			}
 
 			view.setCenter(player.GetPosition().x, 360.0f);
@@ -650,30 +652,8 @@ int main()
 
 			//Score
 			score.str(" ");
-			score << "      " << countscorestar;
+			score << "      " << player.getNumStar();
 			Score.setString(score.str());
-
-			for (i = 0; i < X2Vector.size(); i++) {
-				if (X2Vector[i].colX2() == 3) {
-					checkx2 = true;
-				}
-			}
-			if (checkx2 == true) {
-				countTimex2 += deltaTime;
-				if (countTimex2 < 2.75) {
-					scoreX2 = 10;
-				}
-				else {
-					scoreX2 = 1;
-					countTimex2 = 0;
-					checkx2 = false;
-				}
-			}
-			for (i = 0; i < starVector.size(); i++) {
-				if (player.colStar() == 2){
-					countscorestar += scoreX2;
-				}
-			}
 
 			//Alien
 			for (i = 0; i < alienVector.size(); i++) {
@@ -724,6 +704,13 @@ int main()
 					checkSub = false;
 				}
 			}
+			
+			//X10
+			/*if (player.getBuffStatus() == true) {
+				std::cout << "YUITORPP";
+			}
+			else std::cout << ".........................";*/
+
 			//เลือดลด
 			MyHP -= 5;
 			if (MyHP < 78000){
@@ -744,6 +731,8 @@ int main()
 			for (Platform& platform : platforms){
 				platform.Draw(window);
 			}
+			
+			//draw
 			window.draw(background);
 			window.draw(background1);
 			window.draw(background2);
@@ -781,6 +770,7 @@ int main()
 			for (int i = 0; i < alienVector.size(); i++){
 				alienVector[i].draw(window);
 			}
+
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
 				Sound1.play();
 				bullet1.attack(pos);
