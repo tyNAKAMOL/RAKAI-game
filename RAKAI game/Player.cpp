@@ -1,5 +1,6 @@
 ﻿#include "Player.h"
 #include <iostream>
+#include <SFML/Audio.hpp>
 Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight):
 	animation(texture, imageCount, switchTime) 
 {
@@ -8,6 +9,7 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
     this->jumpHeight = jumpHeight;
     this->buffX10 = false;
     this->buffTimer = 0;
+    this->checkjump = 0;
 
     row = 0;
     canJump = true;
@@ -47,6 +49,7 @@ void Player::update(float deltaTime, std::vector<star*>& stars, std::vector<Buff
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && canJump == true) {
         canJump = false;
         velocity.y = - sqrtf(2.0f * 1555.0f * jumpHeight); //กระโดด
+        this->checkjump++;
     }
     velocity.y += 1555.0f * deltaTime; //กระโดด
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){

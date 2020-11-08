@@ -114,6 +114,12 @@ int main()
 	sf::Sound Sound1;
 	Sound1.setBuffer(sound2);
 
+	//soundjump
+	sf::SoundBuffer soundjump;
+	soundjump.loadFromFile("a/phaseJump4.ogg");
+	sf::Sound Sound2;
+	Sound2.setBuffer(soundjump);
+
 	//Scorestar
 	int countscorestar = 0;
 	sf::Font font;
@@ -191,11 +197,11 @@ int main()
 
 	//X10
 	sf::Texture POINTX2;
-	POINTX2.loadFromFile("a/dog1.png");
+	POINTX2.loadFromFile("a/iconx10.png");
 	std::vector <Buff> X2Vector;
-	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(4, 9), 0.08f, 5506.0f, 380.0f));
-	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(4, 9), 0.08f, 13442.0f, 545.0f));
-	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(4, 9), 0.08f, 27265.0f, 545.0f));
+	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 5506.0f, 380.0f));
+	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 13442.0f, 545.0f));
+	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 27265.0f, 545.0f));
 
 	sf::Texture stateX10;
 	stateX10.loadFromFile("a/xx10.png");
@@ -836,6 +842,9 @@ int main()
 			}
 			for (int i = 0; i < BossV.size(); i++) {
 				BossV[i].draw(window);
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+				Sound2.play();
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){

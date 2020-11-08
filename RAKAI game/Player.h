@@ -20,17 +20,25 @@ public:
 	void HPbar(float deltaTime, Player player,sf::Vector2f pos);
 	void SetPosition(float x, float y);
 
+	int jumping(){
+		if (checkjump == 1) {
+			checkjump--;
+		}
+		return 1;
+	}
+
 	sf::Vector2f GetPosition() { return body.getPosition(); }//view
 	Collision GetCollider() { return Collision(body); }
 
 private:
 	
 	int numStar;
+	int checkjump;
 	float speed;
+	float damage;
 	bool slide;
 	bool bullet;
 	bool buffX10;
-	float damage;
 	unsigned int row;
 
 	sf::RectangleShape body;
