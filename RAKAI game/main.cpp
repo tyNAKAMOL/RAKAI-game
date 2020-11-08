@@ -1,6 +1,9 @@
-﻿#include <SFML/Graphics.hpp>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include <utility>
+#include <algorithm>
 #include <iostream>
 #include "stdlib.h"
 #include <string>
@@ -16,7 +19,18 @@
 #include "Enemy.h"
 #include "Bloodup.h"
 #include "Buff.h"
+#include "Boss.h"
 using namespace std;
+
+void HighScore(int x, int y, string str, sf::RenderWindow& window, sf::Font* font) {
+	sf::Text text;
+	text.setFont(*font);
+	text.setPosition(x, y);
+	text.setString(str);
+	text.setCharacterSize(50);
+	window.draw(text);
+}
+
 int main()
 {
 
@@ -29,35 +43,35 @@ int main()
 	sf::RectangleShape bg(sf::Vector2f(1080.0f, 720.0f));
 	bg.setPosition(0.0f, 0.0f);
 	sf::Texture s;
-	s.loadFromFile("a/START.png");
+	s.loadFromFile("a/statestart.png");
 	bg.setTexture(&s);
 
 	//BGBGMENU2
 	sf::RectangleShape bg1(sf::Vector2f(1080.0f, 720.0f));
 	bg1.setPosition(0.0f, 0.0f);
 	sf::Texture s1;
-	s1.loadFromFile("a/Startgame.png");
+	s1.loadFromFile("a/state1.png");
 	bg1.setTexture(&s1);
 
 	//BGMENU3
 	sf::RectangleShape bg2(sf::Vector2f(1080.0f, 720.0f));
 	bg2.setPosition(0.0f, 0.0f);
 	sf::Texture s2;
-	s2.loadFromFile("a/PLAY.png");
+	s2.loadFromFile("a/state2.png");
 	bg2.setTexture(&s2);
 
 	//BGMENU3
 	sf::RectangleShape bg3(sf::Vector2f(1080.0f, 720.0f));
 	bg3.setPosition(0.0f, 0.0f);
 	sf::Texture s3;
-	s3.loadFromFile("a/SCORE.png");
+	s3.loadFromFile("a/state3.png");
 	bg3.setTexture(&s3);
 
 	//BGMENU4
 	sf::RectangleShape bg4(sf::Vector2f(1080.0f, 720.0f));
 	bg4.setPosition(0.0f, 0.0f);
 	sf::Texture s4;
-	s4.loadFromFile("a/EXIT.png");
+	s4.loadFromFile("a/state4.png");
 	bg4.setTexture(&s4);
 	//////////////////////////////////////////////////////////
 
@@ -175,6 +189,19 @@ int main()
 	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 21981.0f, 370.0f));
 	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 26445.0f, 280.0f));
 
+	//X10
+	sf::Texture POINTX2;
+	POINTX2.loadFromFile("a/dog1.png");
+	std::vector <Buff> X2Vector;
+	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(4, 9), 0.08f, 5506.0f, 380.0f));
+	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(4, 9), 0.08f, 13442.0f, 545.0f));
+	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(4, 9), 0.08f, 27265.0f, 545.0f));
+
+	sf::Texture stateX10;
+	stateX10.loadFromFile("a/xx10.png");
+	sf::RectangleShape x10(sf::Vector2f(180, 180));
+	x10.setTexture(&stateX10);
+
 	//key
 	sf::Texture keyW;
 	keyW.loadFromFile("a/ww.png");
@@ -219,14 +246,6 @@ int main()
 	attack2.setFont(font);
 	attack2.setFillColor(sf::Color::White);
 
-	//X2
-	sf::Texture POINTX2;
-	POINTX2.loadFromFile("a/dog1.png");
-	std::vector <Buff> X2Vector;
-	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(4, 9), 0.08f, 5506.0f, 380.0f));
-	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(4, 9), 0.08f, 13442.0f, 545.0f));
-	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(4, 9), 0.08f, 27265.0f, 545.0f));
-
 	//HPbar
 	sf::Texture HPbar;
 	HPbar.loadFromFile("a/Blo.png");
@@ -240,6 +259,14 @@ int main()
 	HP.setPosition(sf::Vector2f(450, 46));
 	HP.setFillColor(sf::Color::Magenta);
 	HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
+
+	//HP Boss
+	float HPBoss = 50000;
+	//hpbar.setTexture(HPbar);
+	sf::RectangleShape Hp(sf::Vector2f(HPBoss / 250.0f, 30));
+	Hp.setPosition(sf::Vector2f(450, 446));
+	Hp.setFillColor(sf::Color::Black);
+	Hp.setSize(sf::Vector2f(HPBoss / 320.f, 15));
 
 	//Star
 	sf::Texture STAR;
@@ -387,16 +414,22 @@ int main()
 	sf::Texture alien;
 	alien.loadFromFile("a/alien3.png");
 	std::vector <Enemy> alienVector;
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 2331.0f, 545.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 3071.0f, 370.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 5337.0f, 545.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 2331.0f, 564.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 3071.0f, 377.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 5337.0f, 564.0f));
 	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 6815.0f, 280.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 8928.0f, 545.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 11580.0f, 545.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 15504.0f, 545.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 8928.0f, 564.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 11580.0f, 564.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 15504.0f, 564.0f));
 	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 16943.0f, 280.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 22955.0f, 370.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 25416.0f, 545.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 22955.0f, 377.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, 25416.0f, 564.0f));
+
+	//Boss
+	sf::Texture Bossalien;
+	Bossalien.loadFromFile("a/boss.png");
+	std::vector <Boss> BossV;
+	BossV.push_back(Boss(&Bossalien, sf::Vector2u(4, 4), 0.08f, 500.0f, 655.0f));
 
 	//Bullet
 	sf::Texture BULLET;
@@ -478,13 +511,14 @@ int main()
 	int Bul = 0;
 	int count, i = 0;
 	int scoreX2 = 1;
-	int state = 1;
+	int state = 0;
 	
 	float deltaTime = 0.0f;
 	float countTimeAdd = 0;
 	float countTimeSub = 0;
 	float countTimeBul = 0;
 	float countTimex2 = 0;
+
 	sf::Clock clock;
 	
 	bool slide;
@@ -501,7 +535,6 @@ int main()
 
 	while (window.isOpen())
 	{
-
 		while (MENU == true)
 		{
 			sf::Event event;
@@ -512,39 +545,41 @@ int main()
 					window.close();
 					break;
 				}
-
 			}
+			
+			sf::Vector2f mouesPosition = sf::Vector2f(0.0f, 0.0f);
+			mouesPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+			std::cout << mouesPosition.x << ' ' << mouesPosition.y << '\n';
+
 			deltaTime = clock.restart().asSeconds();
 			window.draw(bg);
 			window.draw(bg1);
 			window.display();
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-				state++;
-				if (state >= 4) {
-					state = 1;
-				}
-			}
-			if (state == 1) {
+			if ((mouesPosition.x >= 427 && mouesPosition.x <= 660) && (mouesPosition.y >= 275 && mouesPosition.y <= 348)) {
 				window.draw(bg);
 				window.draw(bg2);
 				window.display();
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					MENU = false;
 					START = true;
 				}
 			}
-			else if (state == 2) {
+			else if ((mouesPosition.x >= 427 && mouesPosition.x <= 660) && (mouesPosition.y >= 395 && mouesPosition.y <= 466)) {
 				window.draw(bg);
 				window.draw(bg3);
 				window.display();
 			}
-			else if (state == 3) {
+			else if ((mouesPosition.x >= 427 && mouesPosition.x <= 660) && (mouesPosition.y >= 515 && mouesPosition.y <= 584)) {
 				window.draw(bg);
 				window.draw(bg4);
 				window.display();
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					window.close();
+				}
 			}
-		}
+		}	
+
 		while (START == true){
 			
 			slide = false;
@@ -562,7 +597,6 @@ int main()
 					window.close();
 					break;
 				}
-
 			}
 			player.update(deltaTime, starVector,X2Vector);
 			rakai.update(deltaTime, player, player.GetPosition());
@@ -581,7 +615,7 @@ int main()
 				BlooddownVector[i].update(deltaTime, player);
 			}
 
-			//X2
+			//X10
 			for (int i = 0; i < X2Vector.size(); i++){
 				X2Vector[i].update(deltaTime);
 			}
@@ -590,6 +624,12 @@ int main()
 			for (int i = 0; i < alienVector.size(); i++){
 				alienVector[i].update1(deltaTime, bullet1);
 				alienVector[i].update2(deltaTime, player);
+			}
+
+			//Boss
+			for (int i = 0; i < BossV.size(); i++) {
+				BossV[i].updateBoss(deltaTime, bullet1);
+				//BossV[i].updateMove(deltaTime, player);
 			}
 			
 			sf::Vector2f direction;
@@ -706,10 +746,15 @@ int main()
 			}
 			
 			//X10
-			/*if (player.getBuffStatus() == true) {
+			x10.setPosition(player.GetPosition().x , player.GetPosition().y-30);
+			if (player.getBuffStatus() == true) {
 				std::cout << "YUITORPP";
+				state = 1;
+				window.draw(x10);
 			}
-			else std::cout << ".........................";*/
+			else {
+				state = 0;
+			}
 
 			//เลือดลด
 			MyHP -= 5;
@@ -726,6 +771,20 @@ int main()
 				player.SetPosition(20568, 40);
 				rakai.SetPosition(20568, 40);
 			}
+			
+			//Boss
+			for (int i = 0; i < BossV.size(); i++) {
+				if (BossV[i].hit() == 1) {
+					HPBoss -= 50;
+					Hp.setSize(sf::Vector2f(HPBoss / 320.f, 15));
+					if (HPBoss < 0)
+					{
+						HPBoss = 0;
+						BossV[i].MOVE();
+					}
+				}
+			}
+
 			window.clear();
 			window.setView(view);//view
 			for (Platform& platform : platforms){
@@ -743,10 +802,15 @@ int main()
 			window.draw(dd);
 			window.draw(ww);
 			window.draw(sp);
+			//HighScore(10, 40, "HIGHSCORE", window, &font);
+			if (state == 1) {
+				window.draw(x10);
+			}
 			player.Draw(window);
 			rakai.draw(window);
 			window.draw(hpbar);
 			window.draw(HP);
+			window.draw(Hp);
 			window.draw(Score);
 			window.draw(jump2);
 			window.draw(slide2);
@@ -769,6 +833,9 @@ int main()
 			}
 			for (int i = 0; i < alienVector.size(); i++){
 				alienVector[i].draw(window);
+			}
+			for (int i = 0; i < BossV.size(); i++) {
+				BossV[i].draw(window);
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){

@@ -18,6 +18,7 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
     body.setOrigin(body.getSize() / 2.0f);
 	body.setPosition(200.0f, 520.0f);
 	body.setTexture(texture);
+
 }
 
 Player::~Player()
@@ -104,7 +105,6 @@ void Player::updateNumstar(float deltaTime, std::vector<star*>& stars, std::vect
             stars.erase(stars.begin()+i);
             stars.shrink_to_fit();
         }
-
     }
 }
 void Player::OnCollision(sf::Vector2f direction)
