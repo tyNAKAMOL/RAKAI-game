@@ -37,7 +37,6 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1080, 720), "Rakai");
 	sf::View view(sf::Vector2f(1.0f, 1.0f), sf::Vector2f(1080.0f, 720.0f));//view
 
-
 	///////////////////////////////////////////////////////////
 	//BGMENU1
 	sf::RectangleShape bg(sf::Vector2f(1080.0f, 720.0f));
@@ -251,7 +250,32 @@ int main()
 	attack2.setString(hppush.str());
 	attack2.setFont(font);
 	attack2.setFillColor(sf::Color::White);
+	////////////////////////////////////////////////////////////
+	//endscore
+	int EndScore = 0;
+	sf::Text Send;
+	Send.setCharacterSize(40);
+	Send.setString(hppush.str());
+	Send.setFont(font);
+	Send.setFillColor(sf::Color::White);
 
+	//endscorestar
+	int EndNumStar = 0;
+	sf::Text CSTER;
+	sf::Font gameover;
+	gameover.loadFromFile("a/CookieRun-Bold.otf");
+	CSTER.setCharacterSize(40);
+	CSTER.setString(hppush.str());
+	CSTER.setFont(gameover);
+	CSTER.setFillColor(sf::Color::White);
+
+	//newscore
+	sf::Text NewScore;
+	NewScore.setCharacterSize(60);
+	NewScore.setString(hppush.str());
+	NewScore.setFont(font);
+	NewScore.setFillColor(sf::Color::White);
+	//////////////////////////////////////////////////////////////////////////////////
 	//HPbar
 	sf::Texture HPbar;
 	HPbar.loadFromFile("a/Blo.png");
@@ -514,10 +538,36 @@ int main()
 	starPoint.setPosition(sf::Vector2f(80, 80));
 	starPoint.setTexture(&starup);
 
+	//end
+	sf::Texture end;
+	end.loadFromFile("a/enggame.png");
+	sf::RectangleShape ee(sf::Vector2f(1080, 720));
+	ee.setTexture(&end);
+
+	/// <summary>
+	/// ////////////////////////////////////////////////////////////////////////
+	/// </summary>
+	/// <returns></returns>
+	sf::Text endGametext;
+	sf::Text endScore;
+	sf::Font texegame;
+
+	texegame.loadFromFile("a/CookieRun-Bold.otf");
+	endGametext.setFont(texegame);
+	endGametext.setFillColor(sf::Color::Red);
+	endGametext.setCharacterSize(50);
+	endGametext.setString("Game Over");
+
+	endScore.setFont(font);
+	endScore.setFillColor(sf::Color::Red);
+	endScore.setCharacterSize(50);
+	endScore.setPosition(30, 150);
+	//////////////////////////////////////////////////////////////////////////
 	int Bul = 0;
 	int count, i = 0;
 	int scoreX2 = 1;
 	int state = 0;
+	int f = 0;
 	
 	float deltaTime = 0.0f;
 	float countTimeAdd = 0;
@@ -535,6 +585,7 @@ int main()
 	bool START = false;
 	bool MENU = true;
 	bool SCORE1 = true;
+	bool endGame = false;
 
 	bool DebouceDown = false;
 	bool DebouceUp = false;
@@ -582,6 +633,7 @@ int main()
 				window.display();
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					window.close();
+					break;
 				}
 			}
 		}	
@@ -645,6 +697,8 @@ int main()
 
 			score1.str(" ");
 			score1 << "SCORE :  " << int(pos.x - 200);
+			EndScore = int(pos.x - 200);
+			EndNumStar = player.getNumStar();
 			scoregame.setPosition({ 40,30 });
 			scoregame.setString(score1.str());
 			
@@ -700,6 +754,7 @@ int main()
 			score.str(" ");
 			score << "      " << player.getNumStar();
 			Score.setString(score.str());
+			
 
 			//Alien
 			for (i = 0; i < alienVector.size(); i++) {
@@ -763,10 +818,24 @@ int main()
 			}
 
 			//เลือดลด
+			
+			endGametext.setPosition(view.getCenter().x, 50);
+			ee.setPosition(view.getCenter().x - 540,0);
+			//Send.setPosition(view.getCenter().x ,100);
+			CSTER.setPosition(view.getCenter().x,150);
+			NewScore.setPosition(view.getCenter().x ,50);
+
 			MyHP -= 5;
 			if (MyHP < 78000){
 				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
-				if (MyHP < 0){ MyHP = 0; }
+				if (MyHP < 0){
+					MyHP = 0; 
+					endGame = true;
+				}
+			}
+			if (endGame == true) {
+				f = 5;
+				state = 2;
 			}
 			//วาป
 			if ((player.GetPosition().x >= 9221 && player.GetPosition().x <= 9300) && player.GetPosition().y == 545){
@@ -777,7 +846,16 @@ int main()
 				player.SetPosition(20568, 40);
 				rakai.SetPosition(20568, 40);
 			}
-			
+			/*hppush.str(" ");
+			hppush << "56  " << EndScore;
+			Send.setString(hppush.str());
+			hppush.str(" ");
+			hppush << "  " << EndNumStar;
+			CSTER.setString(hppush.str());
+			hppush.str(" ");
+			hppush << "  " << EndScore + EndNumStar;
+			NewScore.setString(hppush.str());*/
+
 			//Boss
 			for (int i = 0; i < BossV.size(); i++) {
 				if (BossV[i].hit() == 1) {
@@ -842,6 +920,10 @@ int main()
 			}
 			for (int i = 0; i < BossV.size(); i++) {
 				BossV[i].draw(window);
+			}
+			if (state == 2) {
+				//window.draw(endGametext);
+				window.draw(ee);
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
 				Sound2.play();

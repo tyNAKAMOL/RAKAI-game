@@ -14,6 +14,7 @@ public:
 	void update(float deltaTime, std::vector<star*>& stars, std::vector<Buff>& X2Vector);
 	void updateNumstar(float deltaTime, std::vector<star*>& stars, std::vector<Buff>& X2Vector);
 	int getNumStar() { return this->numStar; }
+	int EndGameover() { return int(body.getPosition().x - 200); }
 	bool getBuffStatus() { return this->buffX10; }
 	void Draw(sf::RenderWindow& window);
 	void OnCollision(sf::Vector2f direction);
