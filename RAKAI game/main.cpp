@@ -255,9 +255,10 @@ int main()
 	int EndScore = 0;
 	sf::Text Send;
 	Send.setCharacterSize(40);
-	Send.setString(hppush.str());
+	//Send.setString(hppush.str());
 	Send.setFont(font);
 	Send.setFillColor(sf::Color::White);
+	//Send.setPosition(100, 150);
 
 	//endscorestar
 	int EndNumStar = 0;
@@ -268,6 +269,7 @@ int main()
 	CSTER.setString(hppush.str());
 	CSTER.setFont(gameover);
 	CSTER.setFillColor(sf::Color::White);
+	//CSTER.setPosition(100, 200);
 
 	//newscore
 	sf::Text NewScore;
@@ -275,6 +277,7 @@ int main()
 	NewScore.setString(hppush.str());
 	NewScore.setFont(font);
 	NewScore.setFillColor(sf::Color::White);
+	//NewScore.setPosition(100, 100);
 	//////////////////////////////////////////////////////////////////////////////////
 	//HPbar
 	sf::Texture HPbar;
@@ -755,6 +758,18 @@ int main()
 			score << "      " << player.getNumStar();
 			Score.setString(score.str());
 			
+			//
+			hppush.str(" ");
+			hppush << "  " << EndScore;
+			Send.setString(hppush.str());
+			
+			hppush.str(" ");
+			hppush << "  " << EndNumStar;
+			CSTER.setString(hppush.str());
+			
+			hppush.str(" ");
+			hppush << "  " << EndScore + EndNumStar;
+			NewScore.setString(hppush.str());
 
 			//Alien
 			for (i = 0; i < alienVector.size(); i++) {
@@ -819,11 +834,11 @@ int main()
 
 			//เลือดลด
 			
-			endGametext.setPosition(view.getCenter().x, 50);
+			endGametext.setPosition(view.getCenter().x - 150 , view.getCenter().y);
 			ee.setPosition(view.getCenter().x - 540,0);
-			//Send.setPosition(view.getCenter().x ,100);
-			CSTER.setPosition(view.getCenter().x,150);
-			NewScore.setPosition(view.getCenter().x ,50);
+			Send.setPosition(view.getCenter().x-100 ,440);
+			CSTER.setPosition(view.getCenter().x-100,516);
+			NewScore.setPosition(view.getCenter().x-108 ,277);
 
 			MyHP -= 5;
 			if (MyHP < 78000){
@@ -846,15 +861,6 @@ int main()
 				player.SetPosition(20568, 40);
 				rakai.SetPosition(20568, 40);
 			}
-			/*hppush.str(" ");
-			hppush << "56  " << EndScore;
-			Send.setString(hppush.str());
-			hppush.str(" ");
-			hppush << "  " << EndNumStar;
-			CSTER.setString(hppush.str());
-			hppush.str(" ");
-			hppush << "  " << EndScore + EndNumStar;
-			NewScore.setString(hppush.str());*/
 
 			//Boss
 			for (int i = 0; i < BossV.size(); i++) {
@@ -922,8 +928,11 @@ int main()
 				BossV[i].draw(window);
 			}
 			if (state == 2) {
-				//window.draw(endGametext);
 				window.draw(ee);
+				window.draw(CSTER);
+				window.draw(NewScore);
+				window.draw(Send);
+				//window.draw(endGametext);
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
 				Sound2.play();
