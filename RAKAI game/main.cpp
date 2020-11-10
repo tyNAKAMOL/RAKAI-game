@@ -24,7 +24,8 @@
 #include "Bloodup.h"
 #include "Buff.h"
 #include "Boss.h"
-
+#include <fstream>
+#include <algorithm>
 using namespace std;
 
 void HighScore(int x, int y, string str, sf::RenderWindow& window, sf::Font* font) {
@@ -608,6 +609,25 @@ int main()
 	bool DebouceUp = false;
 	bool MemScore = false;
 
+
+	/*Modify textbox*/
+	char last_char = ' ';
+	sf::RectangleShape cursor;
+	cursor.setSize(sf::Vector2f(5.0f, 30.0f));
+	cursor.setOrigin(sf::Vector2f(2.5f, 15.0f));
+	cursor.setFillColor(sf::Color::Cyan);
+	sf::Text text("", font);
+	view.setCenter(0, 0);
+	Keyname.setPosition(300, 500);
+	text.setFillColor(sf::Color::Cyan);
+	text.setPosition(500, 475);
+	cursor.setPosition(500.0f + text.getGlobalBounds().width + 10, 495.0f);
+	float totalTime_cursor = 0;
+	sf::Clock clock_cursor;
+	bool state_cursor = false;
+
+	std::string user_name = "";
+
 	while (window.isOpen())
 	{
 		while (MENU == true)
@@ -636,8 +656,8 @@ int main()
 				window.display();
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					MENU = false;
-					START = true;
-					//MemScore = true;
+					START = false;
+					MemScore = true;
 				}
 			}
 			else if ((mouesPosition.x >= 427 && mouesPosition.x <= 660) && (mouesPosition.y >= 395 && mouesPosition.y <= 466)) {
@@ -655,15 +675,90 @@ int main()
 				}
 			}
 		}
+		while (MemScore == true) {
+			//std::cout << "player pos :" << player.GetPosition().y << std::endl;
+			countTimeAdd += deltaTime;
+			
+			
+			for (int i = 0; i < BossV.size(); i++) {
+				BossV[i].updateBoss(deltaTime, bullet1);
+			}
+			for (int i = 0; i < BossV.size(); i++) {
+				BossV[i].draw(window);
+			}
+			sf::Event event;
+			while (window.pollEvent(event)) {
+				switch (event.type)
+				{
+				case sf::Event::Closed:
+					window.close();
+					break;
+				}
+			}
+			if (event.type == sf::Event::TextEntered && last_char != event.text.unicode)
+			{
+				if (event.text.unicode == 13) { //enter
+					/*fileWriter.open("keepscore.txt", std::ios::out | std::ios::app);
+					fileWriter << "\n" << playerInput.toAnsiString() << "," << EndScore;
+					fileWriter.close();*/
+					user_name = playerInput;
+					playerInput.clear();
+					MENU = true;
+					EndScore = 0;
+				}
+				else if (event.text.unicode == 8 && playerInput.getSize() > 0) { //backspace delete
+					playerInput = playerInput.substring(0, playerInput.getSize() - 1);
+					//std::cout << "Do" << std::endl;
+				}
+				else {
+					if (playerInput.getSize() < 10) {
+						if (countTimeAdd > 0.2) {
+							playerInput += event.text.unicode;
+							countTimeAdd = 0;
+						}
+					}
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+					MemScore = false;
+					MENU = false;
+					START = true;
+				}
+				last_char = event.text.unicode;
+				text.setString(playerInput);
+				cursor.setPosition(500.0f + text.getGlobalBounds().width + 10, 495.0f);
+			}
+			else if (event.type == sf::Event::EventType::KeyReleased && last_char != ' ') // 
+			{
+				last_char = ' ';
+			}
+			window.clear();
+			window.draw(key);
+			window.draw(Keyname);
+			window.draw(text);
+			totalTime_cursor += clock_cursor.restart().asSeconds();
+			if (totalTime_cursor >= 0.5)
+			{
+				totalTime_cursor = 0;
+				state_cursor = !state_cursor;
+			}
+			if (state_cursor == true)
+			{
+				window.draw(cursor);
+			}
 
+			window.display();
+		}
+		deltaTime = 0;
+		clock.restart();
+		cout << user_name << endl;
 		while (START == true) {
-
+			//std::cout << "player pos :" << player.GetPosition().y << std::endl;
 			slide = false;
 			count = player.GetPosition().x;
 
 			deltaTime = clock.restart().asSeconds();
 			sf::Vector2f pos = player.GetPosition();
-			std::cout << pos.x << ' ' << pos.y << '\n';
+			//std::cout << pos.x << ' ' << pos.y << '\n';
 			sf::Vector2f mouesPosition = sf::Vector2f(0.0f, 0.0f);
 			mouesPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 			//std::cout << mouesPosition.x << ' ' << mouesPosition.y << '\n';
@@ -931,16 +1026,53 @@ int main()
 				window.draw(Send);
 				//window.draw(mission);
 				window.draw(back1);
-				if ((mouesPosition.x >= view.getCenter().x - 100 && mouesPosition.x <= mouesPosition.x >= view.getCenter().x + 100) && (mouesPosition.y >= 617 && mouesPosition.y <= 652)) {
-					//window.draw(mission);
-					window.draw(ee);
-					window.draw(back2);
-					window.draw(CSTER);
-					window.draw(NewScore);
-					window.draw(Send);
-					if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				//cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y  << endl;
+				if (sf::Mouse::getPosition(window).x >= 400 &&
+					sf::Mouse::getPosition(window).y >= 600 &&
+					sf::Mouse::getPosition(window).x <= 680 &&
+					sf::Mouse::getPosition(window).y <= 650)
+				{
+					if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+					{
+						cout << "Save score" << endl;
+						fstream myFile;
+						vector<pair<int, string> > score;
+						myFile.open("database/score.txt");
+						string temp, tempString;
+						int tempInt = 0, X = 1;
+						while (getline(myFile, temp))
+						{
+							if (state == false)
+							{
+								tempString = temp;
+							}
+							else
+							{
+								for (int i = temp.length() - 1; i >= 0; i--, X *= 10)
+								{
+									tempInt += (temp[i] - '0') * X;
+								}
+								score.push_back(make_pair(tempInt, tempString));
+								X = 1;
+								tempInt = 0;
+							}
+							state = !state;
+							//cout << Temp << endl;
+						}
+						myFile.close();
+						// Enter score here
+						score.push_back(make_pair(int(12345), user_name));
+						sort(score.begin(), score.end());
+						myFile.open("database/score.txt");
+						for (int i = 5; i >= 1; i--)
+						{
+							myFile << score[i].second << "\n" << score[i].first << endl;
+							//	cout << score[i].first << " -- " << score[i].second << endl;
+						}
+						myFile.close();
 						MENU = true;
 						START = false;
+						//break;
 					}
 				}
 			}
@@ -1021,64 +1153,6 @@ int main()
 			window.draw(bulA);
 			window.display();
 		}
-
-		/*while (MemScore == true) {
-
-			window.clear();
-			countTimeAdd += deltaTime;
-			sf::Event event;
-			window.draw(key);
-			for (int i = 0; i < BossV.size(); i++) {
-				BossV[i].updateBoss(deltaTime,bullet1);
-			}
-			for (int i = 0; i < BossV.size(); i++) {
-				BossV[i].draw(window);
-			}
-			view.setCenter(0, 0);
-			Keyname.setPosition(300, 500);
-			sf::Text text("", font);
-			text.setFillColor(sf::Color::Cyan);
-			text.setString(playerInput);
-			text.setPosition(500, 475);
-			window.draw(text);
-			window.draw(Keyname);
-			window.display();
-
-			while (window.pollEvent(event))
-			{
-
-				if (event.type == sf::Event::Closed)
-					window.close();
-			}
-			if (event.type == sf::Event::TextEntered && MemScore == true)
-			{
-				if (event.text.unicode == 13) { //enter
-						fileWriter.open("keepscore.txt", std::ios::out | std::ios::app);
-						fileWriter << "\n" << playerInput.toAnsiString() << "," << EndScore;
-						fileWriter.close();
-						playerInput.clear();
-						MENU = true;
-						EndScore = 0;
-				}
-				if (event.text.unicode == 8) { //backspace
-					playerInput = playerInput.substring(0, playerInput.getSize() - 1);
-				}
-				else {
-					if (playerInput.getSize() < 10) {
-						if (countTimeAdd > 0.2) {
-							playerInput += event.text.unicode;
-							countTimeAdd = 0;
-						}
-					}
-				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-					MemScore = false;
-					MENU = false;
-					START = true;
-				}
-			}
-
-		}*/
 	}
 		return 0;
 }
