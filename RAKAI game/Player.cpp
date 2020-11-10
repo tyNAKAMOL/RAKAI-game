@@ -18,7 +18,7 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
 	
     body.setSize(sf::Vector2f(120.0f, 150.0f));
     body.setOrigin(body.getSize() / 2.0f);
-	body.setPosition(200.0f, 520.0f);
+	body.setPosition(200.0f,520.0f);
 	body.setTexture(texture);
 
 }
@@ -41,10 +41,10 @@ void Player::update(float deltaTime, std::vector<star*>& stars, std::vector<Buff
         row = 2;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
-        velocity.x += speed * 1.7; slide = false; bullet = false;
+        velocity.x += speed * 2.0f; slide = false; bullet = false;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
-        velocity.x -= speed * 1.7; 
+        velocity.x -= speed * 2.0f;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && canJump == true) {
         canJump = false;
@@ -53,7 +53,7 @@ void Player::update(float deltaTime, std::vector<star*>& stars, std::vector<Buff
     }
     velocity.y += 1555.0f * deltaTime; //กระโดด
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
-        velocity.x += speed * 1.7f;
+        velocity.x += speed * 2.0f;
         slide = true;
         if (slide == true){
             body.setSize(sf::Vector2f(120.0f, 130.0f));
@@ -91,7 +91,6 @@ void Player::updateNumstar(float deltaTime, std::vector<star*>& stars, std::vect
     if (this->buffX10 == true) {
         buffTimer += deltaTime;
         if (buffTimer >= 10) {
-            std::cout << buffTimer << "............";
             buffTimer = 0;
             this->buffX10 = false;
         }

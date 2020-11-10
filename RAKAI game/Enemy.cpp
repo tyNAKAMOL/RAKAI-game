@@ -32,7 +32,7 @@ void Enemy::update1(float deltaTime, Bullet bullet1)
 
 void Enemy::update2(float deltaTime, Player player)
 {
-    if (abs(player.GetPosition().x - body.getPosition().x) <= 400.0f)
+    if (abs(player.GetPosition().x - body.getPosition().x) <= 500.0f)
     {
         velocity.y = 0;
         velocity.x = 80;

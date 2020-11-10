@@ -5,8 +5,8 @@ Boss::Boss(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, floa
     animation(texture, imageCount, switchTime)
 {
     this->speed = speed;
-    row = 3;
-    body.setSize(sf::Vector2f(360.0f, 432.0f));
+    row = 1;
+    body.setSize(sf::Vector2f(180.0f, 216.0f));
     body.setOrigin(body.getSize() / 2.0f);
     body.setPosition(x, y);
     body.setTexture(texture);
