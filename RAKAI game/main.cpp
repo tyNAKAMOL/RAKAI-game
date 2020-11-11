@@ -26,16 +26,10 @@
 #include "Boss.h"
 #include <fstream>
 #include <algorithm>
+void Reset();
 using namespace std;
 
-void HighScore(int x, int y, string str, sf::RenderWindow& window, sf::Font* font) {
-	sf::Text text;
-	text.setFont(*font);
-	text.setPosition(x, y);
-	text.setString(str);
-	text.setCharacterSize(50);
-	window.draw(text);
-}
+
 
 int main()
 {
@@ -123,7 +117,7 @@ int main()
 	sf::RectangleShape key(sf::Vector2f(1080.0f, 720.0f));
 	key.setPosition(0.0f, 0.0f);
 	sf::Texture kk;
-	kk.loadFromFile("a/keyname.png");
+	kk.loadFromFile("a/keyname2.png");
 	key.setTexture(&kk);
 
 	//Music
@@ -329,12 +323,6 @@ int main()
 	HP.setFillColor(sf::Color::Magenta);
 	HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 
-	//HP Boss
-	float HPBoss = 50000;
-	sf::RectangleShape Hp(sf::Vector2f(HPBoss / 250.0f, 30));
-	Hp.setPosition(sf::Vector2f(450, 446));
-	Hp.setFillColor(sf::Color::Black);
-	Hp.setSize(sf::Vector2f(HPBoss / 320.f, 15));
 
 	//Star
 	sf::Texture STAR;
@@ -485,10 +473,10 @@ int main()
 	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 22955.0f, 377.0f));
 	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 25416.0f, 564.0f));
 
-	sf::Texture Bossalien;
+	/*sf::Texture Bossalien;
 	Bossalien.loadFromFile("a/as2.png");
 	std::vector <Boss> BossV;
-	BossV.push_back(Boss(&Bossalien, sf::Vector2u(6, 5), 0.08f, 500.0f, 205.0f));
+	BossV.push_back(Boss(&Bossalien, sf::Vector2u(6, 5), 0.08f, 500.0f, 205.0f));*/
 
 	//Bullet
 	sf::Texture BULLET;
@@ -617,7 +605,7 @@ int main()
 	cursor.setOrigin(sf::Vector2f(2.5f, 15.0f));
 	cursor.setFillColor(sf::Color::Cyan);
 	sf::Text text("", font);
-	view.setCenter(0, 0);
+	//view.setCenter(0, 0);
 	Keyname.setPosition(300, 500);
 	text.setFillColor(sf::Color::Cyan);
 	text.setPosition(500, 475);
@@ -643,14 +631,18 @@ int main()
 			}
 			sf::Vector2f mouesPosition = sf::Vector2f(0.0f, 0.0f);
 			mouesPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-			std::cout << mouesPosition.x << ' ' << mouesPosition.y << '\n';
+			cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y  << endl;
 
 			deltaTime = clock.restart().asSeconds();
 			window.draw(bg);
 			window.draw(bg1);
 			window.display();
 
-			if ((mouesPosition.x >= 427 && mouesPosition.x <= 660) && (mouesPosition.y >= 275 && mouesPosition.y <= 348)) {
+			if (sf::Mouse::getPosition(window).x >= 427 && 
+				sf::Mouse::getPosition(window).y >= 275 &&
+				sf::Mouse::getPosition(window).x <= 660 &&   
+				sf::Mouse::getPosition(window).y <= 348) 
+			{
 				window.draw(bg);
 				window.draw(bg2);
 				window.display();
@@ -660,12 +652,20 @@ int main()
 					MemScore = true;
 				}
 			}
-			else if ((mouesPosition.x >= 427 && mouesPosition.x <= 660) && (mouesPosition.y >= 395 && mouesPosition.y <= 466)) {
+			else if (sf::Mouse::getPosition(window).x >= 427 && 
+				sf::Mouse::getPosition(window).y >= 395 &&
+				sf::Mouse::getPosition(window).x <= 660 &&  
+				sf::Mouse::getPosition(window).y <= 466) 
+			{
 				window.draw(bg);
 				window.draw(bg3);
 				window.display();
 			}
-			else if ((mouesPosition.x >= 427 && mouesPosition.x <= 660) && (mouesPosition.y >= 515 && mouesPosition.y <= 584)) {
+			else if (sf::Mouse::getPosition(window).x >= 427 && 
+				sf::Mouse::getPosition(window).y >= 515 &&
+				sf::Mouse::getPosition(window).x <= 660 && 
+				sf::Mouse::getPosition(window).y <= 584) 
+			{
 				window.draw(bg);
 				window.draw(bg4);
 				window.display();
@@ -676,16 +676,7 @@ int main()
 			}
 		}
 		while (MemScore == true) {
-			//std::cout << "player pos :" << player.GetPosition().y << std::endl;
 			countTimeAdd += deltaTime;
-			
-			
-			for (int i = 0; i < BossV.size(); i++) {
-				BossV[i].updateBoss(deltaTime, bullet1);
-			}
-			for (int i = 0; i < BossV.size(); i++) {
-				BossV[i].draw(window);
-			}
 			sf::Event event;
 			while (window.pollEvent(event)) {
 				switch (event.type)
@@ -828,8 +819,7 @@ int main()
 			hppush.str(" ");
 			hppush << "ATTACK";
 			attack2.setString(hppush.str());
-
-			Score.setPosition({ 425, 90 });
+			Score.setPosition({ 85, 90 });
 			jump2.setPosition({ 900, 30 });
 			slide2.setPosition({ 900, 67 });
 			run.setPosition({ 900, 106 });
@@ -896,7 +886,7 @@ int main()
 					hppush.str(" ");
 					hppush << "+5000 HP";
 					Hpblood.setString(hppush.str());
-					Hpblood.setPosition({ player.GetPosition().x,player.GetPosition().y - 90 });
+					Hpblood.setPosition({ player.GetPosition().x , player.GetPosition().y - 90 });
 					checkAdd = true;
 				}
 			}
@@ -932,7 +922,6 @@ int main()
 			//X10
 			x10.setPosition(player.GetPosition().x, player.GetPosition().y - 30);
 			if (player.getBuffStatus() == true) {
-				std::cout << "YUITORPP";
 				state = 1;
 				window.draw(x10);
 			}
@@ -1019,13 +1008,19 @@ int main()
 			for (int i = 0; i < alienVector.size(); i++) {
 				alienVector[i].draw(window);
 			}
-			if (player.GetPosition().y >= 600) {
+			if ((player.GetPosition().y >= 600)||(state==2)) {
 				window.draw(ee);
 				window.draw(CSTER);
 				window.draw(NewScore);
 				window.draw(Send);
 				//window.draw(mission);
 				window.draw(back1);
+				/*if (view.getCenter().x - 540.0f <= 0.0f) {
+					view.setCenter(540.0f, 360.0f);
+				}
+				if (view.getCenter().x + 540.0f >= 30000.0f) {
+					view.setCenter(29460.0f, 360.0f);
+				}*/
 				//cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y  << endl;
 				if (sf::Mouse::getPosition(window).x >= 400 &&
 					sf::Mouse::getPosition(window).y >= 600 &&
@@ -1072,11 +1067,26 @@ int main()
 						myFile.close();
 						MENU = true;
 						START = false;
+						
+						
+						/*bg.setPosition(view.getCenter().x - 540, 0.0f);
+						bg1.setPosition(view.getCenter().x - 540, 0.0f);
+						bg2.setPosition(view.getCenter().x - 540, 0.0f);
+						bg3.setPosition(view.getCenter().x - 540, 0.0f);
+						bg4.setPosition(view.getCenter().x - 540, 0.0f);
+						key.setPosition(view.getCenter().x - 540, 0.0f);
+						last_char = event.text.unicode;
+						text.setString(playerInput);
+						cursor.setPosition(view.getCenter().x - 40 + text.getGlobalBounds().width + 10, 495.0f);
+						Keyname.setPosition(view.getCenter().x - 240 ,500);
+						text.setPosition(view.getCenter().x - 40, 475.0f);*/
+
+						Reset();
 						//break;
 					}
 				}
 			}
-			if (state == 2) {
+			/*if (state == 2) {
 				window.draw(ee);
 				window.draw(CSTER);
 				window.draw(NewScore);
@@ -1095,14 +1105,65 @@ int main()
 						START = false;
 					}
 				}
-			}
+			}*/
 			if (state == 3) {
 				window.draw(mission);
 				window.draw(back1);
 				window.draw(CSTER);
 				window.draw(NewScore);
 				window.draw(Send);
-				if ((mouesPosition.x >= 29137 && mouesPosition.x <= 29421) && (mouesPosition.y >= 617 && mouesPosition.y <= 652)) {
+
+				if (sf::Mouse::getPosition(window).x >= 400 &&
+					sf::Mouse::getPosition(window).y >= 600 &&
+					sf::Mouse::getPosition(window).x <= 680 &&
+					sf::Mouse::getPosition(window).y <= 650)
+				{
+					if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+					{
+						cout << "Save score" << endl;
+						fstream myFile;
+						vector<pair<int, string> > score;
+						myFile.open("database/score.txt");
+						string temp, tempString;
+						int tempInt = 0, X = 1;
+						while (getline(myFile, temp))
+						{
+							if (state == false)
+							{
+								tempString = temp;
+							}
+							else
+							{
+								for (int i = temp.length() - 1; i >= 0; i--, X *= 10)
+								{
+									tempInt += (temp[i] - '0') * X;
+								}
+								score.push_back(make_pair(tempInt, tempString));
+								X = 1;
+								tempInt = 0;
+							}
+							state = !state;
+							//cout << Temp << endl;
+						}
+						myFile.close();
+						// Enter score here
+						score.push_back(make_pair(int(12345), user_name));
+						sort(score.begin(), score.end());
+						myFile.open("database/score.txt");
+						for (int i = 5; i >= 1; i--)
+						{
+							myFile << score[i].second << "\n" << score[i].first << endl;
+							//	cout << score[i].first << " -- " << score[i].second << endl;
+						}
+						myFile.close();
+						MENU = true;
+						START = false;
+						Reset();
+						//break;
+					}
+				}
+
+				/*if ((mouesPosition.x >= 29137 && mouesPosition.x <= 29421) && (mouesPosition.y >= 617 && mouesPosition.y <= 652)) {
 					window.draw(mission);
 					window.draw(back2);
 					window.draw(CSTER);
@@ -1112,7 +1173,7 @@ int main()
 						MENU = true;
 						START = false;
 					}
-				}
+				}*/
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
 				Sound2.play();
@@ -1155,4 +1216,94 @@ int main()
 		}
 	}
 		return 0;
+}
+
+void Reset() {
+
+	int Bul = 0;
+	int count, i = 0;
+	int scoreX2 = 1;
+	int state = 0;
+	int f = 0;
+
+	float MyHP = 78000;
+	float deltaTime = 0.0f;
+	float countTimeAdd = 0;
+	float countTimeSub = 0;
+	float countTimeBul = 0;
+	float countTimex2 = 0;
+
+	bool slide;
+	bool checkBul = false;
+	bool checkAdd = false;
+	bool checkSub = false;
+	bool checkx2 = false;
+
+	int EndScore = 0;
+	int EndNumStar = 0;
+
+	sf::Texture playertexture;
+	playertexture.loadFromFile("a/as2.png");
+	Player player(&playertexture, sf::Vector2u(6, 5), 0.15f, 250.0f, 200.0f);
+
+	//scoregame.setPosition({ 40,30 });
+	sf::View view(sf::Vector2f(1.0f, 1.0f), sf::Vector2f(1080.0f, 720.0f));
+	view.setCenter(0, 0);
+
+
+
+	sf::Text Score;
+	sf::Text jump2;
+	sf::Text slide2;
+	sf::Text run;
+	sf::Text attack2;
+	sf::Text scoregame;
+
+	Score.setPosition({ 85, 90 });
+	jump2.setPosition({ 900, 30 });
+	slide2.setPosition({ 900, 67 });
+	run.setPosition({ 900, 106 });
+	attack2.setPosition({ 900,146 });
+	scoregame.setPosition({ 40,30 });
+
+	
+	
+	
+
+	/*std::vector <int> BloodupVector;
+	for (int i = 0; i < 6; i++) {
+		BloodupVector.push_back(i);
+	}
+	for (std::vector<int>::iterator it = BloodupVector.begin(); it != BloodupVector.end(); ++it) {
+		BloodupVector.erase(it);
+	}
+	BloodupVector.clear();
+
+	std::vector <int> BlooddownVector;
+	for (int i = 0; i < 8; i++) {
+		BlooddownVector.push_back(i);
+	}
+	for (std::vector<int>::iterator it = BlooddownVector.begin(); it != BlooddownVector.end(); ++it) {
+		BlooddownVector.erase(it);
+	}
+	BlooddownVector.clear();
+
+	std::vector <int> X2Vector;
+	for (int i = 0; i < 2; i++) {
+		X2Vector.push_back(i);
+	}
+	for (std::vector<int>::iterator it = X2Vector.begin(); it != X2Vector.end(); ++it) {
+		X2Vector.erase(it);
+	}
+	X2Vector.clear();
+
+	std::vector <int> alienVector;
+	for (int i = 0; i < 10; i++) {
+		alienVector.push_back(i);
+	}
+	for (std::vector<int>::iterator it = alienVector.begin(); it != alienVector.end(); ++it) {
+		alienVector.erase(it);
+	}
+	alienVector.clear();*/
+
 }
