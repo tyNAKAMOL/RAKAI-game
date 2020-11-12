@@ -44,7 +44,7 @@ void Player::update(float deltaTime, std::vector<star*>& stars, std::vector<Buff
         velocity.x = speed * 2.0f; slide = false; bullet = false;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
-        velocity.x = speed * 2.0f;
+        velocity.x = -speed * 2.0f;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && canJump == true) {
         canJump = false;
@@ -60,7 +60,7 @@ void Player::update(float deltaTime, std::vector<star*>& stars, std::vector<Buff
         }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift)) {
-        velocity.x = speed * 4.0f;
+        velocity.x = speed * 3.0f;
     }
     if (velocity.x == 0 && bullet == false){
         row = 0;

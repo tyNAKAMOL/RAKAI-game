@@ -953,14 +953,6 @@ int main()
 			CSTER.setPosition(view.getCenter().x - 100, 516);
 			NewScore.setPosition(view.getCenter().x - 108, 277);
 
-			MyHP -= 5;
-			if (MyHP < 78000) {
-				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
-				if (MyHP < 0 || player.GetPosition().y >= 600) {
-					MyHP = 0;
-					state = 2;
-				}
-			}
 			if (player.GetPosition().x >= 29160 && player.GetPosition().x <= 29527) {
 				state = 3;
 			}
@@ -1023,9 +1015,12 @@ int main()
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
 				checkpause = true;
+			}
 				cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y  << endl;
-				if (checkpause = true) {
+				if (checkpause == true) {
 					window.draw(pp);
+					Send.setPosition(view.getCenter().x - 45, 200);
+					CSTER.setPosition(view.getCenter().x - 45, 250);
 					window.draw(CSTER);
 					window.draw(Send);
 					if (sf::Mouse::getPosition(window).x >= 416 &&
@@ -1034,6 +1029,10 @@ int main()
 						sf::Mouse::getPosition(window).y <= 368)
 					{
 						window.draw(pr);
+						Send.setPosition(view.getCenter().x - 45, 200);
+						CSTER.setPosition(view.getCenter().x - 45, 250);
+						window.draw(CSTER);
+						window.draw(Send);
 						if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 							checkpause = false;
 						}
@@ -1044,9 +1043,25 @@ int main()
 						sf::Mouse::getPosition(window).y <= 457)
 					{
 						window.draw(pm);
+						Send.setPosition(view.getCenter().x - 45, 200);
+						CSTER.setPosition(view.getCenter().x - 45, 250);
+						window.draw(CSTER);
+						window.draw(Send);
 						if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+							checkpause = false;
 							MENU = true;
 							START = false;
+							bg.setPosition(view.getCenter().x - 540, 0.0f);
+							bg1.setPosition(view.getCenter().x - 540, 0.0f);
+							bg2.setPosition(view.getCenter().x - 540, 0.0f);
+							bg3.setPosition(view.getCenter().x - 540, 0.0f);
+							bg4.setPosition(view.getCenter().x - 540, 0.0f);
+							key.setPosition(view.getCenter().x - 540, 0.0f);
+							last_char = event.text.unicode;
+							text.setString(playerInput);
+							cursor.setPosition(view.getCenter().x - 40 + text.getGlobalBounds().width + 10, 495.0f);
+							Keyname.setPosition(view.getCenter().x - 240, 500);
+							text.setPosition(view.getCenter().x - 40, 475.0f);
 						}
 					}
 					else if (sf::Mouse::getPosition(window).x >= 416 &&
@@ -1055,13 +1070,28 @@ int main()
 						sf::Mouse::getPosition(window).y <= 546)
 					{
 						window.draw(pe);
+						Send.setPosition(view.getCenter().x - 45, 200);
+						CSTER.setPosition(view.getCenter().x - 45, 250);
+						window.draw(CSTER);
+						window.draw(Send);
 						if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 							window.close();
 						}
 					}
+		
 				}
-				
-			}
+				if (checkpause == false) {
+					MyHP -= 5;
+				}
+				if (MyHP < 78000) {
+					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
+					if (MyHP < 0 || player.GetPosition().y >= 600) {
+						MyHP = 0;
+						state = 2;
+					}
+				}
+
+
 			if (state == 2) {
 				window.draw(ee);
 				window.draw(CSTER);
