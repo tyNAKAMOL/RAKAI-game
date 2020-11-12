@@ -2,19 +2,19 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
-#include<stdio.h>
-#include<time.h>
+#include <stdio.h>
+#include <time.h>
 #include <windows.h>
 #include <conio.h>
 #include <utility>
 #include <algorithm>
 #include <iostream>
-#include "stdlib.h"
 #include <string>
 #include <sstream>
 #include <math.h>
 #include <vector>
 #include <fstream>
+#include "stdlib.h"
 #include "Player.h"
 #include "Platform.h"
 #include "Bullet.h"
@@ -24,8 +24,7 @@
 #include "Bloodup.h"
 #include "Buff.h"
 #include "Boss.h"
-#include <fstream>
-#include <algorithm>
+
 using namespace std;
 
 
@@ -388,6 +387,30 @@ int main()
 	starPoint.setPosition(sf::Vector2f(80, 80));
 	starPoint.setTexture(&starup);
 
+	//pause
+	sf::Texture pause;
+	pause.loadFromFile("a/pause.png");
+	sf::RectangleShape pp(sf::Vector2f(1080, 720));
+	pp.setTexture(&pause);
+	
+	//pauseresume
+	sf::Texture pauseresume;
+	pauseresume.loadFromFile("a/pauseback.png");
+	sf::RectangleShape pr(sf::Vector2f(1080, 720));
+	pr.setTexture(&pauseresume);
+
+	//pausemenu
+	sf::Texture pausemenu;
+	pausemenu.loadFromFile("a/pm.png");
+	sf::RectangleShape pm(sf::Vector2f(1080, 720));
+	pm.setTexture(&pausemenu);
+
+	//pauseexit
+	sf::Texture pauseexit;
+	pauseexit.loadFromFile("a/pauseexit.png");
+	sf::RectangleShape pe(sf::Vector2f(1080, 720));
+	pe.setTexture(&pauseexit);
+
 	//end
 	sf::Texture end;
 	end.loadFromFile("a/enggame.png");
@@ -425,6 +448,7 @@ int main()
 	bool SCORE1 = true;
 	bool endGame = false;
 	bool MemScore = false;
+	bool checkpause = false;
 
 
 	/*Modify textbox*/
@@ -502,6 +526,7 @@ int main()
 				}
 			}
 		}
+		
 		while (MemScore == true) {
 			countTimeAdd += deltaTime;
 			sf::Event event;
@@ -917,6 +942,10 @@ int main()
 			}
 
 			ee.setPosition(view.getCenter().x - 540, 0);
+			pp.setPosition(view.getCenter().x - 540, 0);
+			pr.setPosition(view.getCenter().x - 540, 0);
+			pm.setPosition(view.getCenter().x - 540, 0);
+			pe.setPosition(view.getCenter().x - 540, 0);
 			mission.setPosition(view.getCenter().x - 540, 0);
 			back1.setPosition(view.getCenter().x - 540, 0);
 			back2.setPosition(view.getCenter().x - 540, 0);
@@ -991,6 +1020,47 @@ int main()
 			}
 			for (int i = 0; i < alienVector.size(); i++) {
 				alienVector[i].draw(window);
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+				checkpause = true;
+				cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y  << endl;
+				if (checkpause = true) {
+					window.draw(pp);
+					window.draw(CSTER);
+					window.draw(Send);
+					if (sf::Mouse::getPosition(window).x >= 416 &&
+						sf::Mouse::getPosition(window).y >= 307 &&
+						sf::Mouse::getPosition(window).x <= 655 &&
+						sf::Mouse::getPosition(window).y <= 368)
+					{
+						window.draw(pr);
+						if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+							checkpause = false;
+						}
+					}
+					else if (sf::Mouse::getPosition(window).x >= 416 &&
+						sf::Mouse::getPosition(window).y >= 397 &&
+						sf::Mouse::getPosition(window).x <= 655 &&
+						sf::Mouse::getPosition(window).y <= 457)
+					{
+						window.draw(pm);
+						if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+							MENU = true;
+							START = false;
+						}
+					}
+					else if (sf::Mouse::getPosition(window).x >= 416 &&
+						sf::Mouse::getPosition(window).y >= 486 &&
+						sf::Mouse::getPosition(window).x <= 655 &&
+						sf::Mouse::getPosition(window).y <= 546)
+					{
+						window.draw(pe);
+						if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+							window.close();
+						}
+					}
+				}
+				
 			}
 			if (state == 2) {
 				window.draw(ee);

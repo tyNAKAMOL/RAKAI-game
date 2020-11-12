@@ -59,7 +59,7 @@ void Player::update(float deltaTime, std::vector<star*>& stars, std::vector<Buff
             body.setSize(sf::Vector2f(120.0f, 130.0f));
         }
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift) ) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift)) {
         velocity.x = speed * 4.0f;
     }
     if (velocity.x == 0 && bullet == false){
