@@ -516,17 +516,12 @@ int main()
 			if (event.type == sf::Event::TextEntered && last_char != event.text.unicode)
 			{
 				if (event.text.unicode == 13) { //enter
-					/*fileWriter.open("keepscore.txt", std::ios::out | std::ios::app);
-					fileWriter << "\n" << playerInput.toAnsiString() << "," << EndScore;
-					fileWriter.close();*/
 					user_name = playerInput;
 					playerInput.clear();
 					MENU = true;
-					EndScore = 0;
 				}
 				else if (event.text.unicode == 8 && playerInput.getSize() > 0) { //backspace delete
 					playerInput = playerInput.substring(0, playerInput.getSize() - 1);
-					//std::cout << "Do" << std::endl;
 				}
 				else {
 					if (playerInput.getSize() < 10) {
@@ -576,6 +571,7 @@ int main()
 		Dog rakai(&DOGRAKAI, sf::Vector2u(4, 9), 0.15f, player.GetPosition());
 		//star
 		//map1
+
 		for (int posi = 0; posi < 1550; posi += 60) {
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 800.0f + posi, 550.0f));
 		}
@@ -817,29 +813,22 @@ int main()
 			hppush << "ATTACK";
 			attack2.setString(hppush.str());
 			///////////////////////////////////////////////////
-			Score.setPosition({ 85, 90 });
-			jump2.setPosition({ 900, 30 });
-			slide2.setPosition({ 900, 67 });
-			run.setPosition({ 900, 106 });
-			attack2.setPosition({ 900,146 });
+			hpbar.setPosition(view.getCenter().x - 210, -90); // blood
+			HP.setPosition(view.getCenter().x - 60, 56);
+			Score.setPosition(view.getCenter().x - 485, 95);
+			scoregame.setPosition(view.getCenter().x - 510, 30);
+			starPoint.setPosition(view.getCenter().x - 480, 88);
+
+			jump2.setPosition({ view.getCenter().x + 370 , 30 });
+			slide2.setPosition({ view.getCenter().x + 370 , 67 });
+			run.setPosition({ view.getCenter().x + 370 , 106 });
+			attack2.setPosition({ view.getCenter().x + 370 , 146 });
+
+			ww.setPosition({ view.getCenter().x + 330 , 30 });
+			ss.setPosition({ view.getCenter().x + 330 , 67 });
+			dd.setPosition({ view.getCenter().x + 330 , 106 });
+			sp.setPosition({ view.getCenter().x + 330 , 146 });
 			/// //////////////////////////////////////////////
-			if (pos.x > 500) {
-				hpbar.setPosition(view.getCenter().x - 210, -90); // blood
-				HP.setPosition(view.getCenter().x - 60, 56);
-				Score.setPosition(view.getCenter().x - 485, 95);
-				scoregame.setPosition(view.getCenter().x - 510, 30);
-				starPoint.setPosition(view.getCenter().x - 480, 88);
-
-				jump2.setPosition({ view.getCenter().x + 370 , 30 });
-				slide2.setPosition({ view.getCenter().x + 370 , 67 });
-				run.setPosition({ view.getCenter().x + 370 , 106 });
-				attack2.setPosition({ view.getCenter().x + 370 , 146 });
-
-				ww.setPosition({ view.getCenter().x + 330 , 30 });
-				ss.setPosition({ view.getCenter().x + 330 , 67 });
-				dd.setPosition({ view.getCenter().x + 330 , 106 });
-				sp.setPosition({ view.getCenter().x + 330 , 146 });
-			}
 
 			view.setCenter(player.GetPosition().x, 360.0f);
 			if (view.getCenter().x - 540.0f <= 0.0f) {
@@ -1150,7 +1139,7 @@ int main()
 			if (Bul >= 1) {
 				bullet1.update(deltaTime);
 				bullet1.draw(window);
-				for (i = 0; i < 10; i++) {
+				for (i = 0; i < alienVector.size() ; i++) {
 					if (alienVector[i].hit() == 1) {
 						countscorestar += 500;
 						hppush.str(" ");
@@ -1178,6 +1167,62 @@ int main()
 			window.display();
 		}
 		player.SetPosition(200,520);
+		player.ResetNumstar();
+		
+		std::vector<int>starVector;
+		for (int i = 0; i < starVector.size(); i++) {
+			starVector.push_back(i);
+		}
+		for (std::vector<int>::iterator it = starVector.begin(); it != starVector.end(); ++it) {
+			starVector.erase(it);
+			if (it == starVector.end() - 1) {
+				starVector.clear();
+			}
+		}
+
+		std::vector<int>alienVector;
+		for (int i = 0; i < alienVector.size(); i++) {
+			alienVector.push_back(i);
+		}
+		for (std::vector<int>::iterator it = alienVector.begin(); it != alienVector.end(); ++it) {
+			alienVector.erase(it);
+			if (it == alienVector.end() - 1) {
+				alienVector.clear();
+			}
+		}
+
+		std::vector<int>BloodupVector;
+		for (int i = 0; i < BloodupVector.size(); i++) {
+			BloodupVector.push_back(i);
+		}
+		for (std::vector<int>::iterator it = BloodupVector.begin(); it != BloodupVector.end(); ++it) {
+			BloodupVector.erase(it);
+			if (it == BloodupVector.end() - 1) {
+				BloodupVector.clear();
+			}
+		}
+
+		std::vector<int>BlooddownVector;
+		for (int i = 0; i < BlooddownVector.size(); i++) {
+			BlooddownVector.push_back(i);
+		}
+		for (std::vector<int>::iterator it = BlooddownVector.begin(); it != BlooddownVector.end(); ++it) {
+			BlooddownVector.erase(it);
+			if (it == BlooddownVector.end() - 1) {
+				BlooddownVector.clear();
+			}
+		}
+
+		std::vector<int>X2Vector;
+		for (int i = 0; i < X2Vector.size(); i++) {
+			X2Vector.push_back(i);
+		}
+		for (std::vector<int>::iterator it = X2Vector.begin(); it != X2Vector.end(); ++it) {
+			X2Vector.erase(it);
+			if (it == X2Vector.end() - 1) {
+				X2Vector.clear();
+			}
+		}
 	}
 	return 0;
 }
