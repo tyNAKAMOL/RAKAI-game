@@ -20,6 +20,7 @@ public:
 	void OnCollision(sf::Vector2f direction);
 	void HPbar(float deltaTime, Player player,sf::Vector2f pos);
 	void SetPosition(float x, float y);
+	void RESET();
 
 	int jumping(){
 		if (checkjump == 1) {

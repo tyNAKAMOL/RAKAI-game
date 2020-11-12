@@ -26,7 +26,6 @@
 #include "Boss.h"
 #include <fstream>
 #include <algorithm>
-void Reset();
 using namespace std;
 
 
@@ -37,7 +36,6 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1080, 720), "Rakai");
 	sf::View view(sf::Vector2f(1.0f, 1.0f), sf::Vector2f(1080.0f, 720.0f));//view
 
-	///////////////////////////////////////////////////////////
 	//BGMENU1
 	sf::RectangleShape bg(sf::Vector2f(1080.0f, 720.0f));
 	bg.setPosition(0.0f, 0.0f);
@@ -72,7 +70,6 @@ int main()
 	sf::Texture s4;
 	s4.loadFromFile("a/state4.png");
 	bg4.setTexture(&s4);
-	//////////////////////////////////////////////////////////
 
 	//BG1
 	sf::RectangleShape background(sf::Vector2f(10000.0f, 720.0f));
@@ -144,7 +141,7 @@ int main()
 	sf::Sound Sound2;
 	Sound2.setBuffer(soundjump);
 
-	//เสียงวาx
+	//เสียงวาป
 
 	//soundjump
 	sf::SoundBuffer soundwrap;
@@ -208,33 +205,16 @@ int main()
 	sf::Texture BLOODUP;
 	BLOODUP.loadFromFile("a/up2.png");
 	std::vector <Bloodup> BloodupVector;
-	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 3456.0f, 180.0f));
-	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 8474.0f, 540.0f));
-	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 12033.0f, 370.0f));
-	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 14818.0f, 390.0f));
-	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 23532.0f, 370.0f));
-	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 27265.0f, 180.0f));
 
 	//Blooddown
 	sf::Texture BLOODDOWN;
 	BLOODDOWN.loadFromFile("a/down.png");
 	std::vector <Bloodup> BlooddownVector;
-	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 2192.0f, 545.0f));
-	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 3249.0f, 370.0f));
-	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 6840.0f, 280.0f));
-	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 4655.0f, 545.0f));
-	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 8003.0f, 545.0f));
-	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 14090.0f, 545.0f));
-	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 21981.0f, 370.0f));
-	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 26445.0f, 280.0f));
 
 	//X10
 	sf::Texture POINTX2;
 	POINTX2.loadFromFile("a/iconx10.png");
 	std::vector <Buff> X2Vector;
-	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 5506.0f, 380.0f));
-	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 13442.0f, 545.0f));
-	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 27265.0f, 545.0f));
 
 	sf::Texture stateX10;
 	stateX10.loadFromFile("a/xx10.png");
@@ -328,155 +308,11 @@ int main()
 	sf::Texture STAR;
 	STAR.loadFromFile("a/star4.png");
 	std::vector <star*> starVector;
-
-	//map1
-	for (int posi = 0; posi < 1550; posi += 60) {
-		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 800.0f + posi, 550.0f));
-	}
-	for (int posi = 0; posi < 200; posi += 60) {
-		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 2630.0f + posi, 370.0f));
-	}
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 2850.0f, 320.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 2900.0f, 300.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 2950.0f, 280.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3000.0f, 300.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3050.0f, 320.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3100.0f, 370.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3150.0f, 370.0f));
-
-	for (int posi = 0; posi < 1300; posi += 60) {
-		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3500.0f + posi, 550.0f));
-	}
-	for (int posi = 0; posi < 500; posi += 60) {
-		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 4700.0f + posi, 550.0f));
-	}
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5743.0f, 370.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5770.0f, 330.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5800.0f, 290.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5850.0f, 260.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5900.0f, 240.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5950.0f, 260.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6000.0f, 290.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6030.0f, 330.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6070.0f, 370.0f));
-
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6167.0f, 370.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6180.0f, 340.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6210.0f, 310.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6250.0f, 305.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6300.0f, 280.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 250.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 310.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 290.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
-
-	for (int posi = 0; posi < 600; posi += 60) {
-		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 7250.0f + posi, 370.0f));
-	}
-	//map2
-	for (int posi = 0; posi < 1550; posi += 60) {
-		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 10800.0f + posi, 550.0f));
-	}
-	for (int posi = 0; posi < 200; posi += 60) {
-		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 12630.0f + posi, 370.0f));
-	}
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 12850.0f, 320.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 12900.0f, 300.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 12950.0f, 280.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13000.0f, 300.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13050.0f, 320.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13100.0f, 370.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13150.0f, 370.0f));
-
-	for (int posi = 0; posi < 1200; posi += 60) {
-		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13500.0f + posi, 550.0f));
-	}
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15743.0f, 370.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15770.0f, 330.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15800.0f, 290.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15850.0f, 260.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15900.0f, 240.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15950.0f, 260.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16000.0f, 290.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16030.0f, 330.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16070.0f, 370.0f));
-
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16167.0f, 370.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16180.0f, 340.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16210.0f, 310.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16250.0f, 305.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16300.0f, 280.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16340.0f, 250.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16400.0f, 280.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16451.0f, 310.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16340.0f, 290.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16400.0f, 280.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16451.0f, 280.0f));
-
-	for (int posi = 0; posi < 600; posi += 60) {
-		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 17250.0f + posi, 370.0f));
-	}
-	//map3
-	for (int posi = 0; posi < 1550; posi += 60) {
-		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 20800.0f + posi, 550.0f));
-	}
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 22850.0f, 320.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 22900.0f, 300.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 22950.0f, 280.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23000.0f, 300.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23050.0f, 320.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23100.0f, 370.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23150.0f, 370.0f));
-
-	for (int posi = 0; posi < 1300; posi += 60) {
-		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23500.0f + posi, 550.0f));
-	}
-	for (int posi = 0; posi < 500; posi += 60) {
-		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 24700.0f + posi, 550.0f));
-	}
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25743.0f, 370.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25770.0f, 330.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25800.0f, 290.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25850.0f, 260.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25900.0f, 240.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25950.0f, 260.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26000.0f, 290.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26030.0f, 330.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26070.0f, 370.0f));
-
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26167.0f, 370.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26180.0f, 340.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26210.0f, 310.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26250.0f, 305.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26300.0f, 280.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26340.0f, 250.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26400.0f, 280.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 310.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 290.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
-	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
-
+	
 	//Alien
 	sf::Texture alien;
 	alien.loadFromFile("a/alien3.png");
 	std::vector <Enemy> alienVector;
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 2331.0f, 564.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 3071.0f, 377.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 5337.0f, 564.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 6815.0f, 280.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 8928.0f, 564.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 11580.0f, 564.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 15504.0f, 564.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 16943.0f, 280.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 22955.0f, 377.0f));
-	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 25416.0f, 564.0f));
-
-	/*sf::Texture Bossalien;
-	Bossalien.loadFromFile("a/as2.png");
-	std::vector <Boss> BossV;
-	BossV.push_back(Boss(&Bossalien, sf::Vector2u(6, 5), 0.08f, 500.0f, 205.0f));*/
 
 	//Bullet
 	sf::Texture BULLET;
@@ -486,11 +322,9 @@ int main()
 	//Dog
 	sf::Texture DOGRAKAI;
 	DOGRAKAI.loadFromFile("a/dd.png");
-	Dog rakai(&DOGRAKAI, sf::Vector2u(4, 9), 0.15f, player.GetPosition());
 
 	//Platform
 	std::vector<Platform> platforms;
-
 	//map1
 	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 687.072f), sf::Vector2f(1700.0f, 143.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 20.0f), sf::Vector2f(2900.0f, 450.0f)));
@@ -571,9 +405,7 @@ int main()
 
 	int Bul = 0;
 	int count, i = 0;
-	int scoreX2 = 1;
 	int state = 0;
-	int f = 0;
 
 	float deltaTime = 0.0f;
 	float countTimeAdd = 0;
@@ -592,9 +424,6 @@ int main()
 	bool MENU = true;
 	bool SCORE1 = true;
 	bool endGame = false;
-
-	bool DebouceDown = false;
-	bool DebouceUp = false;
 	bool MemScore = false;
 
 
@@ -605,7 +434,6 @@ int main()
 	cursor.setOrigin(sf::Vector2f(2.5f, 15.0f));
 	cursor.setFillColor(sf::Color::Cyan);
 	sf::Text text("", font);
-	//view.setCenter(0, 0);
 	Keyname.setPosition(300, 500);
 	text.setFillColor(sf::Color::Cyan);
 	text.setPosition(500, 475);
@@ -631,13 +459,12 @@ int main()
 			}
 			sf::Vector2f mouesPosition = sf::Vector2f(0.0f, 0.0f);
 			mouesPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-			cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y  << endl;
+			//cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y  << endl;
 
 			deltaTime = clock.restart().asSeconds();
 			window.draw(bg);
 			window.draw(bg1);
 			window.display();
-
 			if (sf::Mouse::getPosition(window).x >= 427 && 
 				sf::Mouse::getPosition(window).y >= 275 &&
 				sf::Mouse::getPosition(window).x <= 660 &&   
@@ -742,6 +569,176 @@ int main()
 		deltaTime = 0;
 		clock.restart();
 		cout << user_name << endl;
+		
+		MyHP = 78000;
+		state = 0;
+		EndNumStar = 0;
+		Dog rakai(&DOGRAKAI, sf::Vector2u(4, 9), 0.15f, player.GetPosition());
+		//star
+		//map1
+		for (int posi = 0; posi < 1550; posi += 60) {
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 800.0f + posi, 550.0f));
+		}
+		for (int posi = 0; posi < 200; posi += 60) {
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 2630.0f + posi, 370.0f));
+		}
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 2850.0f, 320.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 2900.0f, 300.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 2950.0f, 280.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3000.0f, 300.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3050.0f, 320.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3100.0f, 370.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3150.0f, 370.0f));
+
+		for (int posi = 0; posi < 1300; posi += 60) {
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3500.0f + posi, 550.0f));
+		}
+		for (int posi = 0; posi < 500; posi += 60) {
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 4700.0f + posi, 550.0f));
+		}
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5743.0f, 370.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5770.0f, 330.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5800.0f, 290.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5850.0f, 260.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5900.0f, 240.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5950.0f, 260.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6000.0f, 290.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6030.0f, 330.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6070.0f, 370.0f));
+
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6167.0f, 370.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6180.0f, 340.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6210.0f, 310.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6250.0f, 305.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6300.0f, 280.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 250.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 310.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 290.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
+
+		for (int posi = 0; posi < 600; posi += 60) {
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 7250.0f + posi, 370.0f));
+		}
+		//map2
+		for (int posi = 0; posi < 1550; posi += 60) {
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 10800.0f + posi, 550.0f));
+		}
+		for (int posi = 0; posi < 200; posi += 60) {
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 12630.0f + posi, 370.0f));
+		}
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 12850.0f, 320.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 12900.0f, 300.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 12950.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13000.0f, 300.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13050.0f, 320.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13100.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13150.0f, 370.0f));
+
+	for (int posi = 0; posi < 1200; posi += 60) {
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13500.0f + posi, 550.0f));
+	}
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15743.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15770.0f, 330.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15800.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15850.0f, 260.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15900.0f, 240.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15950.0f, 260.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16000.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16030.0f, 330.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16070.0f, 370.0f));
+
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16167.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16180.0f, 340.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16210.0f, 310.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16250.0f, 305.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16300.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16340.0f, 250.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16400.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16451.0f, 310.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16340.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16400.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16451.0f, 280.0f));
+
+	for (int posi = 0; posi < 600; posi += 60) {
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 17250.0f + posi, 370.0f));
+	}
+	//map3
+	for (int posi = 0; posi < 1550; posi += 60) {
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 20800.0f + posi, 550.0f));
+	}
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 22850.0f, 320.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 22900.0f, 300.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 22950.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23000.0f, 300.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23050.0f, 320.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23100.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23150.0f, 370.0f));
+
+	for (int posi = 0; posi < 1300; posi += 60) {
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 23500.0f + posi, 550.0f));
+	}
+	for (int posi = 0; posi < 500; posi += 60) {
+		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 24700.0f + posi, 550.0f));
+	}
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25743.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25770.0f, 330.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25800.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25850.0f, 260.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25900.0f, 240.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 25950.0f, 260.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26000.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26030.0f, 330.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26070.0f, 370.0f));
+
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26167.0f, 370.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26180.0f, 340.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26210.0f, 310.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26250.0f, 305.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26300.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26340.0f, 250.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26400.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 310.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 290.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
+	starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
+	
+	//Alien
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 2331.0f, 564.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 3071.0f, 377.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 5337.0f, 564.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 6815.0f, 280.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 8928.0f, 564.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 11580.0f, 564.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 15504.0f, 564.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 16943.0f, 280.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 22955.0f, 377.0f));
+	alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 25416.0f, 564.0f));
+
+	//bloodup
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 3456.0f, 180.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 8474.0f, 540.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 12033.0f, 370.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 14818.0f, 390.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 23532.0f, 370.0f));
+	BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 27265.0f, 180.0f));
+
+	//blooddown
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 2192.0f, 545.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 3249.0f, 370.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 6840.0f, 280.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 4655.0f, 545.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 8003.0f, 545.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 14090.0f, 545.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 21981.0f, 370.0f));
+	BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 26445.0f, 280.0f));
+
+	//X10
+	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 5506.0f, 380.0f));
+	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 13442.0f, 545.0f));
+	X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 27265.0f, 545.0f));
+		
 		while (START == true) {
 			//std::cout << "player pos :" << player.GetPosition().y << std::endl;
 			slide = false;
@@ -819,12 +816,13 @@ int main()
 			hppush.str(" ");
 			hppush << "ATTACK";
 			attack2.setString(hppush.str());
+			///////////////////////////////////////////////////
 			Score.setPosition({ 85, 90 });
 			jump2.setPosition({ 900, 30 });
 			slide2.setPosition({ 900, 67 });
 			run.setPosition({ 900, 106 });
 			attack2.setPosition({ 900,146 });
-
+			/// //////////////////////////////////////////////
 			if (pos.x > 500) {
 				hpbar.setPosition(view.getCenter().x - 210, -90); // blood
 				HP.setPosition(view.getCenter().x - 60, 56);
@@ -940,7 +938,7 @@ int main()
 			MyHP -= 5;
 			if (MyHP < 78000) {
 				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
-				if (MyHP < 0) {
+				if (MyHP < 0 || player.GetPosition().y >= 600) {
 					MyHP = 0;
 					state = 2;
 				}
@@ -960,14 +958,11 @@ int main()
 				player.SetPosition(20568, 40);
 				rakai.SetPosition(20568, 40);
 			}
-
-
 			window.clear();
-			window.setView(view);//view
+			window.setView(view);
 			for (Platform& platform : platforms) {
 				platform.Draw(window);
 			}
-			//draw
 			window.draw(background);
 			window.draw(background1);
 			window.draw(background2);
@@ -1008,19 +1003,12 @@ int main()
 			for (int i = 0; i < alienVector.size(); i++) {
 				alienVector[i].draw(window);
 			}
-			if ((player.GetPosition().y >= 600)||(state==2)) {
+			if (state == 2) {
 				window.draw(ee);
 				window.draw(CSTER);
 				window.draw(NewScore);
 				window.draw(Send);
-				//window.draw(mission);
 				window.draw(back1);
-				/*if (view.getCenter().x - 540.0f <= 0.0f) {
-					view.setCenter(540.0f, 360.0f);
-				}
-				if (view.getCenter().x + 540.0f >= 30000.0f) {
-					view.setCenter(29460.0f, 360.0f);
-				}*/
 				//cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y  << endl;
 				if (sf::Mouse::getPosition(window).x >= 400 &&
 					sf::Mouse::getPosition(window).y >= 600 &&
@@ -1067,9 +1055,8 @@ int main()
 						myFile.close();
 						MENU = true;
 						START = false;
-						
-						
-						/*bg.setPosition(view.getCenter().x - 540, 0.0f);
+			
+						bg.setPosition(view.getCenter().x - 540, 0.0f);
 						bg1.setPosition(view.getCenter().x - 540, 0.0f);
 						bg2.setPosition(view.getCenter().x - 540, 0.0f);
 						bg3.setPosition(view.getCenter().x - 540, 0.0f);
@@ -1079,40 +1066,18 @@ int main()
 						text.setString(playerInput);
 						cursor.setPosition(view.getCenter().x - 40 + text.getGlobalBounds().width + 10, 495.0f);
 						Keyname.setPosition(view.getCenter().x - 240 ,500);
-						text.setPosition(view.getCenter().x - 40, 475.0f);*/
-
-						Reset();
+						text.setPosition(view.getCenter().x - 40, 475.0f);
 						//break;
 					}
 				}
 			}
-			/*if (state == 2) {
-				window.draw(ee);
-				window.draw(CSTER);
-				window.draw(NewScore);
-				window.draw(Send);
-				//window.draw(mission);
-				window.draw(back1);
-				if ((mouesPosition.x >= view.getCenter().x - 100 && mouesPosition.x <= mouesPosition.x >= view.getCenter().x + 100) && (mouesPosition.y >= 617 && mouesPosition.y <= 652)) {
-					//window.draw(mission);
-					window.draw(ee);
-					window.draw(back2);
-					window.draw(CSTER);
-					window.draw(NewScore);
-					window.draw(Send);
-					if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-						MENU = true;
-						START = false;
-					}
-				}
-			}*/
 			if (state == 3) {
 				window.draw(mission);
 				window.draw(back1);
 				window.draw(CSTER);
 				window.draw(NewScore);
 				window.draw(Send);
-
+				
 				if (sf::Mouse::getPosition(window).x >= 400 &&
 					sf::Mouse::getPosition(window).y >= 600 &&
 					sf::Mouse::getPosition(window).x <= 680 &&
@@ -1158,27 +1123,25 @@ int main()
 						myFile.close();
 						MENU = true;
 						START = false;
-						Reset();
+						
+						bg.setPosition(view.getCenter().x - 540, 0.0f);
+						bg1.setPosition(view.getCenter().x - 540, 0.0f);
+						bg2.setPosition(view.getCenter().x - 540, 0.0f);
+						bg3.setPosition(view.getCenter().x - 540, 0.0f);
+						bg4.setPosition(view.getCenter().x - 540, 0.0f);
+						key.setPosition(view.getCenter().x - 540, 0.0f);
+						last_char = event.text.unicode;
+						text.setString(playerInput);
+						cursor.setPosition(view.getCenter().x - 40 + text.getGlobalBounds().width + 10, 495.0f);
+						Keyname.setPosition(view.getCenter().x - 240, 500);
+						text.setPosition(view.getCenter().x - 40, 475.0f);
 						//break;
 					}
 				}
-
-				/*if ((mouesPosition.x >= 29137 && mouesPosition.x <= 29421) && (mouesPosition.y >= 617 && mouesPosition.y <= 652)) {
-					window.draw(mission);
-					window.draw(back2);
-					window.draw(CSTER);
-					window.draw(NewScore);
-					window.draw(Send);
-					if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-						MENU = true;
-						START = false;
-					}
-				}*/
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
 				Sound2.play();
 			}
-
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
 				Sound1.play();
 				bullet1.attack(pos);
@@ -1214,96 +1177,7 @@ int main()
 			window.draw(bulA);
 			window.display();
 		}
+		player.SetPosition(200,520);
 	}
-		return 0;
-}
-
-void Reset() {
-
-	int Bul = 0;
-	int count, i = 0;
-	int scoreX2 = 1;
-	int state = 0;
-	int f = 0;
-
-	float MyHP = 78000;
-	float deltaTime = 0.0f;
-	float countTimeAdd = 0;
-	float countTimeSub = 0;
-	float countTimeBul = 0;
-	float countTimex2 = 0;
-
-	bool slide;
-	bool checkBul = false;
-	bool checkAdd = false;
-	bool checkSub = false;
-	bool checkx2 = false;
-
-	int EndScore = 0;
-	int EndNumStar = 0;
-
-	sf::Texture playertexture;
-	playertexture.loadFromFile("a/as2.png");
-	Player player(&playertexture, sf::Vector2u(6, 5), 0.15f, 250.0f, 200.0f);
-
-	//scoregame.setPosition({ 40,30 });
-	sf::View view(sf::Vector2f(1.0f, 1.0f), sf::Vector2f(1080.0f, 720.0f));
-	view.setCenter(0, 0);
-
-
-
-	sf::Text Score;
-	sf::Text jump2;
-	sf::Text slide2;
-	sf::Text run;
-	sf::Text attack2;
-	sf::Text scoregame;
-
-	Score.setPosition({ 85, 90 });
-	jump2.setPosition({ 900, 30 });
-	slide2.setPosition({ 900, 67 });
-	run.setPosition({ 900, 106 });
-	attack2.setPosition({ 900,146 });
-	scoregame.setPosition({ 40,30 });
-
-	
-	
-	
-
-	/*std::vector <int> BloodupVector;
-	for (int i = 0; i < 6; i++) {
-		BloodupVector.push_back(i);
-	}
-	for (std::vector<int>::iterator it = BloodupVector.begin(); it != BloodupVector.end(); ++it) {
-		BloodupVector.erase(it);
-	}
-	BloodupVector.clear();
-
-	std::vector <int> BlooddownVector;
-	for (int i = 0; i < 8; i++) {
-		BlooddownVector.push_back(i);
-	}
-	for (std::vector<int>::iterator it = BlooddownVector.begin(); it != BlooddownVector.end(); ++it) {
-		BlooddownVector.erase(it);
-	}
-	BlooddownVector.clear();
-
-	std::vector <int> X2Vector;
-	for (int i = 0; i < 2; i++) {
-		X2Vector.push_back(i);
-	}
-	for (std::vector<int>::iterator it = X2Vector.begin(); it != X2Vector.end(); ++it) {
-		X2Vector.erase(it);
-	}
-	X2Vector.clear();
-
-	std::vector <int> alienVector;
-	for (int i = 0; i < 10; i++) {
-		alienVector.push_back(i);
-	}
-	for (std::vector<int>::iterator it = alienVector.begin(); it != alienVector.end(); ++it) {
-		alienVector.erase(it);
-	}
-	alienVector.clear();*/
-
+	return 0;
 }

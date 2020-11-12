@@ -75,6 +75,9 @@ void Player::update(float deltaTime, std::vector<star*>& stars, std::vector<Buff
             row = 1;
         }
     }
+    /*if (velocity.y >= 6000) {
+        body.setPosition(200, 520);
+    }*/
     animation.update(row,deltaTime,slide,bullet);
     body.setTextureRect(animation.uvRect);
     body.move(velocity * deltaTime);
@@ -142,5 +145,10 @@ void Player::Draw(sf::RenderWindow& window)
 void Player::SetPosition(float x, float y) 
 {
     body.setPosition(x, y);
+}
+void Player::RESET() {
+    if (body.getPosition().y >= 600) {
+        body.setPosition(200, 520);
+    }
 }
 
