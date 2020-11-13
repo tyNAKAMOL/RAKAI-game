@@ -155,7 +155,7 @@ int main()
 	soundover.loadFromFile("a/lose3.ogg");
 	sf::Sound Sound5;
 	Sound5.setBuffer(soundover);
-	
+
 	//Scorestar
 	int countscorestar = 0;
 	sf::Font font;
@@ -318,7 +318,7 @@ int main()
 	sf::Texture STAR;
 	STAR.loadFromFile("a/star4.png");
 	std::vector <star*> starVector;
-	
+
 	//Alien
 	sf::Texture alien;
 	alien.loadFromFile("a/alien3.png");
@@ -403,7 +403,7 @@ int main()
 	pause.loadFromFile("a/pause.png");
 	sf::RectangleShape pp(sf::Vector2f(1080, 720));
 	pp.setTexture(&pause);
-	
+
 	//pauseresume
 	sf::Texture pauseresume;
 	pauseresume.loadFromFile("a/pauseback.png");
@@ -522,14 +522,14 @@ int main()
 				window.draw(bg1);
 				window.display();
 			}
-			if (sf::Mouse::getPosition(window).x >= 427 && 
+			if (sf::Mouse::getPosition(window).x >= 427 &&
 				sf::Mouse::getPosition(window).y >= 275 &&
-				sf::Mouse::getPosition(window).x <= 660 &&   
-				sf::Mouse::getPosition(window).y <= 348) 
+				sf::Mouse::getPosition(window).x <= 660 &&
+				sf::Mouse::getPosition(window).y <= 348)
 			{
-					window.draw(bg);
-					window.draw(bg2);
-					window.display();
+				window.draw(bg);
+				window.draw(bg2);
+				window.display();
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					MENU = false;
 					START = false;
@@ -541,58 +541,39 @@ int main()
 				sf::Mouse::getPosition(window).x <= 660 &&
 				sf::Mouse::getPosition(window).y <= 466)
 			{
-					window.draw(bg);
-					window.draw(bg3);
-					window.display();
-				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)&&(timerpausemenu.getElapsedTime().asSeconds() >= 0.3))
+				window.draw(bg);
+				window.draw(bg3);
+				window.display();
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (timerpausemenu.getElapsedTime().asSeconds() >= 0.3))
 				{
 					MENU = false;
 					START = false;
 					Rank = true;
 				}
 			}
-			else if (sf::Mouse::getPosition(window).x >= 427 && 
+			else if (sf::Mouse::getPosition(window).x >= 427 &&
 				sf::Mouse::getPosition(window).y >= 515 &&
-				sf::Mouse::getPosition(window).x <= 660 && 
-				sf::Mouse::getPosition(window).y <= 584) 
+				sf::Mouse::getPosition(window).x <= 660 &&
+				sf::Mouse::getPosition(window).y <= 584)
 			{
-					window.draw(bg);
-					window.draw(bg4);
-					window.display();
+				window.draw(bg);
+				window.draw(bg4);
+				window.display();
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					window.close();
 					break;
 				}
 			}
 		}
-		
+
 		while (Rank == true) {
-			
+
 			window.clear();
 			window.draw(hh);
-			/*sf::Text text("", font);
+			sf::Text text("", font);
 			text.setCharacterSize(30);
 			text.setFillColor(sf::Color::White);
-			fstream myFile;
-			vector<pair<int, string> > score;
-			myFile.open("database/new.txt");
-			score.push_back(make_pair(int(256), user_name));
-			sort(score.begin(), score.end());
-			for (int i = 5; i >= 1; i--){
-				myFile << score[i].second << score[i].first;
-				text.setString(score[i].second);
-				text.setPosition(100, 200);
-				window.draw(text);
-				text.setString(std::to_string(score[i].first));
-				text.setPosition(150, 200);
-				window.draw(text);
-			}
-			myFile.close();*/
-
-			/*sf::Text text("", font);
-			text.setCharacterSize(30);
-			text.setFillColor(sf::Color::White);
-			fileReader.open("database/keepscore.txt");
+			fileReader.open("database/new.txt");
 			do {
 				fileReader >> word;
 				std::string first_token = word.substr(0, word.find(','));
@@ -607,17 +588,17 @@ int main()
 			int currentDisplay = 0;
 			for (std::map<int, std::string>::iterator it = end; it != beg; it--) {
 				text.setString(it->second);
-				text.setPosition(400, 200 + 80 * currentDisplay);
+				text.setPosition(450, 200 + 80 * currentDisplay);
 				window.draw(text);
 				text.setString(std::to_string(it->first));
-				text.setPosition(650, 200 + 80 * currentDisplay);
+				text.setPosition(600, 200 + 80 * currentDisplay);
 				window.draw(text);
 				currentDisplay++;
 				if (currentDisplay == 7)
 				{
 					break;
 				}
-			}*/
+			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 			{
 				Rank = false;
@@ -627,7 +608,7 @@ int main()
 		}
 
 		while (MemScore == true) {
-			
+
 			countTimeAdd += deltaTime;
 			sf::Event event;
 			while (window.pollEvent(event)) {
@@ -674,13 +655,13 @@ int main()
 			window.draw(key);
 			window.draw(Keyname);
 			window.draw(text);
-			
+
 			totalTime_cursor += clock_cursor.restart().asSeconds();
-			if (totalTime_cursor >= 0.5){
+			if (totalTime_cursor >= 0.5) {
 				totalTime_cursor = 0;
 				state_cursor = !state_cursor;
 			}
-			if (state_cursor == true){
+			if (state_cursor == true) {
 				window.draw(cursor);
 			}
 			window.display();
@@ -689,16 +670,16 @@ int main()
 		deltaTime = 0;
 		clock.restart();
 		cout << user_name << endl;
-		
+
 		MyHP = 78000;
 		state = 0;
 		EndNumStar = 0;
 		Dog rakai(&DOGRAKAI, sf::Vector2u(4, 9), 0.15f, player.GetPosition());
-		
+
 		//star
 		//map1
 		for (int posi = 0; posi < 1550; posi += 60) {
-		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 800.0f + posi, 550.0f));
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 800.0f + posi, 550.0f));
 		}
 		for (int posi = 0; posi < 200; posi += 60) {
 			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 2630.0f + posi, 370.0f));
@@ -740,7 +721,7 @@ int main()
 		for (int posi = 0; posi < 600; posi += 60) {
 			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 7250.0f + posi, 370.0f));
 		}
-		
+
 		//map2
 		for (int posi = 0; posi < 1550; posi += 60) {
 			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 10800.0f + posi, 550.0f));
@@ -782,7 +763,7 @@ int main()
 		for (int posi = 0; posi < 600; posi += 60) {
 			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 17250.0f + posi, 370.0f));
 		}
-		
+
 		//map3
 		for (int posi = 0; posi < 1550; posi += 60) {
 			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 20800.0f + posi, 550.0f));
@@ -824,7 +805,7 @@ int main()
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 290.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6400.0f, 280.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
-	
+
 		//Alien
 		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 2331.0f, 564.0f));
 		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 3071.0f, 377.0f));
@@ -859,7 +840,7 @@ int main()
 		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 5506.0f, 380.0f));
 		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 13442.0f, 545.0f));
 		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 27265.0f, 545.0f));
-		
+
 		while (START == true) {
 			//std::cout << "player pos :" << player.GetPosition().y << std::endl;
 			slide = false;
@@ -872,7 +853,7 @@ int main()
 			mouesPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 			//std::cout << mouesPosition.x << ' ' << mouesPosition.y << '\n';
 
-			if ((checkpause == false && endGame == false )) {
+			if ((checkpause == false && endGame == false)) {
 				player.update(deltaTime, starVector, X2Vector);
 				rakai.update(deltaTime, player, player.GetPosition());
 			}
@@ -910,7 +891,7 @@ int main()
 					alienVector[i].update2(deltaTime, player);
 				}
 			}
-			
+
 			sf::Vector2f direction;
 			for (Platform& platform : platforms)
 				if (platform.GetCollider().CheckCollision(player.GetCollider(), direction, 1.0f))
@@ -938,7 +919,7 @@ int main()
 			hppush.str(" ");
 			hppush << "ATTACK";
 			attack2.setString(hppush.str());
-			
+
 			hpbar.setPosition(view.getCenter().x - 210, -90);
 			HP.setPosition(view.getCenter().x - 60, 56);
 			Score.setPosition(view.getCenter().x - 485, 95);
@@ -1017,7 +998,7 @@ int main()
 					hppush.str(" ");
 					hppush << "-5000 HP";
 					Hpblood2.setString(hppush.str());
-					Hpblood2.setPosition({ player.GetPosition().x,player.GetPosition().y - 90});
+					Hpblood2.setPosition({ player.GetPosition().x,player.GetPosition().y - 90 });
 					checkSub = true;
 				}
 			}
@@ -1114,7 +1095,7 @@ int main()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
 				checkpause = true;
 			}
-			cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y  << endl;
+			cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y << endl;
 			if (checkpause == true) {
 				window.draw(pp);
 				Send.setPosition(view.getCenter().x - 45, 200);
@@ -1150,7 +1131,7 @@ int main()
 						checkpause = false;
 						MENU = true;
 						START = false;
-						Rank = false; 
+						Rank = false;
 
 						bg.setPosition(view.getCenter().x - 540, 0.0f);
 						bg1.setPosition(view.getCenter().x - 540, 0.0f);
@@ -1170,18 +1151,18 @@ int main()
 					sf::Mouse::getPosition(window).y >= 486 &&
 					sf::Mouse::getPosition(window).x <= 655 &&
 					sf::Mouse::getPosition(window).y <= 546)
-					{
-						window.draw(pe);
-						Send.setPosition(view.getCenter().x - 45, 200);
-						CSTER.setPosition(view.getCenter().x - 45, 250);
-						window.draw(CSTER);
-						window.draw(Send);
-						if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-							window.close();
-							break;
-						}
+				{
+					window.draw(pe);
+					Send.setPosition(view.getCenter().x - 45, 200);
+					CSTER.setPosition(view.getCenter().x - 45, 250);
+					window.draw(CSTER);
+					window.draw(Send);
+					if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+						window.close();
+						break;
 					}
-		
+				}
+
 			}
 			if (checkpause == false) {
 				MyHP -= 5;
@@ -1191,12 +1172,12 @@ int main()
 				if (MyHP < 0 || player.GetPosition().y >= 600) {
 					MyHP = 0;
 					endGame = true;
-					for (; soundcount < 1 ; soundcount++) {
+					for (; soundcount < 1; soundcount++) {
 						sound_over = true;
 					}
 				}
 			}
-				if (endGame == true) {
+			if (endGame == true) {
 				window.draw(ee);
 				window.draw(CSTER);
 				window.draw(NewScore);
@@ -1211,46 +1192,24 @@ int main()
 				{
 					if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 					{
-						/*cout << "Save score" << endl;
+						cout << "Save score" << endl;
 						fstream myFile;
 						vector<pair<int, string> > score;
 						myFile.open("database/new.txt");
 						string temp, tempString;
-						int tempInt = 0, X = 1;
-						while (getline(myFile, temp))
-						{
-							if (state == false)
-							{
-								tempString = temp;
-							}
-							else
-							{
-								for (int i = temp.length() - 1; i >= 0; i--, X *= 10)
-								{
-									tempInt += (temp[i] - '0') * X;
-								}
-								score.push_back(make_pair(tempInt, tempString));
-								X = 1;
-								tempInt = 0;
-							}
-							state = !state;
-							//cout << Temp << endl;
-						}
+
+						fileWriter.open("database/new.txt", std::ios::out | std::ios::app);
+						fileWriter << "\n" << user_name << "," << count;
+						fileWriter.close();
+						playerInput.clear();
 						myFile.close();
-						// Enter score here
-						score.push_back(make_pair(int(EndScore + EndNumStar), user_name));
-						sort(score.begin(), score.end());
-						myFile.open("database/new.txt");
-						for (int i = 5; i >= 1; i--)
-						{
-							myFile << score[i].second << "\n" << score[i].first << endl;
-							//	cout << score[i].first << " -- " << score[i].second << endl;
-						}
-						myFile.close();*/
+
+
+						myFile.close();
 						MENU = true;
 						START = false;
 						Rank = false;
-			
+
 						bg.setPosition(view.getCenter().x - 540, 0.0f);
 						bg1.setPosition(view.getCenter().x - 540, 0.0f);
 						bg2.setPosition(view.getCenter().x - 540, 0.0f);
@@ -1261,7 +1220,7 @@ int main()
 						last_char = event.text.unicode;
 						text.setString(playerInput);
 						cursor.setPosition(view.getCenter().x - 40 + text.getGlobalBounds().width + 10, 495.0f);
-						Keyname.setPosition(view.getCenter().x - 240 ,500);
+						Keyname.setPosition(view.getCenter().x - 240, 500);
 						text.setPosition(view.getCenter().x - 40, 475.0f);
 						//break;
 					}
@@ -1277,7 +1236,7 @@ int main()
 				window.draw(CSTER);
 				window.draw(NewScore);
 				window.draw(Send);
-				
+
 				if (sf::Mouse::getPosition(window).x >= 400 &&
 					sf::Mouse::getPosition(window).y >= 600 &&
 					sf::Mouse::getPosition(window).x <= 680 &&
@@ -1312,7 +1271,7 @@ int main()
 						}
 						myFile.close();
 						// Enter score here
-						score.push_back(make_pair(int(1234),user_name));
+						score.push_back(make_pair(int(1234), user_name));
 						sort(score.begin(), score.end());
 						myFile.open("database/new.txt");
 						for (int i = 5; i >= 1; i--)
@@ -1324,7 +1283,7 @@ int main()
 						MENU = true;
 						START = false;
 						Rank = false;
-						
+
 						bg.setPosition(view.getCenter().x - 540, 0.0f);
 						bg1.setPosition(view.getCenter().x - 540, 0.0f);
 						bg2.setPosition(view.getCenter().x - 540, 0.0f);
@@ -1337,7 +1296,7 @@ int main()
 						cursor.setPosition(view.getCenter().x - 40 + text.getGlobalBounds().width + 10, 495.0f);
 						Keyname.setPosition(view.getCenter().x - 240, 500);
 						text.setPosition(view.getCenter().x - 40, 475.0f);
-						
+
 						//break;
 					}
 				}
@@ -1382,11 +1341,11 @@ int main()
 			}
 			window.display();
 		}
-		
+
 		endGame = false;
-		player.SetPosition(200,520);
+		player.SetPosition(200, 520);
 		player.ResetNumstar();
-		
+
 		for (int i = 0; i < starVector.size(); i++) {
 			starVector.erase(starVector.begin() + i);
 		}
