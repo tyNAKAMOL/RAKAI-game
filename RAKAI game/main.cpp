@@ -157,7 +157,6 @@ int main()
 	Sound5.setBuffer(soundover);
 
 	//Scorestar
-	int countscorestar = 0;
 	sf::Font font;
 	font.loadFromFile("a/CookieRun-Bold.otf");
 	std::ostringstream score;
@@ -433,6 +432,11 @@ int main()
 	sf::RectangleShape hh(sf::Vector2f(1080, 720));
 	hh.setTexture(&High);
 
+	sf::Texture backHigh;
+	backHigh.loadFromFile("a/highscoree1.png");
+	sf::RectangleShape bh(sf::Vector2f(1080, 720));
+	bh.setTexture(&High);
+
 	sf::String playerInput;
 	std::ofstream fileWriter;
 	std::ostringstream keyname;
@@ -442,11 +446,11 @@ int main()
 	Keyname.setFont(font);
 	Keyname.setFillColor(sf::Color::Cyan);
 
+	int i = 0;
 	int Bul = 0;
 	int count = 0;
-	int i = 0;
-	int soundcount = 0;
 	int state = 0;
+	int soundcount = 0;
 
 	float deltaTime = 0.0f;
 	float countTimeAdd = 0;
@@ -475,7 +479,6 @@ int main()
 	std::map<int, std::string> keepscore;
 	std::ifstream fileReader;
 	std::string word;
-
 
 	/*Modify textbox*/
 	char last_char = ' ';
@@ -565,14 +568,17 @@ int main()
 				}
 			}
 		}
-
 		while (Rank == true) {
-
+			
+			sf::Vector2f mouesPosition = sf::Vector2f(0.0f, 0.0f);
+			mouesPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+			cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y << endl;
+			
 			window.clear();
 			window.draw(hh);
-			sf::Text text("", font);
-			text.setCharacterSize(30);
-			text.setFillColor(sf::Color::White);
+			sf::Text text1("", font);
+			text1.setCharacterSize(30);
+			text1.setFillColor(sf::Color::White);
 			fileReader.open("database/new.txt");
 			do {
 				fileReader >> word;
@@ -587,22 +593,28 @@ int main()
 			beg--;
 			int currentDisplay = 0;
 			for (std::map<int, std::string>::iterator it = end; it != beg; it--) {
-				text.setString(it->second);
-				text.setPosition(450, 200 + 80 * currentDisplay);
-				window.draw(text);
-				text.setString(std::to_string(it->first));
-				text.setPosition(600, 200 + 80 * currentDisplay);
-				window.draw(text);
+				text1.setString(it->second);
+				text1.setPosition(view.getCenter().x - 170 , 210 + 80 * currentDisplay);
+				window.draw(text1);
+				text1.setString(std::to_string(it->first));
+				text1.setPosition(view.getCenter().x + 95 , 210 + 80 * currentDisplay);
+				window.draw(text1);
 				currentDisplay++;
-				if (currentDisplay == 7)
+				if (currentDisplay == 5)
 				{
 					break;
 				}
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			if (sf::Mouse::getPosition(window).x >= 416 &&
+				sf::Mouse::getPosition(window).y >= 636 &&
+				sf::Mouse::getPosition(window).x <= 665 &&
+				sf::Mouse::getPosition(window).y <= 685)
 			{
-				Rank = false;
-				MENU = true;
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+				{
+					Rank = false;
+					MENU = true;
+				}
 			}
 			window.display();
 		}
@@ -844,7 +856,7 @@ int main()
 		while (START == true) {
 			//std::cout << "player pos :" << player.GetPosition().y << std::endl;
 			slide = false;
-			count = player.GetPosition().x;
+			count = 10;
 
 			deltaTime = clock.restart().asSeconds();
 			sf::Vector2f pos = player.GetPosition();
@@ -1315,7 +1327,6 @@ int main()
 					bullet1.draw(window);
 					for (i = 0; i < alienVector.size(); i++) {
 						if (alienVector[i].hit() == 1) {
-							countscorestar += 500;
 							hppush.str(" ");
 							hppush << "+500";
 							bulA.setString(hppush.str());
