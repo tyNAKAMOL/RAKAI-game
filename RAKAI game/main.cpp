@@ -175,6 +175,12 @@ int main()
 	music1.setLoop(true);
 	music1.setVolume(40.f);
 
+	//soundmap1
+	sf::Music musicend;
+	musicend.openFromFile("a/over.wav");
+	musicend.setLoop(true);
+	musicend.setVolume(40.f);
+
 	//Scorestar
 	sf::Font font;
 	font.loadFromFile("a/CookieRun-Bold.otf");
@@ -341,7 +347,7 @@ int main()
 	float Downlaod = 0;
 	sf::RectangleShape DL(sf::Vector2f(Downlaod / 50.0f, 20));
 	DL.setPosition(sf::Vector2f(285, 647.5f));
-	DL.setFillColor(sf::Color::Blue);
+	DL.setFillColor(sf::Color::White);
 	DL.setSize(sf::Vector2f(Downlaod / 150.f, 19));
 
 	sf::Texture LOAD;
@@ -505,6 +511,7 @@ int main()
 
 	sf::Clock clock;
 	sf::Clock timerpausemenu;
+	sf::Clock timer;
 
 	bool slide;
 	bool checkmep1 = false;
@@ -1006,9 +1013,6 @@ int main()
 			scoregame.setPosition({ 40,30 });
 			scoregame.setString(score1.str());
 
-			if (player.soundStatus() == true) {
-				Soundss.play();
-			}
 
 			hppush.str(" ");
 			hppush << "JUMP";
@@ -1127,6 +1131,9 @@ int main()
 			else {
 				state = 0;
 			}
+			if (player.soundStatus() == true) {
+				Soundss.play();
+			}
 
 			ee.setPosition(view.getCenter().x - 540, 0);
 			pp.setPosition(view.getCenter().x - 540, 0);
@@ -1142,6 +1149,7 @@ int main()
 
 			if (player.GetPosition().x >= 29160 && player.GetPosition().x <= 29527) {
 				state = 3;
+				musicend.play();
 			}
 
 			//วาป
@@ -1250,6 +1258,7 @@ int main()
 					if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 						Soundch.play();
 						music1.stop();
+						musicend.stop();
 						timerpausemenu.restart();
 						checkpause = false;
 						MENU = true;
@@ -1305,6 +1314,7 @@ int main()
 				}
 			}
 			if (endGame == true) {
+				music1.stop();
 				window.draw(ee);
 				window.draw(CSTER);
 				window.draw(NewScore);
@@ -1321,22 +1331,45 @@ int main()
 					{
 						Soundch.play();
 						cout << "Save score" << endl;
-						fstream myFile;
+						/*fstream myFile;
 						vector<pair<int, string> > score;
 						myFile.open("database/keephighscore.txt");
 						string temp, tempString;
-
-						fileWriter.open("database/keephighscore.txt", std::ios::out | std::ios::app);
-						fileWriter << "\n" << user_name << "," << count;
-						fileWriter.close();
-						playerInput.clear();
+						int tempInt = 0, X = 1;
+						while (getline(myFile, temp))
+						{
+							if (state == false)
+							{
+								tempString = temp;
+							}
+							else
+							{
+								for (int i = temp.length() - 1; i >= 0; i--, X *= 10)
+								{
+									tempInt += (temp[i] - '0') * X;
+								}
+								score.push_back(make_pair(tempInt, tempString));
+								X = 1;
+								tempInt = 0;
+							}
+							state = !state;
+							//cout << Temp << endl;
+						}
 						myFile.close();
-
-
-						myFile.close();
+						score.push_back(make_pair(EndScore + EndNumStar, user_name));
+						sort(score.begin(), score.end());
+						myFile.open("database/keephighscore.txt");
+						for (int i = 5; i >= 1; i--)
+						{
+							myFile << score[i].second << "\n" << score[i].first << endl;
+							//	cout << score[i].first << " -- " << score[i].second << endl;
+						}
+						myFile.close();*/
 						MENU = true;
 						START = false;
 						Rank = false;
+						sound_over = false;
+						musicend.stop();
 
 						bg.setPosition(view.getCenter().x - 540, 0.0f);
 						bg1.setPosition(view.getCenter().x - 540, 0.0f);
@@ -1358,10 +1391,11 @@ int main()
 				}
 			}
 			if (sound_over == true) {
-				Sound5.play();
+				musicend.play();
 			}
 			sound_over = false;
 			if (state == 3) {
+				music1.stop();
 				window.draw(mission);
 				window.draw(back1);
 				window.draw(CSTER);
@@ -1377,7 +1411,7 @@ int main()
 					{
 						Soundch.play();
 						cout << "Save score" << endl;
-						fstream myFile;
+						/*fstream myFile;
 						vector<pair<int, string> > score;
 						myFile.open("database/keephighscore.txt");
 						string temp, tempString;
@@ -1403,7 +1437,7 @@ int main()
 						}
 						myFile.close();
 						// Enter score here
-						score.push_back(make_pair(int(123), user_name));
+						score.push_back(make_pair(EndScore + EndNumStar, user_name));
 						sort(score.begin(), score.end());
 						myFile.open("database/keephighscore.txt");
 						for (int i = 5; i >= 1; i--)
@@ -1411,10 +1445,12 @@ int main()
 							myFile << score[i].second << "\n" << score[i].first << endl;
 							//	cout << score[i].first << " -- " << score[i].second << endl;
 						}
-						myFile.close();
+						myFile.close();*/
 						MENU = true;
 						START = false;
 						Rank = false;
+						sound_over = false;
+						musicend.stop();
 
 						bg.setPosition(view.getCenter().x - 540, 0.0f);
 						bg1.setPosition(view.getCenter().x - 540, 0.0f);
@@ -1448,16 +1484,31 @@ int main()
 				if (Bul >= 1) {
 					bullet1.update(deltaTime);
 					bullet1.draw(window);
-					for (i = 0; i < alienVector.size(); i++) {
+					for (i = 0; i < alienVector.size();i++) {
 						if (alienVector[i].hit1() == 1) {
 							hppush.str(" ");
 							hppush << "+500";
 							bulA.setString(hppush.str());
 							bulA.setPosition({ bullet1.GetPosition().x,bullet1.GetPosition().y - 90 });
 							bullet1.del();
-							checkBul = true;
+							timer.restart();
+							if (timer.getElapsedTime().asSeconds() > 0.35) {
+								bulA.setPosition({ -800, 350 });
+							}
+							//checkBul = true;
 						}
 					}
+					/*timer.restart();
+					if (checkBul == true) {
+					if (timer.getElapsedTime().asSeconds() > 0.35) {
+						bulA.setPosition({ -800, 350 });
+					}*/
+						/*countTimeBul += deltaTime;
+						if (countTimeBul > 0.35) {
+							bulA.setPosition({ -800, 350 });
+							countTimeBul = 0;
+							checkBul = false;
+						}*/
 					for (i = 0; i < alien1Vector.size(); i++) {
 						if (alien1Vector[i].hit1() == 1) {
 							hppush.str(" ");
@@ -1465,9 +1516,21 @@ int main()
 							bulA.setString(hppush.str());
 							bulA.setPosition({ bullet1.GetPosition().x,bullet1.GetPosition().y - 90 });
 							bullet1.del();
-							checkBul = true;
+							timer.restart();
+							if (timer.getElapsedTime().asSeconds() > 0.35) {
+								bulA.setPosition({ -800, 350 });
+							}
+							//checkBul = true;
 						}
 					}
+					/*if (checkBul == true) {
+						countTimeBul += deltaTime;
+						if (countTimeBul > 0.35) {
+							bulA.setPosition({ -800, 350 });
+							countTimeBul = 0;
+							checkBul = false;
+						}
+					}*/
 					for (i = 0; i < alien2Vector.size(); i++) {
 						if (alien2Vector[i].hit1() == 1) {
 							hppush.str(" ");
@@ -1475,17 +1538,22 @@ int main()
 							bulA.setString(hppush.str());
 							bulA.setPosition({ bullet1.GetPosition().x,bullet1.GetPosition().y - 90 });
 							bullet1.del();
-							checkBul = true;
+							timer.restart();
+							if (timer.getElapsedTime().asSeconds() > 0.35) {
+								bulA.setPosition({ -800, 350 });
+							}
+							//checkBul = true;
 						}
 					}
-					if (checkBul == true) {
+					/*if (checkBul == true) {
 						countTimeBul += deltaTime;
 						if (countTimeBul > 0.35) {
+							std::cout << ".................";
 							bulA.setPosition({ -800, 350 });
 							countTimeBul = 0;
 							checkBul = false;
 						}
-					}
+					}*/
 				}
 				if (abs(player.GetPosition().x - bullet1.GetPosition().x) >= 500.0f) {
 					Bul = 0;

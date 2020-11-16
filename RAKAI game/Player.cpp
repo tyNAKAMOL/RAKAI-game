@@ -78,9 +78,6 @@ void Player::update(float deltaTime, std::vector<star*>& stars, std::vector<Buff
             row = 1;
         }
     }
-    /*if (velocity.y >= 6000) {
-        body.setPosition(200, 520);
-    }*/
     animation.update(row,deltaTime,slide,bullet);
     body.setTextureRect(animation.uvRect);
     body.move(velocity * deltaTime);
@@ -103,16 +100,18 @@ void Player::updateNumstar(float deltaTime, std::vector<star*>& stars, std::vect
     }
     for (int i=0; i < stars.size(); i++) {
         if(this->GetCollider().CheckCollision(stars[i]->GetCollider())) {
-            this->sound = true;
             if (this->buffX10 == true) {
                 this->numStar += 10; 
             }
             else {
                 this->numStar += 1;
             }
+            this->sound = true;
             delete stars[i];
             stars.erase(stars.begin()+i);
             stars.shrink_to_fit();
+        }
+        else{
             this->sound = false;
         }
     }
