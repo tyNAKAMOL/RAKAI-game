@@ -16,7 +16,7 @@ Bullet::~Bullet()
 }
 void Bullet::update(float deltaTime)
 {
-    if (body.getPosition().x != NULL - 100 && body.getPosition().y != NULL - 100) {
+    //if (body.getPosition().x != NULL - 10 && body.getPosition().y != NULL - 10) {
         velocity.y = 0;
         velocity.x = speed;
 
@@ -24,10 +24,7 @@ void Bullet::update(float deltaTime)
 
         animation.updateBu(row, deltaTime);
         body.setTextureRect(animation.uvRect);
-    }
-    /*if (body.getPosition().x > 1920) {
-        isAva = true;
-    }*/
+   // }
 }
 
 void Bullet::attack(sf::Vector2f pos) {
@@ -37,7 +34,7 @@ void Bullet::attack(sf::Vector2f pos) {
 
 void Bullet::del()
 {
-    body.setPosition(NULL - 100, NULL - 100);
+    body.setPosition(NULL - 10, NULL - 10);
 }
 
 bool Bullet::isAvaliable() {

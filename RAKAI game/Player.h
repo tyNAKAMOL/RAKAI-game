@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Animation.h"
 #include "Collision.h"
 #include "star.h"
@@ -14,10 +15,11 @@ public:
 	void update(float deltaTime, std::vector<star*>& stars, std::vector<Buff>& X2Vector);
 	void updateNumstar(float deltaTime, std::vector<star*>& stars, std::vector<Buff>& X2Vector);
 	int getNumStar() { return this->numStar; }
-	void ResetNumstar();
 	int EndGameover() { return int(body.getPosition().x - 200); }
 	bool getBuffStatus() { return this->buffX10; }
+	bool soundStatus() { return this->sound; }
 	void Draw(sf::RenderWindow& window);
+	void ResetNumstar();
 	void OnCollision(sf::Vector2f direction);
 	void HPbar(float deltaTime, Player player,sf::Vector2f pos);
 	void SetPosition(float x, float y);
@@ -39,6 +41,7 @@ private:
 	int checkjump;
 	float speed;
 	float damage;
+	bool sound;
 	bool slide;
 	bool bullet;
 	bool buffX10;

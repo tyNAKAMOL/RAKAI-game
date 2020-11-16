@@ -5,6 +5,9 @@ Enemy::Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, fl
     animation(texture, imageCount, switchTime)
 {
     this->speed = speed;
+    this->count = 0;
+    this->count1 = 0;
+    this->count2 = 0;
     row = 5;
     body.setSize(sf::Vector2f(90.0f, 108.0f));
     body.setOrigin(body.getSize() / 2.0f);
@@ -23,11 +26,10 @@ void Enemy::update1(float deltaTime, Bullet bullet1)
 
     if (bullet1.GetCollider().CheckCollision(this->GetCollider()))
     {
-        count++;
+        this->count++;
         row = 1;
         body.setPosition(-1000.0f, 350.0f);
     }
-
 }
 
 void Enemy::update2(float deltaTime, Player player)

@@ -1,6 +1,5 @@
 ﻿#include "Player.h"
 #include <iostream>
-#include <SFML/Audio.hpp>
 Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight):
 	animation(texture, imageCount, switchTime) 
 {
@@ -8,6 +7,7 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
 	this->speed = speed;
     this->jumpHeight = jumpHeight;
     this->buffX10 = false;
+    this->sound = false;
     this->buffTimer = 0;
     this->checkjump = 0;
 
@@ -41,10 +41,10 @@ void Player::update(float deltaTime, std::vector<star*>& stars, std::vector<Buff
         row = 2;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
-        velocity.x = speed * 2.0f; slide = false; bullet = false;
+        velocity.x = speed * 2.5f; slide = false; bullet = false;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
-        velocity.x = -speed * 2.0f;
+        velocity.x = -speed * 2.5f;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && canJump == true) {
         canJump = false;
@@ -53,14 +53,14 @@ void Player::update(float deltaTime, std::vector<star*>& stars, std::vector<Buff
     }
     velocity.y += 1555.0f * deltaTime; //กระโดด
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
-        velocity.x = speed * 2.0f;
+        velocity.x = speed * 3.0f;
         slide = true;
         if (slide == true){
             body.setSize(sf::Vector2f(120.0f, 130.0f));
         }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift)) {
-        velocity.x = speed * 3.0f;
+        velocity.x = speed * 4.0f;
     }
     if (velocity.x == 0 && bullet == false){
         row = 0;
@@ -103,6 +103,7 @@ void Player::updateNumstar(float deltaTime, std::vector<star*>& stars, std::vect
     }
     for (int i=0; i < stars.size(); i++) {
         if(this->GetCollider().CheckCollision(stars[i]->GetCollider())) {
+            this->sound = true;
             if (this->buffX10 == true) {
                 this->numStar += 10; 
             }
@@ -112,6 +113,7 @@ void Player::updateNumstar(float deltaTime, std::vector<star*>& stars, std::vect
             delete stars[i];
             stars.erase(stars.begin()+i);
             stars.shrink_to_fit();
+            this->sound = false;
         }
     }
 }

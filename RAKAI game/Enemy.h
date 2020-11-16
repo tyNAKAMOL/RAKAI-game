@@ -16,7 +16,7 @@ public:
     void draw(sf::RenderWindow& window);
     Collision GetCollider() { return Collision(body); }
     
-    int hit()
+    int hit1()
     {
         if (count == 1) {
             count--;
@@ -35,7 +35,9 @@ public:
 
 private:
     int row;
-    int count = 0;
+    int count;
+    int count1;
+    int count2;
     int x1 = 0;
     float speed;
     sf::RectangleShape body;
