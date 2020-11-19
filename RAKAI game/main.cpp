@@ -515,7 +515,7 @@ int main()
 	Keyname.setFillColor(sf::Color::Black);
 
 	int i = 0;
-	int k = 0;
+	int q = 0;
 	int Bul = 0;
 	int count = 0;
 	int state = 0;
@@ -535,6 +535,7 @@ int main()
 	sf::Clock timercoli;
 
 	bool slide;
+	bool checkdraw = false;
 	bool checkmap1 = false;
 	bool checkmap2 = false;
 	bool checkcoli = false;
@@ -1174,7 +1175,7 @@ int main()
 					MyHP -= 10000;
 					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 						checkcoli = true;
-					k = 0;
+					q = 0;
 				}
 			}
 			for (i = 0; i < alien1Vector.size(); i++) {
@@ -1182,7 +1183,7 @@ int main()
 					MyHP -= 10000;
 					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 					checkcoli = true;
-					k = 0;
+					q = 0;
 				}
 			}
 			for (i = 0; i < alien2Vector.size(); i++) {
@@ -1190,7 +1191,7 @@ int main()
 					MyHP -= 10000;
 					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 					checkcoli = true;
-					timercoli.restart();
+					q = 0;
 				}
 			}
 
@@ -1199,7 +1200,15 @@ int main()
 					MyHP -= 5000;
 					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 					checkcoli = true;
-					k = 0;
+					q = 0;
+				}
+			}
+			for (i = 0; i < alienamong2Vector.size(); i++) {
+				if (alienamong2Vector[i].colAlien() == 2) {
+					MyHP -= 5000;
+					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
+					checkcoli = true;
+					q = 0;
 				}
 			}
 			//Bloodup
@@ -1307,12 +1316,25 @@ int main()
 			if (state == 1) {
 				window.draw(x10);
 			}
-			player.Draw(window);
 			if (checkcoli == true) {
-				player2.Draw(window);
+				if(q < 10){
+					if (q % 2 == 0 && timercoli.getElapsedTime().asSeconds() >= 0.1) {
+						checkdraw = true;
+						q++;
+						timercoli.restart();
+					}
+					else if (q % 2 != 0 && timercoli.getElapsedTime().asSeconds() >= 0.1) {
+						checkdraw = false;
+						q++;
+						timercoli.restart();
+					}
+					if (q == 10) {
+						checkcoli = false;
+					}
+				}
 			}
-			if (timercoli.getElapsedTime().asSeconds() >= 1) {
-				checkcoli = false;
+			if (checkdraw == false) {
+				player.Draw(window);
 			}
 			rakai.draw(window);
 			window.draw(hpbar);
@@ -1489,17 +1511,13 @@ int main()
 							//cout << Temp << endl;
 						}
 						myFile.close();
+						// Enter score here
 						score.push_back(make_pair(EndScore + EndNumStar, user_name));
-						for (int i = 0; i <= 4; i++)
-						{
-							myFile << score[i].second << "," << score[i].first << endl;
-						}
 						sort(score.begin(), score.end());
 						myFile.open("database/keephighscore.txt");
 						for (int i = 5; i >= 1; i--)
 						{
-							myFile << score[i].second << "," << score[i].first << endl;
-
+							myFile << score[i].second << "\n" << score[i].first << endl;
 						}
 						myFile.close();*/
 						MENU = true;
@@ -1580,7 +1598,6 @@ int main()
 						for (int i = 5; i >= 1; i--)
 						{
 							myFile << score[i].second << "\n" << score[i].first << endl;
-							//	cout << score[i].first << " -- " << score[i].second << endl;
 						}
 						myFile.close();*/
 						MENU = true;
