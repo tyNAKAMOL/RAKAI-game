@@ -8,9 +8,9 @@ public:
 	~Collision();
 
 	void Move(float dx, float dy) { body.move(dx, dy);}
-
 	bool CheckCollision(Collision other,sf::Vector2f& direction, float push);
 	bool CheckCollision(Collision other);
+	
 	sf::Vector2f GetPosition() { return body.getPosition(); }
 	sf::Vector2f GetHalfsize() { return body.getSize()/2.0f; }
 

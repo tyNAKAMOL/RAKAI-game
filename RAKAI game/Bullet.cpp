@@ -16,32 +16,39 @@ Bullet::~Bullet()
 }
 void Bullet::update(float deltaTime)
 {
-    //if (body.getPosition().x != NULL - 10 && body.getPosition().y != NULL - 10) {
+    if (body.getPosition().x != NULL - 10 && body.getPosition().y != NULL - 10) {
         velocity.y = 0;
-        velocity.x = speed;
+        velocity.x = speed*5;
 
         body.move(velocity * deltaTime);
 
         animation.updateBu(row, deltaTime);
         body.setTextureRect(animation.uvRect);
-   // }
+   }
+}
+void Bullet::update2(float deltaTime)
+{
+    velocity.x = speed*5;
+    velocity.y = 0;
+    if (body.getPosition().x != NULL - 100 && body.getPosition().y != NULL - 100){
+    body.move(velocity* deltaTime);
+    animation.updateBu(row, deltaTime);
+    body.setTextureRect(animation.uvRect);
+    }
 }
 
 void Bullet::attack(sf::Vector2f pos) {
     body.setPosition(pos.x + 53.0f, pos.y);
-    isAva = false;
 }
 
 void Bullet::del()
 {
     body.setPosition(NULL - 10, NULL - 10);
 }
-
 bool Bullet::isAvaliable() {
     isAva = true;
     return isAva;
 }
-
 void Bullet::draw(sf::RenderWindow& window)
 {
     window.draw(body);

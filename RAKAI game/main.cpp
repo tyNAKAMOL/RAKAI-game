@@ -23,8 +23,9 @@
 #include "Enemy.h"
 #include "Bloodup.h"
 #include "Buff.h"
-#include "Boss.h"
 using namespace std;
+
+int bulletCheck;
 
 int main()
 {
@@ -88,6 +89,7 @@ int main()
 	space2.loadFromFile("a/BGG4.png");
 	background2.setTexture(&space2);
 
+	//Endgame
 	sf::RectangleShape mission(sf::Vector2f(1080.0f, 720.0f));
 	mission.setPosition(0.0f, 0.0f);
 	sf::Texture complete;
@@ -171,15 +173,15 @@ int main()
 
 	//soundmap1
 	sf::Music music1;
-	music1.openFromFile("a/map1.wav");
+	music1.openFromFile("a/ogb.wav");
 	music1.setLoop(true);
-	music1.setVolume(40.f);
+	music1.setVolume(20.f);
 
 	//soundmap1
 	sf::Music musicend;
 	musicend.openFromFile("a/over.wav");
 	musicend.setLoop(true);
-	musicend.setVolume(40.f);
+	musicend.setVolume(50.f);
 
 	//Scorestar
 	sf::Font font;
@@ -211,19 +213,26 @@ int main()
 	Hpblood.setString(hppush.str());
 	Hpblood.setFont(font);
 	Hpblood.setFillColor(sf::Color::Red);
-
 	sf::Text Hpblood2;
 	Hpblood2.setCharacterSize(30);
 	Hpblood2.setString(hppush.str());
 	Hpblood2.setFont(font);
 	Hpblood2.setFillColor(sf::Color::Red);
-
 	sf::Text bulA;
 	bulA.setCharacterSize(30);
 	bulA.setString(hppush.str());
 	bulA.setFont(font);
 	bulA.setFillColor(sf::Color::Red);
-
+	sf::Text bulA1;
+	bulA1.setCharacterSize(30);
+	bulA1.setString(hppush.str());
+	bulA1.setFont(font);
+	bulA1.setFillColor(sf::Color::Red);
+	sf::Text bulA2;
+	bulA2.setCharacterSize(30);
+	bulA2.setString(hppush.str());
+	bulA2.setFont(font);
+	bulA2.setFillColor(sf::Color::Red);
 	sf::Text HighScore;
 	HighScore.setCharacterSize(30);
 	HighScore.setString(hppush.str());
@@ -233,24 +242,24 @@ int main()
 	//Player
 	sf::Texture playertexture;
 	playertexture.loadFromFile("a/as2.png");
+	sf::Texture playertexture2;
+	playertexture2.loadFromFile("a/as2coli.png");
 	Player player(&playertexture, sf::Vector2u(6, 5), 0.15f, 250.0f, 200.0f);
+	Player player2(&playertexture2, sf::Vector2u(6, 5), 0.15f, 250.0f, 200.0f);
 
 	//ITEM
 	//Bloodup
 	sf::Texture BLOODUP;
 	BLOODUP.loadFromFile("a/up2.png");
 	std::vector <Bloodup> BloodupVector;
-
 	//Blooddown
 	sf::Texture BLOODDOWN;
 	BLOODDOWN.loadFromFile("a/down.png");
 	std::vector <Bloodup> BlooddownVector;
-
 	//X10
 	sf::Texture POINTX2;
 	POINTX2.loadFromFile("a/iconx10.png");
 	std::vector <Buff> X2Vector;
-
 	sf::Texture stateX10;
 	stateX10.loadFromFile("a/xx10.png");
 	sf::RectangleShape x10(sf::Vector2f(180, 180));
@@ -363,16 +372,24 @@ int main()
 
 	//Alien
 	sf::Texture alien;
-	alien.loadFromFile("a/alien3.png");
+	alien.loadFromFile("a/alien33.png");
 	std::vector <Enemy> alienVector;
 
 	sf::Texture alien1;
-	alien1.loadFromFile("a/alien4.png");
+	alien1.loadFromFile("a/alien43.png");
 	std::vector <Enemy> alien1Vector;
 	
 	sf::Texture alien2;
-	alien2.loadFromFile("a/alien5.png");
+	alien2.loadFromFile("a/alien53.png");
 	std::vector <Enemy> alien2Vector;
+
+	sf::Texture alienamong1;
+	alienamong1.loadFromFile("a/amongpu.png");
+	std::vector <Enemy> alienamong1Vector;
+
+	sf::Texture alienamong2;
+	alienamong2.loadFromFile("a/amongo.png");
+	std::vector <Enemy> alienamong2Vector;
 
 	//Bullet
 	sf::Texture BULLET;
@@ -391,7 +408,7 @@ int main()
 	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 20.0f), sf::Vector2f(7500.0f, 450.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 20.0f), sf::Vector2f(5700.0f, 450.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 20.0f), sf::Vector2f(6100.0f, 450.0f)));
-	platforms.push_back(Platform(nullptr, sf::Vector2f(500.0f, 50.0f), sf::Vector2f(6700.0f, 380.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(500.0f, 50.0f), sf::Vector2f(6700.0f, 365.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 687.072f), sf::Vector2f(4050.00f, 143.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(2500.0f, 100.0f), sf::Vector2f(1250.0f, 670.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(800.0f, 100.0f), sf::Vector2f(3650.0f, 670.0f)));
@@ -406,7 +423,7 @@ int main()
 	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 20.0f), sf::Vector2f(17500.0f, 450.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 20.0f), sf::Vector2f(15700.0f, 450.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 20.0f), sf::Vector2f(16100.0f, 450.0f)));
-	platforms.push_back(Platform(nullptr, sf::Vector2f(500.0f, 50.0f), sf::Vector2f(16700.0f, 380.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(500.0f, 50.0f), sf::Vector2f(16700.0f, 365.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 687.072f), sf::Vector2f(14050.00f, 143.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(2500.0f, 100.0f), sf::Vector2f(11250.0f, 670.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(800.0f, 100.0f), sf::Vector2f(13650.0f, 670.0f)));
@@ -418,7 +435,7 @@ int main()
 	platforms.push_back(Platform(nullptr, sf::Vector2f(700.0f, 20.0f), sf::Vector2f(22900.0f, 450.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 20.0f), sf::Vector2f(25700.0f, 450.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 20.0f), sf::Vector2f(26100.0f, 450.0f)));
-	platforms.push_back(Platform(nullptr, sf::Vector2f(500.0f, 50.0f), sf::Vector2f(26700.0f, 380.0f)));
+	platforms.push_back(Platform(nullptr, sf::Vector2f(500.0f, 50.0f), sf::Vector2f(26700.0f, 365.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(120.0f, 687.072f), sf::Vector2f(24050.00f, 143.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(2500.0f, 100.0f), sf::Vector2f(21250.0f, 670.0f)));
 	platforms.push_back(Platform(nullptr, sf::Vector2f(800.0f, 100.0f), sf::Vector2f(23650.0f, 670.0f)));
@@ -495,9 +512,10 @@ int main()
 	Keyname.setCharacterSize(40);
 	Keyname.setString(" ");
 	Keyname.setFont(font);
-	Keyname.setFillColor(sf::Color::Cyan);
+	Keyname.setFillColor(sf::Color::Black);
 
 	int i = 0;
+	int k = 0;
 	int Bul = 0;
 	int count = 0;
 	int state = 0;
@@ -507,18 +525,24 @@ int main()
 	float countTimeAdd = 0;
 	float countTimeSub = 0;
 	float countTimeBul = 0;
+	float countTimeBul1 = 0;
+	float countTimeBul2 = 0;
 	float countTimex2 = 0;
 
 	sf::Clock clock;
 	sf::Clock timerpausemenu;
 	sf::Clock timer;
+	sf::Clock timercoli;
 
 	bool slide;
-	bool checkmep1 = false;
-	bool checkmep2 = false;
-	bool checkBul = false;
+	bool checkmap1 = false;
+	bool checkmap2 = false;
+	bool checkcoli = false;
+	bool checkBul1 = false;
+	bool checkBul2 = false;
 	bool checkAdd = false;
 	bool checkSub = false;
+	bool checkBul = false;
 	bool checkx2 = false;
 	bool Cload = false;
 	bool START = true;
@@ -574,16 +598,13 @@ int main()
 			if (cheakhighscore == false) {
 				window.draw(bg);
 				window.draw(bg1);
-				window.display();
 			}
 			if (sf::Mouse::getPosition(window).x >= 427 &&
 				sf::Mouse::getPosition(window).y >= 275 &&
 				sf::Mouse::getPosition(window).x <= 660 &&
 				sf::Mouse::getPosition(window).y <= 348)
 			{
-				window.draw(bg);
 				window.draw(bg2);
-				window.display();
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					Soundch.play();
 					MENU = false;
@@ -596,9 +617,7 @@ int main()
 				sf::Mouse::getPosition(window).x <= 660 &&
 				sf::Mouse::getPosition(window).y <= 466)
 			{
-				window.draw(bg);
 				window.draw(bg3);
-				window.display();
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (timerpausemenu.getElapsedTime().asSeconds() >= 0.3))
 				{
 					Soundch.play();
@@ -612,15 +631,14 @@ int main()
 				sf::Mouse::getPosition(window).x <= 660 &&
 				sf::Mouse::getPosition(window).y <= 584)
 			{
-				window.draw(bg);
 				window.draw(bg4);
-				window.display();
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 					Soundch.play();
 					window.close();
 					break;
 				}
 			}
+			window.display();
 		}
 		while (Rank == true) {
 			view.setCenter(540, 360);
@@ -694,7 +712,7 @@ int main()
 					playerInput.clear();
 					MENU = true;
 				}
-				else if (event.text.unicode == 8 && playerInput.getSize() > 0) { //backspace delete
+				else if (event.text.unicode == 8 && playerInput.getSize() > 0) { // backspace delete
 					playerInput = playerInput.substring(0, playerInput.getSize() - 1);
 				}
 				else {
@@ -776,7 +794,7 @@ int main()
 		for (int posi = 0; posi < 1300; posi += 60) {
 			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 3500.0f + posi, 550.0f));
 		}
-		for (int posi = 0; posi < 500; posi += 60) {
+		for (int posi = 0; posi < 900; posi += 60) {
 			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 4700.0f + posi, 550.0f));
 		}
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 5743.0f, 370.0f));
@@ -788,7 +806,9 @@ int main()
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6000.0f, 290.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6030.0f, 330.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6070.0f, 370.0f));
-
+		for (int posi = 0; posi < 350; posi += 60) {
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6570.0f + posi, 265.0f));
+		}
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6167.0f, 370.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6180.0f, 340.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6210.0f, 310.0f));
@@ -802,6 +822,9 @@ int main()
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
 		for (int posi = 0; posi < 600; posi += 60) {
 			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 7250.0f + posi, 370.0f));
+		}
+		for (int posi = 0; posi < 1000; posi += 60) {
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 8119.0f + posi, 550.0f));
 		}
 
 		//map2
@@ -821,6 +844,9 @@ int main()
 		for (int posi = 0; posi < 1200; posi += 60) {
 			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 13500.0f + posi, 550.0f));
 		}
+		for (int posi = 0; posi < 400; posi += 60) {
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15124.0f + posi, 550.0f));
+		}
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15743.0f, 370.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15770.0f, 330.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 15800.0f, 290.0f));
@@ -830,7 +856,9 @@ int main()
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16000.0f, 290.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16030.0f, 330.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16070.0f, 370.0f));
-
+		for (int posi = 0; posi < 350; posi += 60) {
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16570.0f + posi, 265.0f));
+		}
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16167.0f, 370.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16180.0f, 340.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16210.0f, 310.0f));
@@ -844,6 +872,9 @@ int main()
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 16451.0f, 280.0f));
 		for (int posi = 0; posi < 600; posi += 60) {
 			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 17250.0f + posi, 370.0f));
+		}
+		for (int posi = 0; posi < 650; posi += 60) {
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 18012.0f + posi, 550.0f));
 		}
 
 		//map3
@@ -883,8 +914,11 @@ int main()
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26300.0f, 280.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26340.0f, 250.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26400.0f, 280.0f));
-		for (int posi = 0; posi < 1000; posi += 60) {
-			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 27917.0f + posi, 550.0f));
+		for (int posi = 0; posi < 350; posi += 60) {
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 26570.0f + posi, 265.0f));
+		}
+		for (int posi = 0; posi < 1500; posi += 60) {
+			starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 27365.0f + posi, 550.0f));
 		}
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 310.0f));
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6340.0f, 290.0f));
@@ -892,19 +926,33 @@ int main()
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
 
 		//Alien
-		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 2331.0f, 564.0f));
-		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 3071.0f, 377.0f));
-		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 5337.0f, 564.0f));
-		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 6815.0f, 280.0f));
-		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 8928.0f, 564.0f));
+		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 2331.0f, -10.0f));
+		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 3071.0f, -10.0f));
+		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f,  90.0f, 108.0f, rand() % 50 + 5337.0f, -10.0f));
+		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 6815.0f, -10.0f));
+		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 8928.0f, -10.0f));
 		//mep2
-		alien1Vector.push_back(Enemy(&alien1, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 11580.0f, 564.0f));
-		alien1Vector.push_back(Enemy(&alien1, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 15504.0f, 564.0f));
-		alien1Vector.push_back(Enemy(&alien1, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 16943.0f, 280.0f));
+		alien1Vector.push_back(Enemy(&alien1, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 11580.0f, -10.0f));
+		alien1Vector.push_back(Enemy(&alien1, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 15504.0f, -10.0f));
+		alien1Vector.push_back(Enemy(&alien1, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 16943.0f, -10.0f));
 
 		//mep3
-		alien2Vector.push_back(Enemy(&alien2, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 22955.0f, 377.0f));
-		alien2Vector.push_back(Enemy(&alien2, sf::Vector2u(12, 8), 0.08f, rand() % 50 + 25416.0f, 564.0f));
+		alien2Vector.push_back(Enemy(&alien2, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 22955.0f, -10.0f));
+		alien2Vector.push_back(Enemy(&alien2, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 25416.0f, -10.0f));
+
+		//Alienamong
+		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 24693.0f, -10.0f));
+		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 26000.0f, -10.0f));
+		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 22653.0f, -10.0f));
+		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 24352.0f, -10.0f));
+		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 28562.0f, -10.0f));
+
+		//Alienamong
+		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 14693.0f, -10.0f));
+		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 16000.0f, -10.0f));
+		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 12653.0f, -10.0f));
+		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 14352.0f, -10.0f));
+		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 18562.0f, -10.0f));
 
 		//bloodup
 		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 3456.0f, 180.0f));
@@ -953,8 +1001,9 @@ int main()
 			mouesPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 			//std::cout << mouesPosition.x << ' ' << mouesPosition.y << '\n';
 
-			if ((checkpause == false && endGame == false) && state != 3 ) {
+			if ((checkpause == false && endGame == false) && state != 3) {
 				player.update(deltaTime, starVector, X2Vector);
+				player2.update(deltaTime, starVector, X2Vector);
 				rakai.update(deltaTime, player, player.GetPosition());
 			}
 			sf::Event event;
@@ -1001,10 +1050,57 @@ int main()
 					alien2Vector[i].update2(deltaTime, player);
 				}
 			}
+			for (int i = 0; i < alienamong1Vector.size(); i++) {
+				alienamong1Vector[i].updateamong1(deltaTime, bullet1);
+				if (checkpause == false) {
+					alienamong1Vector[i].updateamong2(deltaTime, player);
+				}
+			}
+			for (int i = 0; i < alienamong2Vector.size(); i++) {
+				alienamong2Vector[i].updateamong1(deltaTime, bullet1);
+				if (checkpause == false) {
+					alienamong2Vector[i].updateamong2(deltaTime, player);
+				}
+			}
 			sf::Vector2f direction;
 			for (Platform& platform : platforms)
-				if (platform.GetCollider().CheckCollision(player.GetCollider(), direction, 1.0f))
+				if (platform.GetCollider().CheckCollision(player.GetCollider(), direction, 1.0f)) {
 					player.OnCollision(direction);
+				}
+			for (Platform& platform : platforms)
+				if (platform.GetCollider().CheckCollision(player2.GetCollider(), direction, 1.0f)) {
+					player2.OnCollision(direction);
+				}
+			for (i = 0; i < alienVector.size(); i++) {
+				for (Platform& platform : platforms)
+							if (platform.GetCollider().CheckCollision(alienVector[i].GetCollider(), direction, 1.0f)) {
+								alienVector[i].OnCollision(direction);
+							}
+					}
+					for (i = 0; i < alien1Vector.size(); i++) {
+						for (Platform& platform : platforms)
+							if (platform.GetCollider().CheckCollision(alien1Vector[i].GetCollider(), direction, 1.0f)) {
+								alien1Vector[i].OnCollision(direction);
+							}
+					}
+					for (i = 0; i < alien2Vector.size(); i++) {
+						for (Platform& platform : platforms)
+							if (platform.GetCollider().CheckCollision(alien2Vector[i].GetCollider(), direction, 1.0f)) {
+								alien2Vector[i].OnCollision(direction);
+							}
+					}
+					for (i = 0; i < alienamong1Vector.size(); i++) {
+						for (Platform& platform : platforms)
+							if (platform.GetCollider().CheckCollision(alienamong1Vector[i].GetCollider(), direction, 1.0f)) {
+								alienamong1Vector[i].OnCollision(direction);
+							}
+					}
+					for (i = 0; i < alienamong2Vector.size(); i++) {
+						for (Platform& platform : platforms)
+							if (platform.GetCollider().CheckCollision(alienamong2Vector[i].GetCollider(), direction, 1.0f)) {
+								alienamong2Vector[i].OnCollision(direction);
+							}
+					}
 
 			score1.str(" ");
 			score1 << "SCORE :  " << int(pos.x - 200);
@@ -1077,12 +1173,39 @@ int main()
 				if (alienVector[i].colAlien() == 2) {
 					MyHP -= 10000;
 					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
+						checkcoli = true;
+					k = 0;
+				}
+			}
+			for (i = 0; i < alien1Vector.size(); i++) {
+				if (alien1Vector[i].colAlien() == 2) {
+					MyHP -= 10000;
+					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
+					checkcoli = true;
+					k = 0;
+				}
+			}
+			for (i = 0; i < alien2Vector.size(); i++) {
+				if (alien2Vector[i].colAlien() == 2) {
+					MyHP -= 10000;
+					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
+					checkcoli = true;
+					timercoli.restart();
+				}
+			}
+
+			for (i = 0; i < alienamong1Vector.size(); i++) {
+				if (alienamong1Vector[i].colAlien() == 2) {
+					MyHP -= 5000;
+					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
+					checkcoli = true;
+					k = 0;
 				}
 			}
 			//Bloodup
 			for (i = 0; i < BloodupVector.size(); i++) {
 				if (BloodupVector[i].colBloodup() == 1) {
-					MyHP += 5000;
+					MyHP += 1000;
 					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 					if (MyHP > 78000) MyHP = 78000;
 					hppush.str(" ");
@@ -1126,15 +1249,11 @@ int main()
 			x10.setPosition(player.GetPosition().x, player.GetPosition().y - 30);
 			if (player.getBuffStatus() == true) {
 				state = 1;
-				window.draw(x10);
 			}
 			else {
 				state = 0;
 			}
-			if (player.soundStatus() == true) {
-				Soundss.play();
-			}
-
+			
 			ee.setPosition(view.getCenter().x - 540, 0);
 			pp.setPosition(view.getCenter().x - 540, 0);
 			pr.setPosition(view.getCenter().x - 540, 0);
@@ -1152,20 +1271,23 @@ int main()
 				musicend.play();
 			}
 
-			//วาป
-			if ((player.GetPosition().x >= 9221 && player.GetPosition().x <= 9300) && player.GetPosition().y == 545) {
+			if ((player.GetPosition().x >= 9221 && player.GetPosition().x <= 9300) && 
+				(player.GetPosition().y >= 327 && player.GetPosition().y <= 620)) 
+			{
 				Sound3.play();
 				player.SetPosition(10568, 40);
 				rakai.SetPosition(10568, 40);
-				music1.stop();
-				checkmep1 = true;
+				//music1.stop();
+				checkmap1 = true;
 			}
-			if ((player.GetPosition().x >= 18805 && player.GetPosition().x <= 18820) && player.GetPosition().y == 545) {
+			if ((player.GetPosition().x >= 18805 && player.GetPosition().x <= 18820) && 
+				(player.GetPosition().y >= 327 && player.GetPosition().y <= 620)) 
+			{
 				Sound3.play();
 				player.SetPosition(20568, 40);
 				rakai.SetPosition(20568, 40);
-				checkmep2 = true;
-				checkmep1 = false;
+				checkmap2 = true;
+				checkmap1 = false;
 			}
 			window.clear();
 			window.setView(view);
@@ -1186,6 +1308,12 @@ int main()
 				window.draw(x10);
 			}
 			player.Draw(window);
+			if (checkcoli == true) {
+				player2.Draw(window);
+			}
+			if (timercoli.getElapsedTime().asSeconds() >= 1) {
+				checkcoli = false;
+			}
 			rakai.draw(window);
 			window.draw(hpbar);
 			window.draw(HP);
@@ -1217,6 +1345,12 @@ int main()
 			}
 			for (int i = 0; i < alien2Vector.size(); i++) {
 				alien2Vector[i].draw(window);
+			}
+			for (int i = 0; i < alienamong1Vector.size(); i++) {
+				alienamong1Vector[i].draw(window);
+			}
+			for (int i = 0; i < alienamong2Vector.size(); i++) {
+				alienamong2Vector[i].draw(window);
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
 				checkpause = true;
@@ -1298,7 +1432,6 @@ int main()
 						break;
 					}
 				}
-
 			}
 			if (checkpause == false) {
 				MyHP -= 5;
@@ -1319,7 +1452,7 @@ int main()
 				window.draw(CSTER);
 				window.draw(NewScore);
 				window.draw(Send);
-				window.draw(back1);
+				window.draw(back1); 
 
 				//cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y  << endl;
 				if (sf::Mouse::getPosition(window).x >= 400 &&
@@ -1357,12 +1490,16 @@ int main()
 						}
 						myFile.close();
 						score.push_back(make_pair(EndScore + EndNumStar, user_name));
+						for (int i = 0; i <= 4; i++)
+						{
+							myFile << score[i].second << "," << score[i].first << endl;
+						}
 						sort(score.begin(), score.end());
 						myFile.open("database/keephighscore.txt");
 						for (int i = 5; i >= 1; i--)
 						{
-							myFile << score[i].second << "\n" << score[i].first << endl;
-							//	cout << score[i].first << " -- " << score[i].second << endl;
+							myFile << score[i].second << "," << score[i].first << endl;
+
 						}
 						myFile.close();*/
 						MENU = true;
@@ -1468,7 +1605,6 @@ int main()
 						ll.setPosition(view.getCenter().x - 540, 0.0f);
 						LL.setPosition(view.getCenter().x - 540, 0.0f);
 						DL.setPosition(view.getCenter().x - 255, 647.5f);
-						//break;
 					}
 				}
 			}
@@ -1477,89 +1613,49 @@ int main()
 					Sound2.play();
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+					bulletCheck = player.getcheck();
 					Sound1.play();
 					bullet1.attack(pos);
 					Bul = 1;
 				}
 				if (Bul >= 1) {
-					bullet1.update(deltaTime);
+					if (bulletCheck == 1) {
+						bullet1.update(deltaTime);
+					}
+					else {
+						bullet1.update2(deltaTime);
+					}
 					bullet1.draw(window);
 					for (i = 0; i < alienVector.size();i++) {
 						if (alienVector[i].hit1() == 1) {
-							hppush.str(" ");
-							hppush << "+500";
-							bulA.setString(hppush.str());
-							bulA.setPosition({ bullet1.GetPosition().x,bullet1.GetPosition().y - 90 });
 							bullet1.del();
-							timer.restart();
-							if (timer.getElapsedTime().asSeconds() > 0.35) {
-								bulA.setPosition({ -800, 350 });
-							}
-							//checkBul = true;
 						}
 					}
-					/*timer.restart();
-					if (checkBul == true) {
-					if (timer.getElapsedTime().asSeconds() > 0.35) {
-						bulA.setPosition({ -800, 350 });
-					}*/
-						/*countTimeBul += deltaTime;
-						if (countTimeBul > 0.35) {
-							bulA.setPosition({ -800, 350 });
-							countTimeBul = 0;
-							checkBul = false;
-						}*/
 					for (i = 0; i < alien1Vector.size(); i++) {
 						if (alien1Vector[i].hit1() == 1) {
-							hppush.str(" ");
-							hppush << "+500";
-							bulA.setString(hppush.str());
-							bulA.setPosition({ bullet1.GetPosition().x,bullet1.GetPosition().y - 90 });
 							bullet1.del();
-							timer.restart();
-							if (timer.getElapsedTime().asSeconds() > 0.35) {
-								bulA.setPosition({ -800, 350 });
-							}
-							//checkBul = true;
 						}
 					}
-					/*if (checkBul == true) {
-						countTimeBul += deltaTime;
-						if (countTimeBul > 0.35) {
-							bulA.setPosition({ -800, 350 });
-							countTimeBul = 0;
-							checkBul = false;
-						}
-					}*/
 					for (i = 0; i < alien2Vector.size(); i++) {
 						if (alien2Vector[i].hit1() == 1) {
-							hppush.str(" ");
-							hppush << "+500";
-							bulA.setString(hppush.str());
-							bulA.setPosition({ bullet1.GetPosition().x,bullet1.GetPosition().y - 90 });
 							bullet1.del();
-							timer.restart();
-							if (timer.getElapsedTime().asSeconds() > 0.35) {
-								bulA.setPosition({ -800, 350 });
-							}
-							//checkBul = true;
 						}
 					}
-					/*if (checkBul == true) {
-						countTimeBul += deltaTime;
-						if (countTimeBul > 0.35) {
-							std::cout << ".................";
-							bulA.setPosition({ -800, 350 });
-							countTimeBul = 0;
-							checkBul = false;
+					for (i = 0; i < alienamong1Vector.size(); i++) {
+						if (alienamong1Vector[i].hit1() == 1) {
+							bullet1.del();
 						}
-					}*/
+					}
+					for (i = 0; i < alienamong2Vector.size(); i++) {
+						if (alienamong2Vector[i].hit1() == 1) {
+							bullet1.del();
+						}
+					}
 				}
 				if (abs(player.GetPosition().x - bullet1.GetPosition().x) >= 500.0f) {
 					Bul = 0;
-					bullet1.isAvaliable();				
+					bullet1.isAvaliable();
 				}
-				window.draw(bulA);
 			}
 			window.display();
 		}
@@ -1577,6 +1673,16 @@ int main()
 			alienVector.erase(alienVector.begin() + i);
 		}
 		alienVector.clear();
+
+		for (int i = 0; i < alien1Vector.size(); i++) {
+			alien1Vector.erase(alien1Vector.begin() + i);
+		}
+		alien1Vector.clear();
+
+		for (int i = 0; i < alien2Vector.size(); i++) {
+			alien2Vector.erase(alien2Vector.begin() + i);
+		}
+		alien2Vector.clear();
 
 		for (int i = 0; i < BloodupVector.size(); i++) {
 			BloodupVector.erase(BloodupVector.begin() + i);

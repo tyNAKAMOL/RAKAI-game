@@ -1,6 +1,5 @@
-
-ty,10000
-beauty,1044
-mon,10333
 nakamol,12560
-pop,1011
+kmitl,10473
+p'aye,5678
+pop,2896
+

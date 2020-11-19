@@ -9,12 +9,16 @@
 class Enemy
 {
 public:
-    Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float x, float y);
+    Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float h, float w, float x, float y);
     ~Enemy();
     void update1(float deltaTime, Bullet bullet1);
     void update2(float deltaTime, Player player);
+    void updateamong1(float deltaTime, Bullet bullet1);
+    void updateamong2(float deltaTime, Player player);
     void draw(sf::RenderWindow& window);
+    void OnCollision(sf::Vector2f direction);
     Collision GetCollider() { return Collision(body); }
+
     
     int hit1()
     {
@@ -31,8 +35,6 @@ public:
             return 2;
         }
     }
-
-
 private:
     int row;
     int count;
@@ -43,4 +45,5 @@ private:
     sf::RectangleShape body;
     Animation animation;
     sf::Vector2f velocity;
+    sf::Sprite Drawalien;
 };

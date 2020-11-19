@@ -11,10 +11,11 @@ public:
     Bullet(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, sf::Vector2f pos);
     ~Bullet();
     void update(float deltaTime);
+    void update2(float deltaTime);
     void draw(sf::RenderWindow& window);
-    bool isAvaliable();
     void attack(sf::Vector2f pos);
     void del();
+    bool isAvaliable();
 
     sf::Vector2f GetPosition() { return body.getPosition(); }
     Collision GetCollider() { return Collision(body); }

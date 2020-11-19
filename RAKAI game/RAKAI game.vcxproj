@@ -153,7 +153,6 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Bloodup.cpp" />
-    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Buff.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -167,7 +166,6 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Bloodup.h" />
-    <ClInclude Include="Boss.h" />
     <ClInclude Include="Buff.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Collision.h" />

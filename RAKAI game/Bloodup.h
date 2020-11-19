@@ -14,26 +14,26 @@ public:
     
     int colBloodup()
     {
-        if (Bup == 1) 
+        if (this->Bup == 1)
         {
-            Bup--;
+            this->Bup--;
             return 1;
         }
     }
     int colBlooddown()
     {
-        if (Bdown == 10)
+        if (this->Bdown == 10)
         {
-            Bdown -= 10;
+            this->Bdown -= 10;
             return 2;
         }
     }
 
     int colX2()
     {
-        if (X2 == 20)
+        if (this->X2 == 20)
         {
-            X2 -= 20;
+            this->X2 -= 20;
             return 3;
         }
     }

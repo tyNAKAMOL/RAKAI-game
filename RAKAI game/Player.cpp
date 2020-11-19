@@ -42,9 +42,11 @@ void Player::update(float deltaTime, std::vector<star*>& stars, std::vector<Buff
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
         velocity.x = speed * 2.5f; slide = false; bullet = false;
+        this->check = 1;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
         velocity.x = -speed * 2.5f;
+        this->check = 2;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && canJump == true) {
         canJump = false;
@@ -157,5 +159,6 @@ void Player::RESET() {
 }
 void Player::ResetNumstar() {
     this->numStar = 0;
+    this->buffX10 = false;
 }
 

@@ -19,7 +19,6 @@ void Animation::update(int row, float deltaTime, bool slide, bool bullet)
     currentImage.y = row;
     totalTime += deltaTime;
 
-
     if (totalTime >= switchTime)
     {
         totalTime -= switchTime;
@@ -27,12 +26,9 @@ void Animation::update(int row, float deltaTime, bool slide, bool bullet)
 
         if (currentImage.x >= imageCount.x)
         {
-
             currentImage.x = 0;
         }
-
     }
-
     uvRect.left = currentImage.x * uvRect.width;
     uvRect.top = currentImage.y * uvRect.height;
 }
@@ -41,7 +37,6 @@ void Animation::updateBu(int row, float deltaTime)
     currentImage.y = row;
     totalTime += deltaTime;
 
-
     if (totalTime >= switchTime)
     {
         totalTime -= switchTime;
@@ -49,12 +44,10 @@ void Animation::updateBu(int row, float deltaTime)
 
         if (currentImage.x >= imageCount.x)
         {
-
             currentImage.x = 0;
         }
 
     }
-
     uvRect.left = currentImage.x * uvRect.width;
     uvRect.top = currentImage.y * uvRect.height;
 }
@@ -63,7 +56,6 @@ void Animation::updatedog(int row, float deltaTime)
     currentImage.y = row;
     totalTime += deltaTime;
 
-
     if (totalTime >= switchTime)
     {
         totalTime -= switchTime;
@@ -71,12 +63,10 @@ void Animation::updatedog(int row, float deltaTime)
 
         if (currentImage.x >= imageCount.x)
         {
-
             currentImage.x = 0;
         }
 
     }
-
     uvRect.left = currentImage.x * uvRect.width;
     uvRect.top = currentImage.y * uvRect.height;
 }
@@ -85,7 +75,6 @@ void Animation::updatestar(int row, float deltaTime)
     currentImage.y = row;
     totalTime += deltaTime;
 
-
     if (totalTime >= switchTime)
     {
         totalTime -= switchTime;
@@ -93,12 +82,9 @@ void Animation::updatestar(int row, float deltaTime)
 
         if (currentImage.x >= imageCount.x)
         {
-
             currentImage.x = 0;
         }
-
     }
-
     uvRect.left = currentImage.x * uvRect.width;
     uvRect.top = currentImage.y * uvRect.height;
 }
@@ -108,7 +94,6 @@ void Animation::updateItemBloodup(int row, float deltaTime)
     currentImage.y = row;
     totalTime += deltaTime;
 
-
     if (totalTime >= switchTime)
     {
         totalTime -= switchTime;
@@ -116,12 +101,10 @@ void Animation::updateItemBloodup(int row, float deltaTime)
 
         if (currentImage.x >= imageCount.x)
         {
-
             currentImage.x = 0;
         }
 
     }
-
     uvRect.left = currentImage.x * uvRect.width;
     uvRect.top = currentImage.y * uvRect.height;
 }

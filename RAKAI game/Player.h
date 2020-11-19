@@ -21,6 +21,7 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void ResetNumstar();
 	void OnCollision(sf::Vector2f direction);
+	int  getcheck() { return this->check; }
 	void HPbar(float deltaTime, Player player,sf::Vector2f pos);
 	void SetPosition(float x, float y);
 	void RESET();
@@ -45,6 +46,7 @@ private:
 	bool slide;
 	bool bullet;
 	bool buffX10;
+	int check = 0;
 	unsigned int row;
 
 	sf::RectangleShape body;
