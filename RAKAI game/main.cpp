@@ -89,6 +89,12 @@ int main()
 	space2.loadFromFile("a/BGG4.png");
 	background2.setTexture(&space2);
 
+	sf::RectangleShape bn(sf::Vector2f(1080.0f, 720.0f));
+	bn.setPosition(0.0f, - 20000.0f);
+	sf::Texture BOnus;
+	BOnus.loadFromFile("a/bonus.png");
+	bn.setTexture(&BOnus);
+
 	//Endgame
 	sf::RectangleShape mission(sf::Vector2f(1080.0f, 720.0f));
 	mission.setPosition(0.0f, 0.0f);
@@ -256,6 +262,7 @@ int main()
 	sf::Texture BLOODDOWN;
 	BLOODDOWN.loadFromFile("a/down.png");
 	std::vector <Bloodup> BlooddownVector;
+
 	//X10
 	sf::Texture POINTX2;
 	POINTX2.loadFromFile("a/iconx10.png");
@@ -1024,6 +1031,7 @@ int main()
 			for (int i = 0; i < BloodupVector.size(); i++) {
 				BloodupVector[i].update(deltaTime, player);
 			}
+		
 			//Blooddown
 			for (int i = 0; i < BlooddownVector.size(); i++) {
 				BlooddownVector[i].update(deltaTime, player);
@@ -1313,6 +1321,7 @@ int main()
 			window.draw(dd);
 			window.draw(ww);
 			window.draw(sp);
+			window.draw(bn);
 			if (state == 1) {
 				window.draw(x10);
 			}
