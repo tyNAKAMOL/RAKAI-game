@@ -89,12 +89,6 @@ int main()
 	space2.loadFromFile("a/BGG4.png");
 	background2.setTexture(&space2);
 
-	sf::RectangleShape bn(sf::Vector2f(1080.0f, 720.0f));
-	bn.setPosition(0.0f, - 20000.0f);
-	sf::Texture BOnus;
-	BOnus.loadFromFile("a/bonus.png");
-	bn.setTexture(&BOnus);
-
 	//Endgame
 	sf::RectangleShape mission(sf::Vector2f(1080.0f, 720.0f));
 	mission.setPosition(0.0f, 0.0f);
@@ -262,7 +256,6 @@ int main()
 	sf::Texture BLOODDOWN;
 	BLOODDOWN.loadFromFile("a/down.png");
 	std::vector <Bloodup> BlooddownVector;
-
 	//X10
 	sf::Texture POINTX2;
 	POINTX2.loadFromFile("a/iconx10.png");
@@ -349,7 +342,7 @@ int main()
 
 	sf::Texture load;
 	load.loadFromFile("a/keynameload.png");
-	sf::RectangleShape ll(sf::Vector2f(1080,720));
+	sf::RectangleShape ll(sf::Vector2f(1080, 720));
 	ll.setPosition(sf::Vector2f(0, 0));
 	ll.setTexture(&load);
 
@@ -368,8 +361,8 @@ int main()
 
 	sf::Texture LOAD;
 	LOAD.loadFromFile("a/load.png");
-	sf::RectangleShape LL(sf::Vector2f(1080,720));
-	LL.setPosition(sf::Vector2f(0,0));
+	sf::RectangleShape LL(sf::Vector2f(1080, 720));
+	LL.setPosition(sf::Vector2f(0, 0));
 	LL.setTexture(&LOAD);
 
 	//Star
@@ -385,7 +378,7 @@ int main()
 	sf::Texture alien1;
 	alien1.loadFromFile("a/alien43.png");
 	std::vector <Enemy> alien1Vector;
-	
+
 	sf::Texture alien2;
 	alien2.loadFromFile("a/alien53.png");
 	std::vector <Enemy> alien2Vector;
@@ -583,6 +576,7 @@ int main()
 	bool state_cursor = false;
 
 	std::string user_name = "";
+	fstream myFile;
 
 	while (window.isOpen())
 	{
@@ -653,7 +647,7 @@ int main()
 			sf::Vector2f mouesPosition = sf::Vector2f(0.0f, 0.0f);
 			mouesPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 			cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y << endl;
-			
+
 			window.clear();
 			window.draw(hh);
 			sf::Text text1("", font);
@@ -674,10 +668,10 @@ int main()
 			int currentDisplay = 0;
 			for (std::map<int, std::string>::iterator it = end; it != beg; it--) {
 				text1.setString(it->second);
-				text1.setPosition(view.getCenter().x - 170 , 210 + 80 * currentDisplay);
+				text1.setPosition(view.getCenter().x - 170, 210 + 80 * currentDisplay);
 				window.draw(text1);
 				text1.setString(std::to_string(it->first));
-				text1.setPosition(view.getCenter().x + 95 , 210 + 80 * currentDisplay);
+				text1.setPosition(view.getCenter().x + 95, 210 + 80 * currentDisplay);
 				window.draw(text1);
 				currentDisplay++;
 				if (currentDisplay == 5)
@@ -701,7 +695,7 @@ int main()
 		}
 
 		while (MemScore == true) {
-		
+
 			countTimeAdd += deltaTime;
 			sf::Event event;
 			while (window.pollEvent(event)) {
@@ -936,7 +930,7 @@ int main()
 		//Alien
 		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 2331.0f, -10.0f));
 		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 3071.0f, -10.0f));
-		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f,  90.0f, 108.0f, rand() % 50 + 5337.0f, -10.0f));
+		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 5337.0f, -10.0f));
 		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 6815.0f, -10.0f));
 		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 8928.0f, -10.0f));
 		//mep2
@@ -949,17 +943,16 @@ int main()
 		alien2Vector.push_back(Enemy(&alien2, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 25416.0f, -10.0f));
 
 		//Alienamong
-		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 24693.0f, -10.0f));
-		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 26000.0f, -10.0f));
+		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 25697.0f, -10.0f));
+		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 27753.0f, -10.0f));
 		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 22653.0f, -10.0f));
-		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 24352.0f, -10.0f));
 		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 28562.0f, -10.0f));
+		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 21460.0f, -10.0f));
 
 		//Alienamong
-		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 14693.0f, -10.0f));
-		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 16000.0f, -10.0f));
+		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 15697.0f, -10.0f));
+		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 17753.0f, -10.0f));
 		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 12653.0f, -10.0f));
-		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 14352.0f, -10.0f));
 		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 18562.0f, -10.0f));
 
 		//bloodup
@@ -997,7 +990,7 @@ int main()
 		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 26071.0f, 365.0f));
 
 		while (START == true) {
-			
+
 			//std::cout << "player pos :" << player.GetPosition().y << std::endl;
 			music.pause();
 			slide = false;
@@ -1031,7 +1024,6 @@ int main()
 			for (int i = 0; i < BloodupVector.size(); i++) {
 				BloodupVector[i].update(deltaTime, player);
 			}
-		
 			//Blooddown
 			for (int i = 0; i < BlooddownVector.size(); i++) {
 				BlooddownVector[i].update(deltaTime, player);
@@ -1082,34 +1074,34 @@ int main()
 				}
 			for (i = 0; i < alienVector.size(); i++) {
 				for (Platform& platform : platforms)
-							if (platform.GetCollider().CheckCollision(alienVector[i].GetCollider(), direction, 1.0f)) {
-								alienVector[i].OnCollision(direction);
-							}
+					if (platform.GetCollider().CheckCollision(alienVector[i].GetCollider(), direction, 1.0f)) {
+						alienVector[i].OnCollision(direction);
 					}
-					for (i = 0; i < alien1Vector.size(); i++) {
-						for (Platform& platform : platforms)
-							if (platform.GetCollider().CheckCollision(alien1Vector[i].GetCollider(), direction, 1.0f)) {
-								alien1Vector[i].OnCollision(direction);
-							}
+			}
+			for (i = 0; i < alien1Vector.size(); i++) {
+				for (Platform& platform : platforms)
+					if (platform.GetCollider().CheckCollision(alien1Vector[i].GetCollider(), direction, 1.0f)) {
+						alien1Vector[i].OnCollision(direction);
 					}
-					for (i = 0; i < alien2Vector.size(); i++) {
-						for (Platform& platform : platforms)
-							if (platform.GetCollider().CheckCollision(alien2Vector[i].GetCollider(), direction, 1.0f)) {
-								alien2Vector[i].OnCollision(direction);
-							}
+			}
+			for (i = 0; i < alien2Vector.size(); i++) {
+				for (Platform& platform : platforms)
+					if (platform.GetCollider().CheckCollision(alien2Vector[i].GetCollider(), direction, 1.0f)) {
+						alien2Vector[i].OnCollision(direction);
 					}
-					for (i = 0; i < alienamong1Vector.size(); i++) {
-						for (Platform& platform : platforms)
-							if (platform.GetCollider().CheckCollision(alienamong1Vector[i].GetCollider(), direction, 1.0f)) {
-								alienamong1Vector[i].OnCollision(direction);
-							}
+			}
+			for (i = 0; i < alienamong1Vector.size(); i++) {
+				for (Platform& platform : platforms)
+					if (platform.GetCollider().CheckCollision(alienamong1Vector[i].GetCollider(), direction, 1.0f)) {
+						alienamong1Vector[i].OnCollision(direction);
 					}
-					for (i = 0; i < alienamong2Vector.size(); i++) {
-						for (Platform& platform : platforms)
-							if (platform.GetCollider().CheckCollision(alienamong2Vector[i].GetCollider(), direction, 1.0f)) {
-								alienamong2Vector[i].OnCollision(direction);
-							}
+			}
+			for (i = 0; i < alienamong2Vector.size(); i++) {
+				for (Platform& platform : platforms)
+					if (platform.GetCollider().CheckCollision(alienamong2Vector[i].GetCollider(), direction, 1.0f)) {
+						alienamong2Vector[i].OnCollision(direction);
 					}
+			}
 
 			score1.str(" ");
 			score1 << "SCORE :  " << int(pos.x - 200);
@@ -1182,7 +1174,7 @@ int main()
 				if (alienVector[i].colAlien() == 2) {
 					MyHP -= 10000;
 					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
-						checkcoli = true;
+					checkcoli = true;
 					q = 0;
 				}
 			}
@@ -1270,7 +1262,7 @@ int main()
 			else {
 				state = 0;
 			}
-			
+
 			ee.setPosition(view.getCenter().x - 540, 0);
 			pp.setPosition(view.getCenter().x - 540, 0);
 			pr.setPosition(view.getCenter().x - 540, 0);
@@ -1288,8 +1280,8 @@ int main()
 				musicend.play();
 			}
 
-			if ((player.GetPosition().x >= 9221 && player.GetPosition().x <= 9300) && 
-				(player.GetPosition().y >= 327 && player.GetPosition().y <= 620)) 
+			if ((player.GetPosition().x >= 9221 && player.GetPosition().x <= 9300) &&
+				(player.GetPosition().y >= 327 && player.GetPosition().y <= 620))
 			{
 				Sound3.play();
 				player.SetPosition(10568, 40);
@@ -1297,8 +1289,8 @@ int main()
 				//music1.stop();
 				checkmap1 = true;
 			}
-			if ((player.GetPosition().x >= 18805 && player.GetPosition().x <= 18820) && 
-				(player.GetPosition().y >= 327 && player.GetPosition().y <= 620)) 
+			if ((player.GetPosition().x >= 18805 && player.GetPosition().x <= 18820) &&
+				(player.GetPosition().y >= 327 && player.GetPosition().y <= 620))
 			{
 				Sound3.play();
 				player.SetPosition(20568, 40);
@@ -1321,12 +1313,11 @@ int main()
 			window.draw(dd);
 			window.draw(ww);
 			window.draw(sp);
-			window.draw(bn);
 			if (state == 1) {
 				window.draw(x10);
 			}
 			if (checkcoli == true) {
-				if(q < 10){
+				if (q < 10) {
 					if (q % 2 == 0 && timercoli.getElapsedTime().asSeconds() >= 0.1) {
 						checkdraw = true;
 						q++;
@@ -1439,7 +1430,7 @@ int main()
 						hh.setPosition(view.getCenter().x - 540, 0.0f);
 						last_char = event.text.unicode;
 						text.setString(playerInput);
-						cursor.setPosition(view.getCenter().x +5 + text.getGlobalBounds().width + 10, 555.0f);
+						cursor.setPosition(view.getCenter().x + 5 + text.getGlobalBounds().width + 10, 555.0f);
 						Keyname.setPosition(view.getCenter().x - 240, 500);
 						text.setPosition(view.getCenter().x - 15, 535.0f);
 						ll.setPosition(view.getCenter().x - 540, 0.0f);
@@ -1465,7 +1456,7 @@ int main()
 				}
 			}
 			if (checkpause == false) {
-				MyHP -= 5;
+				//MyHP -= 5;
 			}
 			if (MyHP < 78000) {
 				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
@@ -1483,7 +1474,7 @@ int main()
 				window.draw(CSTER);
 				window.draw(NewScore);
 				window.draw(Send);
-				window.draw(back1); 
+				window.draw(back1);
 
 				//cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y  << endl;
 				if (sf::Mouse::getPosition(window).x >= 400 &&
@@ -1493,42 +1484,24 @@ int main()
 				{
 					if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 					{
+
 						Soundch.play();
 						cout << "Save score" << endl;
-						/*fstream myFile;
+
 						vector<pair<int, string> > score;
-						myFile.open("database/keephighscore.txt");
 						string temp, tempString;
 						int tempInt = 0, X = 1;
-						while (getline(myFile, temp))
+						while (window.pollEvent(event))
 						{
-							if (state == false)
-							{
-								tempString = temp;
-							}
-							else
-							{
-								for (int i = temp.length() - 1; i >= 0; i--, X *= 10)
-								{
-									tempInt += (temp[i] - '0') * X;
-								}
-								score.push_back(make_pair(tempInt, tempString));
-								X = 1;
-								tempInt = 0;
-							}
-							state = !state;
-							//cout << Temp << endl;
+							if (event.type == sf::Event::Closed)
+								window.close();
+							fileWriter.open("database/keephighscore.txt", std::ios::out | std::ios::app);
+							fileWriter << "\n" << user_name << "," << EndScore + EndNumStar;
+							fileWriter.close();
+							playerInput.clear();
 						}
 						myFile.close();
-						// Enter score here
-						score.push_back(make_pair(EndScore + EndNumStar, user_name));
-						sort(score.begin(), score.end());
-						myFile.open("database/keephighscore.txt");
-						for (int i = 5; i >= 1; i--)
-						{
-							myFile << score[i].second << "\n" << score[i].first << endl;
-						}
-						myFile.close();*/
+
 						MENU = true;
 						START = false;
 						Rank = false;
@@ -1550,7 +1523,6 @@ int main()
 						ll.setPosition(view.getCenter().x - 540, 0.0f);
 						LL.setPosition(view.getCenter().x - 540, 0.0f);
 						DL.setPosition(view.getCenter().x - 255, 647.5f);
-						//break;
 					}
 				}
 			}
@@ -1575,40 +1547,21 @@ int main()
 					{
 						Soundch.play();
 						cout << "Save score" << endl;
-						/*fstream myFile;
-						vector<pair<int, string> > score;
-						myFile.open("database/keephighscore.txt");
+						
+						/*vector<pair<int, string> > score;
 						string temp, tempString;
 						int tempInt = 0, X = 1;
-						while (getline(myFile, temp))
+						while (window.pollEvent(event))
 						{
-							if (state == false)
-							{
-								tempString = temp;
-							}
-							else
-							{
-								for (int i = temp.length() - 1; i >= 0; i--, X *= 10)
-								{
-									tempInt += (temp[i] - '0') * X;
-								}
-								score.push_back(make_pair(tempInt, tempString));
-								X = 1;
-								tempInt = 0;
-							}
-							state = !state;
-							//cout << Temp << endl;
-						}
-						myFile.close();
-						// Enter score here
-						score.push_back(make_pair(EndScore + EndNumStar, user_name));
-						sort(score.begin(), score.end());
-						myFile.open("database/keephighscore.txt");
-						for (int i = 5; i >= 1; i--)
-						{
-							myFile << score[i].second << "\n" << score[i].first << endl;
+							if (event.type == sf::Event::Closed)
+								window.close();
+							fileWriter.open("database/keephighscore.txt", std::ios::out | std::ios::app);
+							fileWriter << "\n" << user_name << "," << EndScore + EndNumStar;
+							fileWriter.close();
+							playerInput.clear();
 						}
 						myFile.close();*/
+
 						MENU = true;
 						START = false;
 						Rank = false;
@@ -1652,7 +1605,7 @@ int main()
 						bullet1.update2(deltaTime);
 					}
 					bullet1.draw(window);
-					for (i = 0; i < alienVector.size();i++) {
+					for (i = 0; i < alienVector.size(); i++) {
 						if (alienVector[i].hit1() == 1) {
 							bullet1.del();
 						}
