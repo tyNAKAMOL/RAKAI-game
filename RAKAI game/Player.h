@@ -12,6 +12,8 @@ public:
 	Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight);
 	~Player();
 
+	sf::Sound Soundss;
+	sf::SoundBuffer soundstar;
 	void update(float deltaTime, std::vector<star*>& stars, std::vector<Buff>& X2Vector);
 	void updateNumstar(float deltaTime, std::vector<star*>& stars, std::vector<Buff>& X2Vector);
 	int getNumStar() { return this->numStar; }

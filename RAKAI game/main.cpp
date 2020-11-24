@@ -115,7 +115,7 @@ int main()
 	kk.loadFromFile("a/keyname2.png");
 	key.setTexture(&kk);
 
-	//Music2
+	//------------------------------------------------------------- Music & Sound ------------------------------------------------------------//
 	sf::SoundBuffer sound2;
 	if (!sound2.loadFromFile("a/laser5.ogg"))
 		return -1;
@@ -135,12 +135,6 @@ int main()
 	sf::Sound Soundch;
 	Soundch.setBuffer(soundc);
 
-	//soundstar
-	sf::SoundBuffer soundstar;
-	soundstar.loadFromFile("a/colistar.WAV");
-	sf::Sound Soundss;
-	Soundss.setBuffer(soundstar);
-
 	//sounditemup
 	sf::SoundBuffer soundup;
 	soundup.loadFromFile("a/bloodup.WAV");
@@ -159,31 +153,31 @@ int main()
 	sf::Sound Sound3;
 	Sound3.setBuffer(soundwrap);
 
-	//soundendgame
-	sf::SoundBuffer soundover;
-	soundover.loadFromFile("a/lose3.ogg");
-	sf::Sound Sound5;
-	Sound5.setBuffer(soundover);
-
 	//soundmenu
 	sf::Music music;
 	music.openFromFile("a/menu1.wav");
 	music.setLoop(true);
 	music.setVolume(30.f);
 
-	//soundmap1
+	//soundmap
 	sf::Music music1;
 	music1.openFromFile("a/ogb.wav");
 	music1.setLoop(true);
 	music1.setVolume(20.f);
 
-	//soundmap1
+	//soundover
 	sf::Music musicend;
 	musicend.openFromFile("a/over.wav");
 	musicend.setLoop(true);
 	musicend.setVolume(50.f);
 
-	//Scorestar
+	//soundover
+	sf::Music musicwin;
+	musicwin.openFromFile("a/winner.wav");
+	musicwin.setLoop(true);
+	musicwin.setVolume(50.f);
+
+	//----------------------------------------------------------- Font -------------------------------------------------------------//
 	sf::Font font;
 	font.loadFromFile("a/CookieRun-Bold.otf");
 	std::ostringstream score;
@@ -242,10 +236,7 @@ int main()
 	//Player
 	sf::Texture playertexture;
 	playertexture.loadFromFile("a/as2.png");
-	sf::Texture playertexture2;
-	playertexture2.loadFromFile("a/as2coli.png");
 	Player player(&playertexture, sf::Vector2u(6, 5), 0.15f, 250.0f, 200.0f);
-	Player player2(&playertexture2, sf::Vector2u(6, 5), 0.15f, 250.0f, 200.0f);
 
 	//ITEM
 	//Bloodup
@@ -519,6 +510,7 @@ int main()
 	int Bul = 0;
 	int count = 0;
 	int state = 0;
+	int countloop = 0;
 	int soundcount = 0;
 
 	float deltaTime = 0.0f;
@@ -643,7 +635,10 @@ int main()
 			window.display();
 		}
 		while (Rank == true) {
-			view.setCenter(540, 360);
+			
+			if(countloop == 0){
+				view.setCenter(540, 360);
+			}
 			sf::Vector2f mouesPosition = sf::Vector2f(0.0f, 0.0f);
 			mouesPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 			cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y << endl;
@@ -1004,7 +999,6 @@ int main()
 
 			if ((checkpause == false && endGame == false) && state != 3) {
 				player.update(deltaTime, starVector, X2Vector);
-				player2.update(deltaTime, starVector, X2Vector);
 				rakai.update(deltaTime, player, player.GetPosition());
 			}
 			sf::Event event;
@@ -1067,10 +1061,6 @@ int main()
 			for (Platform& platform : platforms)
 				if (platform.GetCollider().CheckCollision(player.GetCollider(), direction, 1.0f)) {
 					player.OnCollision(direction);
-				}
-			for (Platform& platform : platforms)
-				if (platform.GetCollider().CheckCollision(player2.GetCollider(), direction, 1.0f)) {
-					player2.OnCollision(direction);
 				}
 			for (i = 0; i < alienVector.size(); i++) {
 				for (Platform& platform : platforms)
@@ -1277,7 +1267,8 @@ int main()
 
 			if (player.GetPosition().x >= 29160 && player.GetPosition().x <= 29527) {
 				state = 3;
-				musicend.play();
+				//musicend.play();
+				musicwin.play();
 			}
 
 			if ((player.GetPosition().x >= 9221 && player.GetPosition().x <= 9300) &&
@@ -1286,7 +1277,6 @@ int main()
 				Sound3.play();
 				player.SetPosition(10568, 40);
 				rakai.SetPosition(10568, 40);
-				//music1.stop();
 				checkmap1 = true;
 			}
 			if ((player.GetPosition().x >= 18805 && player.GetPosition().x <= 18820) &&
@@ -1456,7 +1446,7 @@ int main()
 				}
 			}
 			if (checkpause == false) {
-				//MyHP -= 5;
+				MyHP -= 5;
 			}
 			if (MyHP < 78000) {
 				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
@@ -1567,6 +1557,7 @@ int main()
 						Rank = false;
 						sound_over = false;
 						musicend.stop();
+						musicwin.stop();
 
 						bg.setPosition(view.getCenter().x - 540, 0.0f);
 						bg1.setPosition(view.getCenter().x - 540, 0.0f);
@@ -1639,6 +1630,7 @@ int main()
 			window.display();
 		}
 
+		countloop++;
 		endGame = false;
 		player.SetPosition(200, 520);
 		player.ResetNumstar();
