@@ -157,7 +157,7 @@ int main()
 	sf::Music music;
 	music.openFromFile("a/menu1.wav");
 	music.setLoop(true);
-	music.setVolume(30.f);
+	music.setVolume(20.f);
 
 	//soundmap
 	sf::Music music1;
@@ -169,7 +169,7 @@ int main()
 	sf::Music musicend;
 	musicend.openFromFile("a/over.wav");
 	musicend.setLoop(true);
-	musicend.setVolume(50.f);
+	musicend.setVolume(20.f);
 
 	//soundover
 	sf::Music musicwin;
@@ -1364,8 +1364,10 @@ int main()
 			for (int i = 0; i < alienamong2Vector.size(); i++) {
 				alienamong2Vector[i].draw(window);
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-				checkpause = true;
+			if (endGame == false && state != 3) {
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+					checkpause = true;
+				}
 			}
 			//cout << sf::Mouse::getPosition(window).x << " " << sf::Mouse::getPosition(window).y << endl;
 			if (checkpause == true) {
@@ -1538,7 +1540,7 @@ int main()
 						Soundch.play();
 						cout << "Save score" << endl;
 						
-						/*vector<pair<int, string> > score;
+						vector<pair<int, string> > score;
 						string temp, tempString;
 						int tempInt = 0, X = 1;
 						while (window.pollEvent(event))
@@ -1550,7 +1552,7 @@ int main()
 							fileWriter.close();
 							playerInput.clear();
 						}
-						myFile.close();*/
+						myFile.close();
 
 						MENU = true;
 						START = false;
