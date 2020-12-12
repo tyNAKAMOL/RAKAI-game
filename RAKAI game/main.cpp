@@ -93,7 +93,7 @@ int main()
 	sf::RectangleShape mission(sf::Vector2f(1080.0f, 720.0f));
 	mission.setPosition(0.0f, 0.0f);
 	sf::Texture complete;
-	complete.loadFromFile("a/endgame.png");
+	complete.loadFromFile("a/endgame1.png");
 	mission.setTexture(&complete);
 
 	sf::RectangleShape back1(sf::Vector2f(1080.0f, 720.0f));
@@ -173,7 +173,7 @@ int main()
 
 	//soundover
 	sf::Music musicwin;
-	musicwin.openFromFile("a/winner.wav");
+	musicwin.openFromFile("a/winner.ogg");
 	musicwin.setLoop(true);
 	musicwin.setVolume(50.f);
 
@@ -357,7 +357,7 @@ int main()
 	LL.setTexture(&LOAD);
 
 	//Star
-	sf::Texture STAR;
+	sf::Texture STAR;               
 	STAR.loadFromFile("a/star4.png");
 	std::vector <star*> starVector;
 
@@ -549,7 +549,7 @@ int main()
 	bool cheakhighscore = false;
 
 	std::map<int, std::string> keepscore;
-	std::ifstream fileReader;
+	std::ifstream fileReader; //อ่านข้อมูลจากไฟล์
 	std::string word;
 
 	/*Modify textbox*/
@@ -568,7 +568,7 @@ int main()
 	bool state_cursor = false;
 
 	std::string user_name = "";
-	fstream myFile;
+	fstream myFile; //อ่านข้อมูลจากไฟล์และเขียนลงไฟล์
 
 	while (window.isOpen())
 	{
@@ -1093,6 +1093,14 @@ int main()
 					}
 			}
 
+			view.setCenter(player.GetPosition().x, 360.0f);
+			if (view.getCenter().x - 540.0f <= 0.0f) {
+				view.setCenter(540.0f, 360.0f);
+			}
+			if (view.getCenter().x + 540.0f >= 30000.0f) {
+				view.setCenter(29460.0f, 360.0f);
+			}
+
 			score1.str(" ");
 			score1 << "SCORE :  " << int(pos.x - 200);
 			EndScore = int(pos.x - 200);
@@ -1132,14 +1140,6 @@ int main()
 			ss.setPosition({ view.getCenter().x + 330 , 67 });
 			dd.setPosition({ view.getCenter().x + 330 , 106 });
 			sp.setPosition({ view.getCenter().x + 330 , 146 });
-
-			view.setCenter(player.GetPosition().x, 360.0f);
-			if (view.getCenter().x - 540.0f <= 0.0f) {
-				view.setCenter(540.0f, 360.0f);
-			}
-			if (view.getCenter().x + 540.0f >= 30000.0f) {
-				view.setCenter(29460.0f, 360.0f);
-			}
 
 			//Score
 			score.str(" ");
@@ -1208,7 +1208,7 @@ int main()
 					HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
 					if (MyHP > 78000) MyHP = 78000;
 					hppush.str(" ");
-					hppush << "+5000 HP";
+					hppush << "+1000 HP";
 					Hpblood.setString(hppush.str());
 					Hpblood.setPosition({ player.GetPosition().x , player.GetPosition().y - 90 });
 					SoundUp.play();
@@ -1247,9 +1247,11 @@ int main()
 			//X10
 			x10.setPosition(player.GetPosition().x, player.GetPosition().y - 30);
 			if (player.getBuffStatus() == true) {
+				Score.setCharacterSize(40);
 				state = 1;
 			}
 			else {
+				Score.setCharacterSize(30);
 				state = 0;
 			}
 
@@ -1267,7 +1269,6 @@ int main()
 
 			if (player.GetPosition().x >= 29160 && player.GetPosition().x <= 29527) {
 				state = 3;
-				//musicend.play();
 				musicwin.play();
 			}
 
@@ -1276,7 +1277,7 @@ int main()
 			{
 				Sound3.play();
 				player.SetPosition(10568, 40);
-				rakai.SetPosition(10568, 40);
+				//rakai.SetPosition(10568, 40);
 				checkmap1 = true;
 			}
 			if ((player.GetPosition().x >= 18805 && player.GetPosition().x <= 18820) &&
@@ -1284,7 +1285,7 @@ int main()
 			{
 				Sound3.play();
 				player.SetPosition(20568, 40);
-				rakai.SetPosition(20568, 40);
+				//rakai.SetPosition(20568, 40);
 				checkmap2 = true;
 				checkmap1 = false;
 			}

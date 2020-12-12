@@ -11,7 +11,7 @@ ty,2947
 koncool,16017
 okyang,16652
 typo,13301
-tot,30999
+nutta,30999
 kokll,23536
 tyja,31182
 roty,28195
@@ -28,3 +28,15 @@ rt,2494
 ww,2483
 io,2436
 ww,13193
+ddd,26423
+dd,26786
+ty,26449
+guide,31331
+yu,2469
+nakamol,31321
+aa,2577
+23,5716
+tynakmol,31500
+zz,16817
+dsf,2497
+ddddddddd,2494

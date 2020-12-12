@@ -102,23 +102,15 @@ void Player::updateNumstar(float deltaTime, std::vector<star*>& stars, std::vect
     }
     for (int i=0; i < stars.size(); i++) {
         if(this->GetCollider().CheckCollision(stars[i]->GetCollider())) {
-            /*soundstar.loadFromFile("a/starcolli.WAV");
-            Soundss.setBuffer(soundstar);
-            Soundss.play();*/
-            Soundss.setVolume(5.0f);
             if (this->buffX10 == true) {
                 this->numStar += 10; 
             }
             else {
                 this->numStar += 1;
             }
-            this->sound = true;
             delete stars[i];
             stars.erase(stars.begin()+i);
             stars.shrink_to_fit();
-        }
-        else{
-            this->sound = false;
         }
     }
 }
