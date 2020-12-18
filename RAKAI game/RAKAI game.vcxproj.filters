@@ -33,9 +33,6 @@
     <ClCompile Include="Platform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Dog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -45,11 +42,14 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bloodup.cpp">
+    <ClCompile Include="Bullet1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bloodup.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
     <ClCompile Include="Buff.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,9 +65,6 @@
     <ClInclude Include="Platform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Dog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -77,11 +74,14 @@
     <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bloodup.h">
+    <ClInclude Include="Bullet1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Bloodup.h">
+      <Filter>Item</Filter>
+    </ClInclude>
     <ClInclude Include="Buff.h">
-      <Filter>Header Files</Filter>
+      <Filter>Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

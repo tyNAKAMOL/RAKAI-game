@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "Animation.h"
 #include "Collision.h"
-#include "Bullet.h"
+
 
 
 class Enemy
@@ -11,14 +11,14 @@ class Enemy
 public:
     Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float h, float w, float x, float y);
     ~Enemy();
-    void update1(float deltaTime, Bullet bullet1);
+    void update1(float deltaTime);
     void update2(float deltaTime, Player player);
-    void updateamong1(float deltaTime, Bullet bullet1);
+    void updateamong1(float deltaTime);
     void updateamong2(float deltaTime, Player player);
     void draw(sf::RenderWindow& window);
     void OnCollision(sf::Vector2f direction);
     Collision GetCollider() { return Collision(body); }
-
+    sf::RectangleShape body;
     
     int hit1()
     {
@@ -42,7 +42,6 @@ private:
     int count2;
     int x1 = 0;
     float speed;
-    sf::RectangleShape body;
     Animation animation;
     sf::Vector2f velocity;
     sf::Sprite Drawalien;

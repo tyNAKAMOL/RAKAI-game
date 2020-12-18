@@ -40,3 +40,5 @@ tynakmol,31500
 zz,16817
 dsf,2497
 ddddddddd,2494
+tyhd,31384
+ddd,5758

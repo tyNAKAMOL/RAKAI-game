@@ -44,10 +44,7 @@ void Player::update(float deltaTime, std::vector<star*>& stars, std::vector<Buff
         velocity.x = speed * 2.5f; slide = false; bullet = false;
         this->check = 1;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
-        velocity.x = -speed * 2.5f;
-        this->check = 2;
-    }
+    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && canJump == true) {
         canJump = false;
         velocity.y = - sqrtf(2.0f * 1555.0f * jumpHeight); //กระโดด

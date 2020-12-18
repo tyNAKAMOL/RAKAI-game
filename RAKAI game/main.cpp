@@ -17,7 +17,7 @@
 #include "stdlib.h"
 #include "Player.h"
 #include "Platform.h"
-#include "Bullet.h"
+#include "Bullet1.h"
 #include "Dog.h"
 #include "star.h"
 #include "Enemy.h"
@@ -385,7 +385,8 @@ int main()
 	//Bullet
 	sf::Texture BULLET;
 	BULLET.loadFromFile("a/bullet1.png");
-	Bullet bullet1(&BULLET, sf::Vector2u(3, 1), 0.15f, 600.0f, player.GetPosition());
+	std::vector <Bullet1> bulletVector;
+	//Bullet bullet1(&BULLET, sf::Vector2u(3, 1), 0.15f, 600.0f, player.GetPosition());
 
 	//Dog
 	sf::Texture DOGRAKAI;
@@ -511,6 +512,7 @@ int main()
 	int count = 0;
 	int state = 0;
 	int countloop = 0;
+	int countmusic = 0;
 	int soundcount = 0;
 
 	float deltaTime = 0.0f;
@@ -522,9 +524,10 @@ int main()
 	float countTimex2 = 0;
 
 	sf::Clock clock;
-	sf::Clock timerpausemenu;
 	sf::Clock timer;
+	sf::Clock timerBUL;
 	sf::Clock timercoli;
+	sf::Clock timerpausemenu;
 
 	bool slide;
 	bool checkdraw = false;
@@ -539,6 +542,7 @@ int main()
 	bool checkx2 = false;
 	bool Cload = false;
 	bool START = true;
+	bool bul = false;
 	bool MENU = true;
 	bool Rank = false;
 	bool SCORE1 = true;
@@ -923,66 +927,67 @@ int main()
 		starVector.push_back(new star(&STAR, sf::Vector2u(9, 1), 0.08f, 6451.0f, 280.0f));
 
 		//Alien
-		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 2331.0f, -10.0f));
-		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 3071.0f, -10.0f));
-		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 5337.0f, -10.0f));
-		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 6815.0f, -10.0f));
-		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 8928.0f, -10.0f));
+		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 2331.0f, -100.0f));
+		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 3071.0f, -100.0f));
+		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 5337.0f, -100.0f));
+		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 6815.0f, -100.0f));
+		alienVector.push_back(Enemy(&alien, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 8928.0f, -100.0f));
+		
 		//mep2
-		alien1Vector.push_back(Enemy(&alien1, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 11580.0f, -10.0f));
-		alien1Vector.push_back(Enemy(&alien1, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 15504.0f, -10.0f));
-		alien1Vector.push_back(Enemy(&alien1, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 16943.0f, -10.0f));
+		alien1Vector.push_back(Enemy(&alien1, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 11580.0f, -100.0f));
+		alien1Vector.push_back(Enemy(&alien1, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 15504.0f, -100.0f));
+		alien1Vector.push_back(Enemy(&alien1, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 16943.0f, -100.0f));
 
 		//mep3
-		alien2Vector.push_back(Enemy(&alien2, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 22955.0f, -10.0f));
-		alien2Vector.push_back(Enemy(&alien2, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 25416.0f, -10.0f));
+		alien2Vector.push_back(Enemy(&alien2, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 22955.0f, -100.0f));
+		alien2Vector.push_back(Enemy(&alien2, sf::Vector2u(12, 1), 0.08f, 90.0f, 108.0f, rand() % 50 + 25416.0f, -100.0f));
 
 		//Alienamong
-		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 25697.0f, -10.0f));
-		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 27753.0f, -10.0f));
-		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 22653.0f, -10.0f));
-		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 28562.0f, -10.0f));
-		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 21460.0f, -10.0f));
+		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 25697.0f, -100.0f));
+		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 27753.0f, -100.0f));
+		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 22653.0f, -100.0f));
+		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 28562.0f, -100.0f));
+		alienamong1Vector.push_back(Enemy(&alienamong1, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 21460.0f, -100.0f));
 
 		//Alienamong
-		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 15697.0f, -10.0f));
-		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 17753.0f, -10.0f));
-		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 12653.0f, -10.0f));
-		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 18562.0f, -10.0f));
+		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 15697.0f, -100.0f));
+		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 17753.0f, -100.0f));
+		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 12653.0f, -100.0f));
+		alienamong2Vector.push_back(Enemy(&alienamong2, sf::Vector2u(4, 1), 0.3f, 80.0f, 98.0f, 18562.0f, -100.0f));
 
 		//bloodup
-		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 3456.0f, 180.0f));
-		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 8474.0f, 540.0f));
-		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 12033.0f, 370.0f));
-		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 14818.0f, 390.0f));
-		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 23532.0f, 370.0f));
-		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 27265.0f, 180.0f));
-		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 2740.0f, 280.0f));
-		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 6122.9f, 365.0f));
-		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 10728.0f, 545.0f));
-		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 18198.0f, 545.0f));
-		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, 22663.0f, 365.0f));
+		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 3456.0f, 180.0f));
+		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 8474.0f, 540.0f));
+		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 12033.0f, 370.0f));
+		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 14818.0f, 390.0f));
+		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 23532.0f, 370.0f));
+		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 27265.0f, 180.0f));
+		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 2740.0f, 280.0f));
+		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 6122.9f, 365.0f));
+		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 10728.0f, 545.0f));
+		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 18198.0f, 545.0f));
+		BloodupVector.push_back(Bloodup(&BLOODUP, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 22663.0f, 365.0f));
 
 		//blooddown
-		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 2192.0f, 545.0f));
-		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 3249.0f, 370.0f));
-		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 6840.0f, 280.0f));
-		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 4655.0f, 545.0f));
-		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 8003.0f, 545.0f));
-		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 14090.0f, 545.0f));
-		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 21981.0f, 370.0f));
-		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 26445.0f, 280.0f));
-		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 12527.0f, 350.0f));
-		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 15540.0f, 345.0f));
-		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 16473.0f, 280.0f));
-		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, 25206.0f, 545.0f));
+		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 2192.0f, 545.0f));
+		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 3249.0f, 370.0f));
+		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 6840.0f, 280.0f));
+		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 4655.0f, 545.0f));
+		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 8003.0f, 545.0f));
+		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 14090.0f, 545.0f));
+		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 21981.0f, 370.0f));
+		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 26445.0f, 280.0f));
+		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 12527.0f, 350.0f));
+		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 15540.0f, 345.0f));
+		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 16473.0f, 280.0f));
+		BlooddownVector.push_back(Bloodup(&BLOODDOWN, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 25206.0f, 545.0f));
 
 		//X10
-		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 5506.0f, 380.0f));
-		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 13442.0f, 545.0f));
-		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 27265.0f, 545.0f));
-		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 20719.0f, 545.0f));
-		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, 26071.0f, 365.0f));
+		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 5506.0f, 380.0f));
+		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 13442.0f, 545.0f));
+		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 27265.0f, 545.0f));
+		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 20719.0f, 545.0f));
+		X2Vector.push_back(Buff(&POINTX2, sf::Vector2u(3, 1), 0.08f, rand() % 30 + 26071.0f, 365.0f));
 
 		while (START == true) {
 
@@ -1028,31 +1033,38 @@ int main()
 			}
 			//Alien
 			for (int i = 0; i < alienVector.size(); i++) {
-				alienVector[i].update1(deltaTime, bullet1);
+				alienVector[i].update1(deltaTime);
+				if (checkpause == false) {
+					alienVector[i].update2(deltaTime, player);
+				}
+			}
+			for (int i = 0; i < alienVector.size(); i++) {
+
+				alienVector[i].update1(deltaTime);
 				if (checkpause == false) {
 					alienVector[i].update2(deltaTime, player);
 				}
 			}
 			for (int i = 0; i < alien1Vector.size(); i++) {
-				alien1Vector[i].update1(deltaTime, bullet1);
+				alien1Vector[i].update1(deltaTime);
 				if (checkpause == false) {
 					alien1Vector[i].update2(deltaTime, player);
 				}
 			}
 			for (int i = 0; i < alien2Vector.size(); i++) {
-				alien2Vector[i].update1(deltaTime, bullet1);
+				alien2Vector[i].update1(deltaTime);
 				if (checkpause == false) {
 					alien2Vector[i].update2(deltaTime, player);
 				}
 			}
 			for (int i = 0; i < alienamong1Vector.size(); i++) {
-				alienamong1Vector[i].updateamong1(deltaTime, bullet1);
+				alienamong1Vector[i].updateamong1(deltaTime);
 				if (checkpause == false) {
 					alienamong1Vector[i].updateamong2(deltaTime, player);
 				}
 			}
 			for (int i = 0; i < alienamong2Vector.size(); i++) {
-				alienamong2Vector[i].updateamong1(deltaTime, bullet1);
+				alienamong2Vector[i].updateamong1(deltaTime);
 				if (checkpause == false) {
 					alienamong2Vector[i].updateamong2(deltaTime, player);
 				}
@@ -1269,23 +1281,31 @@ int main()
 
 			if (player.GetPosition().x >= 29160 && player.GetPosition().x <= 29527) {
 				state = 3;
-				musicwin.play();
+				for (; countmusic < 1; countmusic++) {
+					musicwin.play();
+				}
 			}
 
 			if ((player.GetPosition().x >= 9221 && player.GetPosition().x <= 9300) &&
 				(player.GetPosition().y >= 327 && player.GetPosition().y <= 620))
 			{
+				for (int i = 0; i < bulletVector.size(); i++) {
+					bulletVector.erase(bulletVector.begin() + i);
+				}
 				Sound3.play();
 				player.SetPosition(10568, 40);
-				//rakai.SetPosition(10568, 40);
 				checkmap1 = true;
+				bulletVector.clear();
 			}
 			if ((player.GetPosition().x >= 18805 && player.GetPosition().x <= 18820) &&
 				(player.GetPosition().y >= 327 && player.GetPosition().y <= 620))
 			{
+				for (int i = 0; i < bulletVector.size(); i++) {
+					bulletVector.erase(bulletVector.begin() + i);
+				}
+				bulletVector.clear();
 				Sound3.play();
 				player.SetPosition(20568, 40);
-				//rakai.SetPosition(20568, 40);
 				checkmap2 = true;
 				checkmap1 = false;
 			}
@@ -1449,7 +1469,7 @@ int main()
 				}
 			}
 			if (checkpause == false) {
-				MyHP -= 5;
+				MyHP -= 0;
 			}
 			if (MyHP < 78000) {
 				HP.setSize(sf::Vector2f(MyHP / 320.f, 15));
@@ -1585,49 +1605,66 @@ int main()
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
 					Sound2.play();
 				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-					bulletCheck = player.getcheck();
-					Sound1.play();
-					bullet1.attack(pos);
-					Bul = 1;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				{
+					if (timerBUL.getElapsedTime().asSeconds() >= 0.2) {
+						bulletVector.push_back(Bullet1(BULLET, player.GetPosition().x + 52, player.GetPosition().y - 20));
+						timerBUL.restart();
+						Sound1.play();
+					}
 				}
-				if (Bul >= 1) {
-					if (bulletCheck == 1) {
-						bullet1.update(deltaTime);
+				for (int i = 0; i < bulletVector.size(); i++) {
+					window.draw(bulletVector[i].DrawBullet);
+				}
+				for (int i = 0; i < bulletVector.size(); i++) {
+					bulletVector[i].DrawBullet.move(10.0f, 0.0f);
+					if (bulletVector[i].DrawBullet.getPosition().x - player.GetPosition().x >= 1100) {
+						bulletVector.erase(bulletVector.begin() + i);
 					}
-					else {
-						bullet1.update2(deltaTime);
+					if (bul == true) {
+						bulletVector.erase(bulletVector.begin() + i);
+						bul = false;
 					}
-					bullet1.draw(window);
-					for (i = 0; i < alienVector.size(); i++) {
-						if (alienVector[i].hit1() == 1) {
-							bullet1.del();
-						}
-					}
-					for (i = 0; i < alien1Vector.size(); i++) {
-						if (alien1Vector[i].hit1() == 1) {
-							bullet1.del();
-						}
-					}
-					for (i = 0; i < alien2Vector.size(); i++) {
-						if (alien2Vector[i].hit1() == 1) {
-							bullet1.del();
-						}
-					}
-					for (i = 0; i < alienamong1Vector.size(); i++) {
-						if (alienamong1Vector[i].hit1() == 1) {
-							bullet1.del();
-						}
-					}
-					for (i = 0; i < alienamong2Vector.size(); i++) {
-						if (alienamong2Vector[i].hit1() == 1) {
-							bullet1.del();
+				}
+				for (int i = 0; i < bulletVector.size(); i++) {
+					for (int j = 0; j < alienVector.size(); j++) {
+						if (bulletVector[i].DrawBullet.getGlobalBounds().intersects(alienVector[j].body.getGlobalBounds())) {
+							alienVector.erase(alienVector.begin() + j);
+							bul = true;
 						}
 					}
 				}
-				if (abs(player.GetPosition().x - bullet1.GetPosition().x) >= 500.0f) {
-					Bul = 0;
-					bullet1.isAvaliable();
+				for (int i = 0; i < bulletVector.size(); i++) {
+					for (int j = 0; j < alien1Vector.size(); j++) {
+						if (bulletVector[i].DrawBullet.getGlobalBounds().intersects(alien1Vector[j].body.getGlobalBounds())) {
+							alien1Vector.erase(alien1Vector.begin() + j);
+							bul = true;
+						}
+					}
+				}
+				for (int i = 0; i < bulletVector.size(); i++) {
+					for (int j = 0; j < alien2Vector.size(); j++) {
+						if (bulletVector[i].DrawBullet.getGlobalBounds().intersects(alien2Vector[j].body.getGlobalBounds())) {
+							alien2Vector.erase(alien2Vector.begin() + j);
+							bul = true;
+						}
+					}
+				}
+				for (int i = 0; i < bulletVector.size(); i++) {
+					for (int j = 0; j < alienamong1Vector.size(); j++) {
+						if (bulletVector[i].DrawBullet.getGlobalBounds().intersects(alienamong1Vector[j].body.getGlobalBounds())) {
+							alienamong1Vector.erase(alienamong1Vector.begin() + j);
+							bul = true;
+						}
+					}
+				}
+				for (int i = 0; i < bulletVector.size(); i++) {
+					for (int j = 0; j < alienamong2Vector.size(); j++) {
+						if (bulletVector[i].DrawBullet.getGlobalBounds().intersects(alienamong2Vector[j].body.getGlobalBounds())) {
+							alienamong2Vector.erase(alienamong2Vector.begin() + j);
+							bul = true;
+						}
+					}
 				}
 			}
 			window.display();

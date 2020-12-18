@@ -19,17 +19,10 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::update1(float deltaTime, Bullet bullet1)
+void Enemy::update1(float deltaTime)
 {
     animation.updatestar(row, deltaTime);
     body.setTextureRect(animation.uvRect);
-
-    if (bullet1.GetCollider().CheckCollision(this->GetCollider()))
-    {
-        this->count++;
-        row = 1;
-        body.setPosition(-1000.0f, 350.0f);
-    }
 }
 
 void Enemy::update2(float deltaTime, Player player)
@@ -55,18 +48,10 @@ void Enemy::update2(float deltaTime, Player player)
 
 }
 
-void Enemy::updateamong1(float deltaTime, Bullet bullet1)
+void Enemy::updateamong1(float deltaTime)
 {
-  
     animation.updatestar(row, deltaTime);
     body.setTextureRect(animation.uvRect);
-
-    if (bullet1.GetCollider().CheckCollision(this->GetCollider()))
-    {
-        this->count++;
-        row = 1;
-        body.setPosition(-1000.0f, 350.0f);
-    }
 }
 
 void Enemy::updateamong2(float deltaTime, Player player)
